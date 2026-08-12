@@ -151,6 +151,22 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .audience-tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,#ecfdf5,#f0f9ff);border:1px solid #bbf7d0;font-size:.8rem;color:#14532d;font-weight:600;line-height:1.45}
 .stage-tip{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px dashed #fdba74;font-size:.78rem;color:#9a3412;line-height:1.45}
 
+/* Three bags (เงิน 3 ก้อน) */
+.bags-card{margin-top:14px;text-align:left;padding:18px 16px}
+.bags-title{font-size:1rem;font-weight:800;margin-bottom:4px;color:#0f172a}
+.bags-desc{font-size:.78rem;color:#64748b;margin-bottom:12px;line-height:1.45}
+.bags-list{display:flex;flex-direction:column;gap:10px}
+.bag-row{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;border:1.5px solid #e2e8f0;background:#f8fafc}
+.bag-row.bag1{border-color:#bfdbfe;background:#eff6ff}
+.bag-row.bag2{border-color:#bbf7d0;background:#ecfdf5}
+.bag-row.bag3{border-color:#fde68a;background:#fffbeb}
+.bag-emoji{font-size:1.4rem;line-height:1}
+.bag-body{flex:1;min-width:0}
+.bag-label{font-size:.72rem;font-weight:700;color:#64748b;margin-bottom:2px}
+.bag-value{font-size:1.05rem;font-weight:800;color:#0f172a;word-break:break-word}
+.bag-note{font-size:.74rem;color:#475569;margin-top:3px;line-height:1.4}
+.bags-foot{font-size:.74rem;color:#64748b;margin-top:12px;line-height:1.45}
+
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
 </style>
@@ -432,6 +448,38 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   </div>
   <div class="status-line" id="ret_status" style="margin-top:10px"></div>
   <button class="share-btn" id="ret_share">📤 คัดลอกผลลัพธ์</button>
+</div>
+
+<div class="card bags-card" id="bags_card" hidden>
+  <div class="bags-title">🎒 เงิน 3 ก้อนของคุณ</div>
+  <div class="bags-desc">แนวคิดการศึกษาจากคู่มือวางแผนเกษียณไทย — แยกให้เห็นว่า “ต้องใช้เท่าไหร่ / มีอะไรแล้ว / ยังขาดเท่าไหร่”</div>
+  <div class="bags-list">
+    <div class="bag-row bag1">
+      <div class="bag-emoji">1️⃣</div>
+      <div class="bag-body">
+        <div class="bag-label">ก้อนที่ 1 — เงินที่ต้องใช้ ณ วันเกษียณ</div>
+        <div class="bag-value" id="bag1_val">—</div>
+        <div class="bag-note">เป้าจากค่าใช้จ่าย + อายุ + สมมติฐานที่คุณตั้ง</div>
+      </div>
+    </div>
+    <div class="bag-row bag2">
+      <div class="bag-emoji">2️⃣</div>
+      <div class="bag-body">
+        <div class="bag-label">ก้อนที่ 2 — เงินที่มี/วางแผนแล้ว</div>
+        <div class="bag-value" id="bag2_val">—</div>
+        <div class="bag-note" id="bag2_note">เงินออมปัจจุบันโตถึงวันเกษียณ + แผนออมรายเดือน (ถ้าใส่)</div>
+      </div>
+    </div>
+    <div class="bag-row bag3">
+      <div class="bag-emoji">3️⃣</div>
+      <div class="bag-body">
+        <div class="bag-label">ก้อนที่ 3 — ส่วนที่ต้องเติม</div>
+        <div class="bag-value" id="bag3_val">—</div>
+        <div class="bag-note" id="bag3_note">ช่องว่างระหว่างเป้า กับของที่มีอยู่</div>
+      </div>
+    </div>
+  </div>
+  <div class="bags-foot">เพื่อการศึกษาเท่านั้น — ยังไม่รวมสิทธิจริงจากประกันสังคม/กบข./PVD แบบรายบุคคล คุณปรับตัวเลข “เงินออมที่มีแล้ว” ให้สะท้อนแหล่งเงินที่คุณนับรวมเองได้</div>
 </div>
 </div>
 
@@ -753,6 +801,8 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       ret_share=document.getElementById('ret_share');
 
   function calcRetirement(){
+    var bags=document.getElementById('bags_card');
+    function hideBags(){if(bags)bags.hidden=true}
     var currAge=parseFloat(ret_curr_age.value)||0,
         retAge=parseFloat(ret_ret_age.value)||0,
         expense=parseFloat(ret_expense.value)||0,
@@ -763,9 +813,9 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
         infl=parseFloat(ret_inflation.value)||2,
         postRet=parseFloat(ret_post_return.value)||3;
 
-    if(currAge<=0||retAge<=0||expense<=0){ret_result.hidden=true;return}
-    if(retAge<=currAge){ret_result.hidden=false;ret_target.textContent='อายุเกษียณต้องมากกว่าอายุปัจจุบัน';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';return}
-    if(lifeAge<=retAge){ret_result.hidden=false;ret_target.textContent='อายุคาดถึงต้องมากกว่าอายุเกษียณ';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';return}
+    if(currAge<=0||retAge<=0||expense<=0){ret_result.hidden=true;hideBags();return}
+    if(retAge<=currAge){ret_result.hidden=false;ret_target.textContent='อายุเกษียณต้องมากกว่าอายุปัจจุบัน';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';hideBags();return}
+    if(lifeAge<=retAge){ret_result.hidden=false;ret_target.textContent='อายุคาดถึงต้องมากกว่าอายุเกษียณ';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';hideBags();return}
 
     var T=(retAge-currAge)*12;
     var D=(lifeAge-retAge)*12;
@@ -782,6 +832,10 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 
     var fvSaved=(P0>0?P0*Math.pow(1+preM,T):0);
     var shortfall=Math.max(0,target-fvSaved);
+    var grFactor = (T>0) ? ((Math.abs(preM)<1e-12) ? T : (Math.pow(1+preM,T)-1)/preM) : 0;
+    var fvPlanPMT = plannedPMT>0 ? plannedPMT*grFactor : 0;
+    var bag2 = fvSaved + fvPlanPMT;
+    var bag3 = Math.max(0, target - bag2);
 
     var reqPMT=0;
     if(T>0&&shortfall>0){
@@ -800,9 +854,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     } else {
       ret_required_pmt.textContent=fmt(reqPMT);
       if(plannedPMT>0){
-        var grFactor = (Math.abs(preM)<1e-12) ? T : (Math.pow(1+preM,T)-1)/preM;
-        var fvPlan = fvSaved + plannedPMT * grFactor;
-        var gap = target - fvPlan;
+        var gap = target - bag2;
         ret_gap_row.hidden=false;
         if(gap>0){
           ret_gap_label.textContent='ยังขาดอีก';
@@ -819,6 +871,28 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
         ret_gap_row.hidden=true;
         ret_status.className='status-line inprogress';
         ret_status.textContent='';
+      }
+    }
+
+    /* เงิน 3 ก้อน — ใช้ผลเดิม ไม่เปลี่ยนสูตร */
+    if(bags){
+      bags.hidden=false;
+      document.getElementById('bag1_val').textContent=fmt(target);
+      document.getElementById('bag2_val').textContent=fmt(bag2);
+      var n2=[];
+      if(P0>0)n2.push('เงินออมปัจจุบันโตเป็น '+fmt(fvSaved));
+      if(plannedPMT>0)n2.push('แผนออม '+fmt(plannedPMT)+'/เดือน ≈ '+fmt(fvPlanPMT)+' ณ วันเกษียณ');
+      if(!n2.length)n2.push('ยังไม่ได้ใส่เงินออมหรือแผนออม — ก้อน 2 จึงเป็น 0');
+      document.getElementById('bag2_note').textContent=n2.join(' · ');
+      if(bag3<=0){
+        document.getElementById('bag3_val').textContent='ครบแล้ว 🎉';
+        document.getElementById('bag3_note').textContent='ก้อน 2 ครอบคลุมหรือเกินก้อน 1 ภายใต้สมมติฐานนี้';
+      } else {
+        document.getElementById('bag3_val').textContent=fmt(bag3);
+        var extra='';
+        if(plannedPMT<=0&&reqPMT>0)extra=' — ถ้ายังไม่มีแผนออม ต้องประมาณ '+fmt(reqPMT)+'/เดือน เพื่อปิดก้อน 1 (จากเงินออมปัจจุบันอย่างเดียว)';
+        else if(plannedPMT>0)extra=' — แม้มีแผนออม '+fmt(plannedPMT)+'/เดือน ยังขาดส่วนนี้';
+        document.getElementById('bag3_note').textContent='ต้องเติมให้ถึงเป้า'+extra;
       }
     }
   }
