@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v1.9.1 = v1.9 + ขั้นถัดไปหลังรู้สิทธิ: คำนวณเงินสดกันช็อกค่ารักษา (ผูกสิทธิ + Stage 1)
+v2.0 = v1.9.1 + ประมาณการชราภาพประกันสังคม B1 (การศึกษา)
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

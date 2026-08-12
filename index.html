@@ -197,6 +197,18 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .med-result .med-sub{font-size:.8rem;color:#334155;line-height:1.45}
 .med-link{margin-top:8px;font-size:.78rem;color:#1e6f5c;font-weight:600}
 
+/* SSO old-age estimate */
+.sso-section{margin:28px 0 8px}
+.sso-card{background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:18px 16px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
+.sso-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:#7c3aed;text-transform:uppercase}
+.sso-title{font-size:1.12rem;font-weight:800;margin:4px 0;color:#0f172a}
+.sso-desc{font-size:.8rem;color:#64748b;line-height:1.45;margin-bottom:12px}
+.sso-result{margin-top:12px;padding:14px;border-radius:12px;background:linear-gradient(145deg,#f5f3ff,#eef2ff);border:1.5px solid #c4b5fd}
+.sso-result .sso-type{font-size:.75rem;font-weight:800;color:#5b21b6}
+.sso-result .sso-big{font-size:1.4rem;font-weight:800;color:#4c1d95;margin:4px 0}
+.sso-result .sso-sub{font-size:.8rem;color:#334155;line-height:1.5}
+.sso-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
+
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
 </style>
@@ -620,6 +632,49 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
         <div class="med-sub" id="med_status">ใส่ค่าใช้จ่ายต่อเดือนเพื่อคำนวณ</div>
         <div class="med-link" id="med_link"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SSO OLD-AGE ESTIMATE (B1) ========== -->
+<section class="sso-section" id="sso_section" aria-label="ประมาณการชราภาพประกันสังคม">
+  <div class="sso-card">
+    <div class="sso-kicker">SSO · EDUCATION ONLY</div>
+    <div class="sso-title">🧮 ประมาณการชราภาพประกันสังคม</div>
+    <div class="sso-desc">สำหรับแนว ม.33 / ม.39 — คำนวณหยาบจากสูตรสาธารณะเพื่อการศึกษา ไม่ใช่ยอดจากระบบ สปส. และไม่ครอบคลุม ม.40 แบบละเอียด ตรวจสิทธิจริงที่สายด่วน 1506</div>
+
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0">
+        <label for="sso_wage">ค่าจ้างเฉลี่ยต่อเดือน (บาท)</label>
+        <div class="hint">แนวการศึกษา: ใช้ค่าจ้างเฉลี่ยราว 60 เดือนสุดท้าย — ถ้าไม่ทราบ ใช้ค่าจ้างปัจจุบันโดยประมาณ</div>
+        <input type="number" id="sso_wage" min="0" step="100" placeholder="เช่น 15000">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="sso_months">จำนวนเดือนที่ส่งสมทบแล้ว</label>
+        <div class="hint">หรือใส่เป็นปีด้านล่าง ระบบจะแปลงให้</div>
+        <input type="number" id="sso_months" min="0" max="600" step="1" placeholder="เช่น 120">
+      </div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0">
+        <label for="sso_years">หรือจำนวนปีที่ส่งสมทบ</label>
+        <input type="number" id="sso_years" min="0" max="50" step="0.5" placeholder="เช่น 10">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="sso_age">อายุปัจจุบัน (ปี)</label>
+        <div class="hint">ใช้เตือนเงื่อนไขอายุขอรับ — ไม่ได้ยืนยันสิทธิให้</div>
+        <input type="number" id="sso_age" min="15" max="75" step="1" placeholder="เช่น 40">
+      </div>
+    </div>
+
+    <div class="sso-result" id="sso_result">
+      <div class="sso-type" id="sso_type">ยังไม่มีผล</div>
+      <div class="sso-big" id="sso_amount">—</div>
+      <div class="sso-sub" id="sso_detail">ใส่ค่าจ้างและเดือน/ปีสมทบเพื่อประมาณการ</div>
+    </div>
+    <div class="sso-foot">
+      สมมติฐานในเครื่องนี้: เกณฑ์บำนาญใช้ <strong>180 เดือน</strong> · อัตราเริ่ม 20% + 1.5%/ปีเต็มที่เกิน 15 ปี · บำเหน็จหยาบ = ค่าจ้าง × 6% × เดือนสมทบ (ไม่รวมผลตอบแทน)<br>
+      การขอรับจริงมักมีเงื่อนไขอายุและความเป็นผู้ประกันตนสิ้นสุด — <strong>ยอดจริงให้ยึด สปส. เท่านั้น</strong>
     </div>
   </div>
 </section>
@@ -1126,6 +1181,73 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   var rt='gold';
   try{rt=sessionStorage.getItem('kasiend_rights_tab')||'gold'}catch(e){}
   showRights(rt);
+
+  /* ─── SSO old-age estimate (B1, education) ─── */
+  var sso_wage=document.getElementById('sso_wage'),
+      sso_months=document.getElementById('sso_months'),
+      sso_years=document.getElementById('sso_years'),
+      sso_age=document.getElementById('sso_age'),
+      ssoSync=false;
+  function calcSSO(){
+    if(!sso_wage)return;
+    var wage=parseFloat(sso_wage.value)||0;
+    var months=parseFloat(sso_months.value)||0;
+    var yearsIn=parseFloat(sso_years.value)||0;
+    var age=parseFloat(sso_age.value)||0;
+    if(months<=0 && yearsIn>0) months=yearsIn*12;
+    var typeEl=document.getElementById('sso_type'),
+        amtEl=document.getElementById('sso_amount'),
+        detEl=document.getElementById('sso_detail');
+    if(wage<=0 || months<=0){
+      typeEl.textContent='ยังไม่มีผล';
+      amtEl.textContent='—';
+      detEl.textContent='ใส่ค่าจ้างและเดือน/ปีสมทบเพื่อประมาณการ';
+      return;
+    }
+    var ageNote='';
+    if(age>0 && age<55) ageNote=' อายุขณะนี้ '+age+' ปี — การขอรับชราภาพมักเริ่มพิจารณาเมื่ออายุครบเงื่อนไข (เช่น 55 ปี) และความเป็นผู้ประกันตนสิ้นสุด ตรวจกับ สปส.';
+    else if(age>=55) ageNote=' อายุ '+age+' ปี — อาจใกล้/ถึงช่วงขอรับได้ตามเงื่อนไข แต่ต้องตรวจสถานะจริงกับ สปส.';
+
+    if(months<180){
+      var lump=wage*0.06*months;
+      typeEl.textContent='แนวบำเหน็จชราภาพ (การศึกษา · สมทบ < 180 เดือน)';
+      amtEl.textContent=fmt(lump)+' (เงินก้อนโดยประมาณ)';
+      detEl.textContent='สมมติหยาบ: ค่าจ้าง × 6% × '+Math.round(months)+' เดือน = ไม่รวมผลตอบแทนจริง และไม่ใช่ยอดจากระบบ สปส.'+ageNote+' · ขาดอีก '+Math.round(180-months)+' เดือน จะเข้าเกณฑ์แนวบำนาญในเครื่องนี้';
+    } else {
+      var extraY=Math.floor((months-180)/12);
+      var rate=0.20+0.015*extraY;
+      var monthly=wage*rate;
+      typeEl.textContent='แนวบำนาญชราภาพรายเดือน (การศึกษา · สมทบ ≥ 180 เดือน)';
+      amtEl.textContent=fmt(monthly)+' / เดือน';
+      detEl.textContent='อัตราประมาณ '+(rate*100).toFixed(1)+'% ของค่าจ้างเฉลี่ย (20% + 1.5% × '+extraY+' ปีเต็มที่เกิน 15 ปี) · ปีละราว '+fmt(monthly*12)+' · เดือนสมทบ '+Math.round(months)+' เดือน'+ageNote;
+    }
+  }
+  function onSSOMonths(){
+    if(ssoSync)return;
+    ssoSync=true;
+    var m=parseFloat(sso_months.value)||0;
+    if(m>0 && sso_years) sso_years.value=Math.round((m/12)*10)/10;
+    ssoSync=false;
+    calcSSO();
+  }
+  function onSSOYears(){
+    if(ssoSync)return;
+    ssoSync=true;
+    var y=parseFloat(sso_years.value)||0;
+    if(y>0 && sso_months) sso_months.value=Math.round(y*12);
+    ssoSync=false;
+    calcSSO();
+  }
+  if(sso_wage){
+    sso_wage.addEventListener('input',calcSSO);
+    sso_months.addEventListener('input',onSSOMonths);
+    sso_years.addEventListener('input',onSSOYears);
+    sso_age.addEventListener('input',calcSSO);
+    /* soft prefill age from retirement stage if empty */
+    var ra=document.getElementById('ret_curr_age');
+    if(ra && !sso_age.value && ra.value) sso_age.value=ra.value;
+    calcSSO();
+  }
 
   ret_share.addEventListener('click',function(){
     copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+
