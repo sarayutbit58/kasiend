@@ -133,6 +133,11 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .tools-group details.tool-fold[open]>summary::after{transform:rotate(180deg)}
 .tools-group details.tool-fold>summary:hover{background:#f8fafc}
 .tools-group details.tool-fold .tool-fold-body{padding:0 12px 14px}
+.tools-jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;position:sticky;top:56px;z-index:15;padding:8px 0;background:linear-gradient(180deg,rgba(248,250,252,.98),rgba(238,242,255,.95));backdrop-filter:blur(6px)}
+.tools-jump button{min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid #c7d2fe;background:#fff;color:#3730a3;font:700 .75rem inherit;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.tools-jump button:hover,.tools-jump button:focus-visible{background:#e0e7ff;border-color:#818cf8;outline:none}
+.tools-jump button.active{background:#4f46e5;border-color:#4f46e5;color:#fff}
+#fold_rights,#fold_sso,#fold_pvd,#fold_more,#rights_section,#sso_section,#pvd_section,#gpf_section,#w4_section,#fl_section,#hr_section,#link_hub{scroll-margin-top:120px}
 
 /* Sticky bottom nav */
 .bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;pointer-events:none;padding:0 8px calc(8px + env(safe-area-inset-bottom,0px))}
@@ -629,11 +634,21 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   <div class="tools-group-head">
     <div class="tools-group-kicker">KNOWLEDGE TOOLS</div>
     <h2 class="tools-group-title">🧰 เครื่องมือเสริม (สิทธิ · ออม · ตรวจสุขภาพการเงิน)</h2>
-    <p class="tools-group-desc">ใช้หลัง 3 ขั้นหลักได้ — กางเฉพาะหัวข้อที่สนใจ ข้อมูลเพื่อการศึกษาจากคลังความรู้ไทย</p>
+    <p class="tools-group-desc">ใช้หลัง 3 ขั้นหลักได้ — กดทางลัดด้านล่างเพื่อเปิดและกระโดดไปหัวข้อที่ต้องการ</p>
+    <div class="tools-jump" id="tools_jump" role="navigation" aria-label="ทางลัดเครื่องมือเสริม">
+      <button type="button" data-fold="fold_rights" data-target="rights_section">🩺 สิทธิ+เงินสด</button>
+      <button type="button" data-fold="fold_sso" data-target="sso_section">🧮 SSO ชราภาพ</button>
+      <button type="button" data-fold="fold_pvd" data-target="pvd_section">💼 PVD</button>
+      <button type="button" data-fold="fold_more" data-target="gpf_section">🏛️ กบข.</button>
+      <button type="button" data-fold="fold_more" data-target="w4_section">📉 กฎ 4%</button>
+      <button type="button" data-fold="fold_more" data-target="fl_section">🛠️ ฟรีแลนซ์</button>
+      <button type="button" data-fold="fold_more" data-target="hr_section">❤️‍🩹 อัตราส่วน</button>
+      <button type="button" data-fold="fold_more" data-target="link_hub">🔗 เชื่อมค่า</button>
+    </div>
   </div>
 
 <!-- ========== HEALTH RIGHTS (B5) ========== -->
-<details class="tool-fold" open>
+<details class="tool-fold" id="fold_rights" open>
 <summary>🩺 รู้สิทธิสุขภาพ 3 ระบบ + เงินสดกันช็อก</summary>
 <div class="tool-fold-body">
 <section class="rights-section" id="rights_section" aria-label="รู้สิทธิสุขภาพ 3 ระบบ">
@@ -749,7 +764,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </details>
 
 <!-- ========== SSO OLD-AGE ESTIMATE (B1) ========== -->
-<details class="tool-fold">
+<details class="tool-fold" id="fold_sso">
 <summary>🧮 ประมาณการชราภาพประกันสังคม (SSO)</summary>
 <div class="tool-fold-body">
 <section class="sso-section" id="sso_section" aria-label="ประมาณการชราภาพประกันสังคม">
@@ -797,7 +812,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </details>
 
 <!-- ========== PVD PROJECTION (B3) ========== -->
-<details class="tool-fold">
+<details class="tool-fold" id="fold_pvd">
 <summary>💼 จำลองออม PVD</summary>
 <div class="tool-fold-body">
 <section class="pvd-section" id="pvd_section" aria-label="จำลองกองทุนสำรองเลี้ยงชีพ PVD">
@@ -866,7 +881,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </details>
 
 <!-- ========== B4–B8 ========== -->
-<details class="tool-fold">
+<details class="tool-fold" id="fold_more">
 <summary>🏛️ กบข. · กฎ 4% · ฟรีแลนซ์ · อัตราส่วนสุขภาพการเงิน</summary>
 <div class="tool-fold-body">
 <!-- ========== B4 GPF ========== -->
@@ -1333,6 +1348,30 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     }
     window.addEventListener('scroll', refresh, {passive:true});
     refresh();
+  })();
+
+  /* tools jump chips: open fold + scroll to target */
+  (function(){
+    var jump=document.getElementById('tools_jump');
+    if(!jump) return;
+    function go(foldId, targetId, btn){
+      var fold=document.getElementById(foldId);
+      if(fold) fold.open=true;
+      jump.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+      if(btn) btn.classList.add('active');
+      var t=document.getElementById(targetId)||document.getElementById(foldId);
+      if(t){
+        /* wait a frame so open details expands layout */
+        requestAnimationFrame(function(){
+          setTimeout(function(){ t.scrollIntoView({behavior:'smooth', block:'start'}); }, 40);
+        });
+      }
+    }
+    jump.querySelectorAll('button[data-fold]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        go(btn.getAttribute('data-fold'), btn.getAttribute('data-target'), btn);
+      });
+    });
   })();
 
   /* ═══════════════════════ STAGE 1: EMERGENCY FUND ═══════════════════════ */
