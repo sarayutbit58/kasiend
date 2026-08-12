@@ -11,8 +11,8 @@
 - [x] User Dashboard + Banner ads mock-up
 - [x] ฐานความรู้ไทย 15 ไฟล์ใน `knowledge/` (ADR 0022)
 - [x] Backlog calc จาก knowledge บันทึกแล้ว — **ยังไม่ build** (ADR 0024, Q37=ง)
-- [ ] ทดสอบบนมือถือผู้สร้าง
-- [ ] Deploy unlisted
+- [x] ทดสอบบนมือถือผู้สร้าง (รายงาน: ไม่มีปัญหา)
+- [x] Deploy GitHub Pages — https://sarayutbit58.github.io/kasiend/
 - [ ] ผู้ใช้จริง 3 คนขึ้นไป
 
 **เวอร์ชันโค้ดล่าสุด:** v1.7 (ยังไม่ deploy ตามทิศทางผู้สร้าง)
