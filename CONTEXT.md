@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.6.1 = v2.6 + sticky tools jump chips (open fold + scroll)
+v2.6.2 = Stage 2 ตารางรายปีดอกเบี้ยทบต้น (+ แถบสัดส่วน) — สูตรเดิม
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:
