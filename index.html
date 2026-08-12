@@ -246,6 +246,12 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .ratio-item b{display:block;font-size:.95rem}
 .ratio-item span{font-size:.7rem;color:#64748b}
 .tool-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
+.link-btn{display:inline-block;margin:6px 6px 0 0;padding:7px 10px;border-radius:999px;border:1px dashed #64748b;background:#f8fafc;color:#334155;font:600 .72rem inherit;cursor:pointer}
+.link-btn:hover{border-color:#1e6f5c;background:#e8f5e9;color:#14532d}
+.link-hub{margin:20px 0;padding:14px 16px;border-radius:14px;background:#f1f5f9;border:1px solid #e2e8f0}
+.link-hub h3{font-size:.9rem;margin-bottom:6px}
+.link-hub p{font-size:.76rem;color:#64748b;line-height:1.45;margin-bottom:8px}
+.link-hub .link-status{font-size:.74rem;color:#0f766e;font-weight:600;min-height:1.2em}
 
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
@@ -560,6 +566,10 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     </div>
   </div>
   <div class="bags-foot">เพื่อการศึกษาเท่านั้น — ยังไม่รวมสิทธิจริงจากประกันสังคม/กบข./PVD แบบรายบุคคล คุณปรับตัวเลข “เงินออมที่มีแล้ว” ให้สะท้อนแหล่งเงินที่คุณนับรวมเองได้</div>
+  <div class="med-link" id="bags_cross_note" style="margin-top:8px"></div>
+  <div>
+    <button type="button" class="link-btn" id="btn_ret_from_pots">นำ PVD+กบข. ไปช่วยประมาณเงินออมที่มี (ถ้าช่องว่าง)</button>
+  </div>
 </div>
 </div>
 
@@ -830,6 +840,10 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       <div class="big" id="w4_year">—</div>
       <div class="sub" id="w4_month">—</div>
       <div class="sub" id="w4_sim" style="margin-top:8px">ใส่เงินก้อนเพื่อคำนวณ</div>
+      <div>
+        <button type="button" class="link-btn" id="btn_w4_from_ret">← ใช้เป้าเงิน Stage 3</button>
+        <button type="button" class="link-btn" id="btn_w4_from_pots">← ใช้ PVD + กบข. รวม</button>
+      </div>
     </div>
     <div class="tool-foot">จำลองหยาบ: ถอนต้นปีคงที่เท่าปีแรก แล้วเงินต้นโตตามผลตอบแทนสมมติ — ถ้าหมดก่อนครบปีจะแจ้ง · ไม่ใช่คำแนะนำการลงทุน</div>
   </div>
@@ -892,6 +906,14 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   </div>
 </section>
 
+<div class="link-hub" id="link_hub">
+  <h3>🔗 การเชื่อมโยงค่าอัตโนมัติ</h3>
+  <p>ระบบจะเติมเฉพาะช่องที่ยังว่าง: ค่าใช้จ่าย/เงินออมจาก Stage 1 → สุขภาพ·ฟรีแลนซ์·อัตราส่วน · รายได้ข้าม PVD/กบข./SSO · เป้า Stage 3 → กฎ 4% (ถ้ายังว่าง) · ไม่ทับค่าที่คุณพิมพ์เอง</p>
+  <button type="button" class="link-btn" id="btn_link_now">ซิงก์ค่าที่เชื่อมได้ตอนนี้</button>
+  <button type="button" class="link-btn" id="btn_link_income">กระจายรายได้ไป PVD/กบข./SSO/ฟรีแลนซ์</button>
+  <div class="link-status" id="link_status"></div>
+</div>
+
 <!-- ========== DISCLAIMER ========== -->
 <div class="disclaimer" style="margin-top:32px">
   <strong>⚠️ ข้อจำกัดความรับผิดชอบ</strong>
@@ -906,6 +928,92 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 (function(){
   /* ─── helpers ─── */
   function fmt(n){ return Math.round(n).toLocaleString('th-TH') + ' บาท'; }
+  /* ─── Cross-tool linking bus (fill empty only unless forced) ─── */
+  var LINK={retTarget:0,retBag2:0,pvdFv:0,gpfFv:0,ssoMonthly:0,ssoLump:0};
+  var linkBusy=false;
+  function fillIfEmpty(id,val){
+    var el=document.getElementById(id); if(!el) return false;
+    var n=parseFloat(val); if(!(n>0)) return false;
+    if(el.value!=='' && el.value!=null) return false;
+    el.value=Math.round(n*100)/100; return true;
+  }
+  function setVal(id,val){
+    var el=document.getElementById(id); if(!el) return false;
+    var n=parseFloat(val); if(!(n>0)) return false;
+    el.value=Math.round(n*100)/100; return true;
+  }
+  function firstIncome(){
+    var ids=['pvd_salary','gpf_salary','sso_wage','fl_income','hr_income'];
+    for(var i=0;i<ids.length;i++){
+      var v=parseFloat(document.getElementById(ids[i])&&document.getElementById(ids[i]).value)||0;
+      if(v>0) return v;
+    }
+    return 0;
+  }
+  function linkCrossTools(opts){
+    if(linkBusy) return [];
+    opts=opts||{};
+    linkBusy=true;
+    var changed=[];
+    function mark(ok,name){ if(ok) changed.push(name); }
+    var exp=parseFloat(document.getElementById('ef_expense')&&document.getElementById('ef_expense').value)||0;
+    var saved=parseFloat(document.getElementById('ef_saved')&&document.getElementById('ef_saved').value)||0;
+    var mth=parseFloat(document.getElementById('ci_monthly')&&document.getElementById('ci_monthly').value)||0;
+    if(!(mth>0)) mth=parseFloat(document.getElementById('ef_monthly')&&document.getElementById('ef_monthly').value)||0;
+    var age=parseFloat(document.getElementById('ret_curr_age')&&document.getElementById('ret_curr_age').value)||0;
+    var retAge=parseFloat(document.getElementById('ret_ret_age')&&document.getElementById('ret_ret_age').value)||0;
+
+    mark(fillIfEmpty('med_expense',exp),'med ค่าใช้จ่าย');
+    mark(fillIfEmpty('fl_expense',exp),'ฟรีแลนซ์ ค่าใช้จ่าย');
+    mark(fillIfEmpty('hr_spend',exp),'อัตราส่วน รายจ่าย');
+    mark(fillIfEmpty('med_have',saved),'med เงินสด');
+    mark(fillIfEmpty('fl_have',saved),'ฟรีแลนซ์ สำรอง');
+    mark(fillIfEmpty('hr_liquid',saved),'อัตราส่วน สภาพคล่อง');
+    mark(fillIfEmpty('hr_save',mth),'อัตราส่วน ออม/เดือน');
+    mark(fillIfEmpty('sso_age',age),'SSO อายุ');
+    if(age>0 && retAge>age) mark(fillIfEmpty('pvd_years',retAge-age),'PVD ปี');
+    if(age>0 && retAge>age) mark(fillIfEmpty('gpf_years',retAge-age),'กบข. ปี');
+
+    var inc=firstIncome();
+    if(inc>0){
+      mark(fillIfEmpty('pvd_salary',inc),'PVD เงินเดือน');
+      mark(fillIfEmpty('gpf_salary',inc),'กบข. เงินเดือน');
+      mark(fillIfEmpty('sso_wage',inc),'SSO ค่าจ้าง');
+      mark(fillIfEmpty('fl_income',inc),'ฟรีแลนซ์ รายได้');
+      mark(fillIfEmpty('hr_income',inc),'อัตราส่วน รายได้');
+    }
+    if(LINK.retTarget>0) mark(fillIfEmpty('w4_nest',LINK.retTarget),'4% เงินก้อนจาก Stage3');
+
+    if(typeof calcMedBuffer==='function') calcMedBuffer();
+    if(typeof calcFL==='function') calcFL();
+    if(typeof calcHR==='function') calcHR();
+    if(typeof calcSSO==='function') calcSSO();
+    if(typeof calcPVD==='function') calcPVD();
+    if(typeof calcGPF==='function') calcGPF();
+    if(typeof calcW4==='function') calcW4();
+    if(typeof updateDashboard==='function') updateDashboard();
+
+    var bn=document.getElementById('bags_cross_note');
+    if(bn){
+      var bits=[];
+      if(LINK.ssoMonthly>0) bits.push('บำนาญ SSO โดยประมาณ '+fmt(LINK.ssoMonthly)+'/เดือน (การศึกษา) — อาจช่วยลดภาระค่าใช้จ่ายหลังเกษียณ');
+      if(LINK.ssoLump>0) bits.push('บำเหน็จ SSO โดยประมาณ '+fmt(LINK.ssoLump));
+      if(LINK.pvdFv>0) bits.push('PVD ปลายทาง ≈ '+fmt(LINK.pvdFv));
+      if(LINK.gpfFv>0) bits.push('กบข. ปลายทาง ≈ '+fmt(LINK.gpfFv));
+      bn.textContent=bits.length?('🔗 '+bits.join(' · ')):'';
+    }
+
+    var st=document.getElementById('link_status');
+    if(st) st.textContent=changed.length?('เชื่อมแล้ว: '+changed.join(', ')): 'ไม่มีช่องว่างให้เติม (หรือยังไม่มีค่าต้นทาง)';
+    linkBusy=false;
+    return changed;
+  }
+  function pushIncome(val){
+    if(!(val>0)) return;
+    setVal('pvd_salary',val); setVal('gpf_salary',val); setVal('sso_wage',val);
+    setVal('fl_income',val); setVal('hr_income',val);
+    linkCrossTools();
+  }
   function updateDashboard(){
     var dashEF=document.getElementById('dash_ef');
     if(!dashEF)return;
@@ -1135,7 +1243,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     else if(mth>0){var rem=Math.max(0,goal-svd),mo=Math.ceil(rem/mth);ef_status.classList.add('inprogress');ef_status.textContent='⏳ อีก '+mo+' เดือนจะถึงเป้า (ออม '+fmt(mth)+' ต่อเดือน)';}
     else ef_status.textContent='';
   }
-  function onEFChange(){calcEF();storageSet('expense',ef_expense.value||0);storageSet('saved',ef_saved.value||0);linkST1toS3();updateDashboard();if(typeof syncMedFromStage1==='function'){syncMedFromStage1(false);calcMedBuffer()}}
+  function onEFChange(){calcEF();storageSet('expense',ef_expense.value||0);storageSet('saved',ef_saved.value||0);linkST1toS3();updateDashboard();if(typeof linkCrossTools==='function')linkCrossTools()}
   [ef_expense,ef_saved,ef_monthly].forEach(function(e){e.addEventListener('input',onEFChange)});
   ef_multiplier.addEventListener('input',function(){ef_mult_val.textContent='×'+this.value+' เดือน';calcEF();updateDashboard()});
   ef_jobs.forEach(function(r){r.addEventListener('change',function(){ef_multiplier.value=r.value;ef_mult_val.textContent='×'+r.value+' เดือน';calcEF();updateDashboard()})});
@@ -1174,7 +1282,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     ci_growth.textContent=(growth>=0?'+':'')+fmt(growth);
     ci_result.hidden=false;
   }
-  function onCIChange(){calcCI();storageSet('pmt',ci_monthly.value||0);linkST1toS3();updateDashboard();}
+  function onCIChange(){calcCI();storageSet('pmt',ci_monthly.value||0);linkST1toS3();updateDashboard();if(typeof linkCrossTools==='function')linkCrossTools()}
   [ci_principal,ci_monthly,ci_years,ci_rate].forEach(function(e){e.addEventListener('input',onCIChange)});
   var ci_preset=document.getElementById('ci_preset');
   ci_preset.addEventListener('click',function(){
@@ -1284,6 +1392,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     }
 
     /* เงิน 3 ก้อน — ใช้ผลเดิม ไม่เปลี่ยนสูตร */
+    LINK.retTarget=target; LINK.retBag2=bag2;
     if(bags){
       bags.hidden=false;
       document.getElementById('bag1_val').textContent=fmt(target);
@@ -1302,6 +1411,19 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
         if(plannedPMT<=0&&reqPMT>0)extra=' — ถ้ายังไม่มีแผนออม ต้องประมาณ '+fmt(reqPMT)+'/เดือน เพื่อปิดก้อน 1 (จากเงินออมปัจจุบันอย่างเดียว)';
         else if(plannedPMT>0)extra=' — แม้มีแผนออม '+fmt(plannedPMT)+'/เดือน ยังขาดส่วนนี้';
         document.getElementById('bag3_note').textContent='ต้องเติมให้ถึงเป้า'+extra;
+      }
+    }
+    if(!linkBusy){
+      fillIfEmpty('w4_nest',target);
+      if(typeof calcW4==='function') calcW4();
+      var bn=document.getElementById('bags_cross_note');
+      if(bn){
+        var bits=[];
+        if(LINK.ssoMonthly>0) bits.push('บำนาญ SSO โดยประมาณ '+fmt(LINK.ssoMonthly)+'/เดือน (การศึกษา)');
+        if(LINK.ssoLump>0) bits.push('บำเหน็จ SSO ≈ '+fmt(LINK.ssoLump));
+        if(LINK.pvdFv>0) bits.push('PVD ปลายทาง ≈ '+fmt(LINK.pvdFv));
+        if(LINK.gpfFv>0) bits.push('กบข. ปลายทาง ≈ '+fmt(LINK.gpfFv));
+        bn.textContent=bits.length?('🔗 '+bits.join(' · ')):'';
       }
     }
   }
@@ -1415,6 +1537,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       typeEl.textContent='ยังไม่มีผล';
       amtEl.textContent='—';
       detEl.textContent='ใส่ค่าจ้างและเดือน/ปีสมทบเพื่อประมาณการ';
+      LINK.ssoMonthly=0; LINK.ssoLump=0;
       return;
     }
     var ageNote='';
@@ -1423,6 +1546,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 
     if(months<180){
       var lump=wage*0.06*months;
+      LINK.ssoLump=lump; LINK.ssoMonthly=0;
       typeEl.textContent='แนวบำเหน็จชราภาพ (การศึกษา · สมทบ < 180 เดือน)';
       amtEl.textContent=fmt(lump)+' (เงินก้อนโดยประมาณ)';
       detEl.textContent='สมมติหยาบ: ค่าจ้าง × 6% × '+Math.round(months)+' เดือน = ไม่รวมผลตอบแทนจริง และไม่ใช่ยอดจากระบบ สปส.'+ageNote+' · ขาดอีก '+Math.round(180-months)+' เดือน จะเข้าเกณฑ์แนวบำนาญในเครื่องนี้';
@@ -1430,6 +1554,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       var extraY=Math.floor((months-180)/12);
       var rate=0.20+0.015*extraY;
       var monthly=wage*rate;
+      LINK.ssoMonthly=monthly; LINK.ssoLump=0;
       typeEl.textContent='แนวบำนาญชราภาพรายเดือน (การศึกษา · สมทบ ≥ 180 เดือน)';
       amtEl.textContent=fmt(monthly)+' / เดือน';
       detEl.textContent='อัตราประมาณ '+(rate*100).toFixed(1)+'% ของค่าจ้างเฉลี่ย (20% + 1.5% × '+extraY+' ปีเต็มที่เกิน 15 ปี) · ปีละราว '+fmt(monthly*12)+' · เดือนสมทบ '+Math.round(months)+' เดือน'+ageNote;
@@ -1491,11 +1616,13 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       document.getElementById('pvd_growth_amt').textContent='—';
       document.getElementById('pvd_no_er').textContent='—';
       note.textContent='ใส่เงินเดือนและจำนวนปีเพื่อจำลอง';
+      LINK.pvdFv=0;
       return;
     }
     var withER=projectPVD(sal,years,ee,er,ret,grow,bal0);
     var noER=projectPVD(sal,years,ee,0,ret,grow,bal0);
     var growthAmt=withER.fv - withER.eeSum - withER.erSum - bal0;
+    LINK.pvdFv=withER.fv;
     fvEl.textContent=fmt(withER.fv);
     document.getElementById('pvd_ee_total').textContent=fmt(withER.eeSum);
     document.getElementById('pvd_er_total').textContent=fmt(withER.erSum);
@@ -1530,12 +1657,14 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       document.getElementById('gpf_fv').textContent='—';
       ['gpf_mem','gpf_gov','gpf_gain','gpf_m0'].forEach(function(id){document.getElementById(id).textContent='—'});
       document.getElementById('gpf_note').textContent='ใส่เงินเดือนเพื่อจำลอง';
+      LINK.gpfFv=0;
       return;
     }
     if(extra>12) extra=12;
     var memPct=3+extra, govPct=5; /* สมทบ 3% + ชดเชย 2% */
     var p=projectSimple(sal,years,memPct,govPct,ret,bal0);
     var gain=p.fv-p.mem-p.gov-bal0;
+    LINK.gpfFv=p.fv;
     document.getElementById('gpf_fv').textContent=fmt(p.fv);
     document.getElementById('gpf_mem').textContent=fmt(p.mem);
     document.getElementById('gpf_gov').textContent=fmt(p.gov);
@@ -1639,6 +1768,40 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   bindCalc(['w4_nest','w4_rate','w4_years','w4_ret'], calcW4);
   bindCalc(['fl_income','fl_expense','fl_have','fl_months'], calcFL);
   bindCalc(['hr_income','hr_spend','hr_save','hr_liquid','hr_assets','hr_debt','hr_debt_pay'], calcHR);
+
+  /* explicit link buttons */
+  function potsTotal(){ return (LINK.pvdFv||0)+(LINK.gpfFv||0)+(LINK.ssoLump||0); }
+  var bW4r=document.getElementById('btn_w4_from_ret');
+  if(bW4r) bW4r.addEventListener('click',function(){
+    if(!(LINK.retTarget>0)){ if(document.getElementById('link_status')) document.getElementById('link_status').textContent='ยังไม่มีเป้า Stage 3 — กรอก Stage 3 ก่อน'; return; }
+    setVal('w4_nest', LINK.retTarget); calcW4();
+    if(document.getElementById('link_status')) document.getElementById('link_status').textContent='นำเป้า Stage 3 ('+fmt(LINK.retTarget)+') ใส่กฎ 4% แล้ว';
+  });
+  var bW4p=document.getElementById('btn_w4_from_pots');
+  if(bW4p) bW4p.addEventListener('click',function(){
+    var t=potsTotal();
+    if(!(t>0)){ if(document.getElementById('link_status')) document.getElementById('link_status').textContent='ยังไม่มีผล PVD/กบข./บำเหน็จ SSO — จำลองก่อน'; return; }
+    setVal('w4_nest', t); calcW4();
+    if(document.getElementById('link_status')) document.getElementById('link_status').textContent='นำ PVD+กบข.+บำเหน็จ SSO รวม '+fmt(t)+' ใส่กฎ 4% แล้ว (การศึกษา)';
+  });
+  var bRetP=document.getElementById('btn_ret_from_pots');
+  if(bRetP) bRetP.addEventListener('click',function(){
+    var t=potsTotal();
+    if(!(t>0)){ if(document.getElementById('link_status')) document.getElementById('link_status').textContent='ยังไม่มีผล PVD/กบข. — จำลองก่อน'; return; }
+    /* ใช้เป็นประมาณการเงินออมที่มี — เฉพาะตอนช่องว่าง หรือบังคับเมื่อกดปุ่ม */
+    setVal('ret_saved', t);
+    if(typeof calcRetirement==='function') calcRetirement();
+    if(document.getElementById('link_status')) document.getElementById('link_status').textContent='ใส่ประมาณการ PVD+กบข.+บำเหน็จ ลงเงินออม Stage 3 แล้ว (แก้ได้) — เป็นการศึกษา';
+  });
+  var bLink=document.getElementById('btn_link_now');
+  if(bLink) bLink.addEventListener('click',function(){ linkCrossTools(); });
+  var bInc=document.getElementById('btn_link_income');
+  if(bInc) bInc.addEventListener('click',function(){
+    var inc=firstIncome();
+    if(!(inc>0)){ if(document.getElementById('link_status')) document.getElementById('link_status').textContent='ยังไม่มีรายได้ต้นทาง — ใส่ใน PVD หรือ กบข. หรือ SSO หรือฟรีแลนซ์ก่อน'; return; }
+    pushIncome(inc);
+    if(document.getElementById('link_status')) document.getElementById('link_status').textContent='กระจายรายได้ '+fmt(inc)+' ไปเครื่องมือที่เกี่ยวข้องแล้ว';
+  });
 
   ret_share.addEventListener('click',function(){
     copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+

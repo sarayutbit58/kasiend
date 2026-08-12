@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.5 = backlog ครบ B1–B8 (SSO, PVD, กบข., 4%, ฟรีแลนซ์, อัตราส่วน) + Stage Journey เดิม — ทั้งหมดการศึกษา
+v2.5.1 = v2.5 + cross-tool linking hub (เติมช่องว่าง + ปุ่มนำค่า)
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:
