@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v1.8 = Pages + มือถือผ่าน + ผู้ใช้จริง 3 คนผ่าน + แผงเงิน 3 ก้อน (B2) ใน Stage 3
+v1.9 = Pages + ผู้ใช้จริงผ่าน + เงิน 3 ก้อน (B2) + checklist สิทธิสุขภาพ 3 ระบบ (B5)
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

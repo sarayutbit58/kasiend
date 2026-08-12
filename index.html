@@ -167,6 +167,26 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .bag-note{font-size:.74rem;color:#475569;margin-top:3px;line-height:1.4}
 .bags-foot{font-size:.74rem;color:#64748b;margin-top:12px;line-height:1.45}
 
+/* Health rights checklist */
+.rights-section{margin:28px 0 8px}
+.rights-head{margin-bottom:12px}
+.rights-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:#0ea5e9;text-transform:uppercase}
+.rights-title{font-size:1.15rem;font-weight:800;margin-top:4px;color:#0f172a}
+.rights-desc{font-size:.82rem;color:#64748b;margin-top:4px;line-height:1.45}
+.rights-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.rights-tab{flex:1;min-width:96px;border:2px solid #e2e8f0;background:#fff;border-radius:12px;padding:10px 8px;font:700 .75rem inherit;color:#475569;cursor:pointer}
+.rights-tab.active{border-color:#0ea5e9;background:#e0f2fe;color:#075985}
+.rights-panel{display:none;background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;padding:16px}
+.rights-panel.active{display:block}
+.rights-panel h3{font-size:.95rem;margin-bottom:8px;color:#0f172a}
+.rights-panel ul{margin:0 0 10px 18px;font-size:.82rem;color:#334155;line-height:1.55}
+.rights-panel .who{background:#f0f9ff;border-radius:10px;padding:10px;font-size:.8rem;margin-bottom:10px;color:#0c4a6e;line-height:1.45}
+.rights-check{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.rights-check label{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;font-weight:500;color:#334155;cursor:pointer}
+.rights-check input{margin-top:3px}
+.rights-hotline{font-size:.8rem;background:#fefce8;border:1px solid #fde047;border-radius:10px;padding:10px;color:#713f12;line-height:1.5}
+.rights-note{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
+
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
 </style>
@@ -482,6 +502,73 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   <div class="bags-foot">เพื่อการศึกษาเท่านั้น — ยังไม่รวมสิทธิจริงจากประกันสังคม/กบข./PVD แบบรายบุคคล คุณปรับตัวเลข “เงินออมที่มีแล้ว” ให้สะท้อนแหล่งเงินที่คุณนับรวมเองได้</div>
 </div>
 </div>
+
+<!-- ========== HEALTH RIGHTS (B5) ========== -->
+<section class="rights-section" id="rights_section" aria-label="รู้สิทธิสุขภาพ 3 ระบบ">
+  <div class="rights-head">
+    <div class="rights-kicker">HEALTH RIGHTS</div>
+    <div class="rights-title">🩺 รู้สิทธิสุขภาพของคุณ (3 ระบบหลัก)</div>
+    <div class="rights-desc">คนไทยส่วนใหญ่อยู่ในสิทธิใดสิทธิหนึ่ง — เลือกแท็บที่ใกล้ตัว แล้วติ๊กสิ่งที่คุณทำได้แล้ว (ข้อมูลเพื่อการศึกษา ไม่ได้ตรวจสิทธิให้อัตโนมัติ)</div>
+  </div>
+  <div class="rights-tabs" role="tablist">
+    <button type="button" class="rights-tab active" data-rights="gold" role="tab" aria-selected="true">บัตรทอง</button>
+    <button type="button" class="rights-tab" data-rights="sso" role="tab" aria-selected="false">ประกันสังคม</button>
+    <button type="button" class="rights-tab" data-rights="civil" role="tab" aria-selected="false">ข้าราชการ</button>
+  </div>
+
+  <div class="rights-panel active" id="rights_gold" role="tabpanel">
+    <h3>สิทธิหลักประกันสุขภาพแห่งชาติ (บัตรทอง / 30 บาท)</h3>
+    <div class="who"><strong>ใครมักอยู่ในสิทธินี้:</strong> คนไทยมีเลข 13 หลัก ที่ไม่มีสิทธิข้าราชการ / ประกันสังคม / สวัสดิการรัฐอื่น — เช่น อาชีพอิสระ เด็กแรกเกิดบางกรณี ผู้ประกันตนที่หมดสิทธิ ฯลฯ</div>
+    <ul>
+      <li>ครอบคลุมสร้างเสริมสุขภาพ ป้องกันโรค ตรวจ รักษา ฟื้นฟู ที่จำเป็นตามระบบ</li>
+      <li>มีหน่วยบริการประจำ — เปลี่ยนได้ตามกฎของ สปสช. (จำกัดจำนวนครั้งต่อปีงบประมาณ)</li>
+      <li>เจ็บป่วยฉุกเฉินวิกฤติ (UCEP): ใกล้ที่สุด รวม รพ.เอกชน ได้ตามเงื่อนไขช่วงวิกฤติ</li>
+      <li>โปรแกรม “30 บาทรักษาทุกที่” เป็นทางเลือกเสริมอาการเล็กน้อย/บางบริการ — ขึ้นกับหน่วยที่ร่วม</li>
+    </ul>
+    <div class="rights-check" data-group="gold">
+      <label><input type="checkbox" data-key="gold_know"> ฉันรู้ว่าตัวเองใช้บัตรทอง (หรือกำลังตรวจสอบ)</label>
+      <label><input type="checkbox" data-key="gold_unit"> ฉันรู้หน่วยบริการประจำของฉัน</label>
+      <label><input type="checkbox" data-key="gold_check"> ฉันรู้ช่องทางตรวจสิทธิ (แอป สปสช. / LINE @nhso / โทร 1330)</label>
+    </div>
+    <div class="rights-hotline">📞 สายด่วน สปสช. <strong>1330</strong> (ตลอด 24 ชม.) · LINE OA <strong>@nhso</strong><br>ตรวจสิทธิ: เว็บ/แอปของ สปสช. หรือ โทร 1330 กด 2 + เลข 13 หลัก</div>
+  </div>
+
+  <div class="rights-panel" id="rights_sso" role="tabpanel">
+    <h3>สิทธิประกันสังคม (ม.33 / ม.39 / ม.40)</h3>
+    <div class="who"><strong>ใครมักอยู่ในสิทธินี้:</strong> ลูกจ้างสถานประกอบการ (ม.33), ผู้เคยเป็น ม.33 แล้วสมัครต่อ (ม.39), แรงงานนอกระบบสมัครเอง (ม.40) — เงื่อนไขและสิทธิย่อยต่างกัน</div>
+    <ul>
+      <li>กรณีหลักที่พบบ่อย: เจ็บป่วย คลอดบุตร ทุพพลภาพ ตาย สงเคราะห์บุตร ว่างงาน ชราภาพ</li>
+      <li>รักษาที่สถานพยาบาลตามสิทธิ (เลือก/เปลี่ยนตามรอบปีได้)</li>
+      <li>บางบริการมีวงเงิน/เงื่อนไข เช่น ทันตกรรม — ตรวจรายละเอียดกับ สปส. ก่อนใช้</li>
+      <li>ถ้ามีสิทธิซ้ำกับสวัสดิการอื่น ต้องดูกฎว่าใช้สิทธิใดก่อน</li>
+    </ul>
+    <div class="rights-check" data-group="sso">
+      <label><input type="checkbox" data-key="sso_know"> ฉันรู้ว่าตัวเองอยู่ ม.33 / 39 / 40 (หรือกำลังตรวจสอบ)</label>
+      <label><input type="checkbox" data-key="sso_hospital"> ฉันรู้โรงพยาบาลตามสิทธิประกันสังคม</label>
+      <label><input type="checkbox" data-key="sso_check"> ฉันรู้ช่องทางสอบถาม (สายด่วน 1506 / เว็บ สปส.)</label>
+    </div>
+    <div class="rights-hotline">📞 สายด่วนประกันสังคม <strong>1506</strong> (24 ชม.) · เว็บไซต์สำนักงานประกันสังคม<br>ขึ้นทะเบียน/เปลี่ยน รพ. ตามช่องทางที่ สปส. กำหนด</div>
+  </div>
+
+  <div class="rights-panel" id="rights_civil" role="tabpanel">
+    <h3>สวัสดิการรักษาพยาบาลข้าราชการ</h3>
+    <div class="who"><strong>ใครมักอยู่ในสิทธินี้:</strong> ข้าราชการ ลูกจ้างประจำ ผู้รับบำนาญ และบุคคลในครอบครัวตามหลักเกณฑ์ (บิดา-มารดา, คู่สมรส, บุตรตามเงื่อนไข) — ดูแลโดยกรมบัญชีกลาง/ต้นสังกัด</div>
+    <ul>
+      <li>เน้นสถานพยาบาลของรัฐ + เบิกจ่ายตรงตามระบบที่ลงทะเบียน</li>
+      <li>รพ.เอกชนทั่วไปมักเบิกจำกัด — ยกเว้นฉุกเฉินวิกฤติ (UCEP) หรือกรณีตามระเบียบ</li>
+      <li>บุคคลในครอบครัวมีเงื่อนไขอายุ/จำนวนบุตร — ควรตรวจสิทธิในครอบครัวให้ชัด</li>
+      <li>ถ้ามีสิทธิประกันสังคมซ้ำ มักต้องใช้ประกันสังคมก่อนตามหลักการสิทธิซ้ำซ้อน</li>
+    </ul>
+    <div class="rights-check" data-group="civil">
+      <label><input type="checkbox" data-key="civil_know"> ฉัน/ครอบครัวอยู่ในสิทธิข้าราชการ (หรือกำลังตรวจสอบ)</label>
+      <label><input type="checkbox" data-key="civil_direct"> ฉันรู้เรื่องเบิกจ่ายตรง / เอกสารเมื่อสำรองจ่าย</label>
+      <label><input type="checkbox" data-key="civil_family"> ฉันตรวจแล้วว่าใครในครอบครัวใช้สิทธินี้ได้</label>
+    </div>
+    <div class="rights-hotline">📌 สอบถามต้นสังกัด / กรมบัญชีกลาง ตามหน่วยงาน · ฉุกเฉินวิกฤติใช้หลัก UCEP ได้ตามเงื่อนไขประเทศ<br>อย่าใช้ตัวเลขในหน้านี้แทนการยืนยันสิทธิจากหน่วยงาน</div>
+  </div>
+
+  <div class="rights-note">⚠️ บล็อกนี้เพื่อการศึกษาและช่วยให้คุณ “รู้ว่าต้องไปตรวจอะไร” เท่านั้น — ไม่ได้ยืนยันสิทธิ ไม่ใช่คำแนะนำให้ย้ายระบบ และรายละเอียดอาจเปลี่ยนตามประกาศหน่วยงาน ควรเช็กช่องทางทางการก่อนใช้สิทธิทุกครั้ง</div>
+</section>
 
 <!-- ========== DISCLAIMER ========== -->
 <div class="disclaimer" style="margin-top:32px">
@@ -907,6 +994,32 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   applySegment(savedSeg,false);
   linkST1toS3();
   updateDashboard();
+
+  /* ─── Health rights tabs + checklist (B5, education only) ─── */
+  function showRights(key){
+    document.querySelectorAll('.rights-tab').forEach(function(t){
+      var on=t.getAttribute('data-rights')===key;
+      t.classList.toggle('active',on);
+      t.setAttribute('aria-selected', on?'true':'false');
+    });
+    document.querySelectorAll('.rights-panel').forEach(function(p){
+      p.classList.toggle('active', p.id==='rights_'+key);
+    });
+    try{sessionStorage.setItem('kasiend_rights_tab',key)}catch(e){}
+  }
+  document.querySelectorAll('.rights-tab').forEach(function(t){
+    t.addEventListener('click',function(){showRights(t.getAttribute('data-rights'))});
+  });
+  document.querySelectorAll('.rights-check input[type=checkbox]').forEach(function(cb){
+    var k=cb.getAttribute('data-key');
+    try{if(sessionStorage.getItem('kasiend_rights_'+k)==='1')cb.checked=true}catch(e){}
+    cb.addEventListener('change',function(){
+      try{sessionStorage.setItem('kasiend_rights_'+k, cb.checked?'1':'0')}catch(e){}
+    });
+  });
+  var rt='gold';
+  try{rt=sessionStorage.getItem('kasiend_rights_tab')||'gold'}catch(e){}
+  showRights(rt);
 
   ret_share.addEventListener('click',function(){
     copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+

@@ -15,9 +15,10 @@
 - [x] Deploy GitHub Pages — https://sarayutbit58.github.io/kasiend/
 - [x] ผู้ใช้จริง 3 คนขึ้นไป (รายงาน: ไม่ติดปัญหา)
 - [x] B2 เงิน 3 ก้อน ใน Stage 3 (ADR 0025)
-- [ ] B5 checklist สิทธิสุขภาพ / รายการ backlog อื่น
+- [x] B5 checklist สิทธิสุขภาพ 3 ระบบ (ADR 0026)
+- [ ] backlog อื่น (B1 SSO บำนาญการศึกษา / B3–B4 ฯลฯ)
 
-**เวอร์ชันโค้ดล่าสุด:** v1.8 — GitHub Pages + เงิน 3 ก้อน
+**เวอร์ชันโค้ดล่าสุด:** v1.9 — GitHub Pages + เงิน 3 ก้อน + สิทธิสุขภาพ
 
 ---
 
