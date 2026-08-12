@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.5.1 = v2.5 + cross-tool linking hub (เติมช่องว่าง + ปุ่มนำค่า)
+v2.6 = UX/UI polish (ui-ux-pro-max): tokens, sticky nav, tool folds, a11y — logic unchanged
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

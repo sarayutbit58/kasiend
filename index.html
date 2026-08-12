@@ -5,97 +5,145 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KasienD · เกษียณดี — 3 ขั้นตอนวางแผนการเงินให้เกษียณอย่างมั่นคง</title>
 <style>
-:root{--brand:#1e6f5c;--brand-light:#29bb89;--brand-bg:#e8f5e9;--primary:#2563eb;--primary-dark:#1d4ed8;--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--green:#16a34a;--green-bg:#f0fdf4;--warn:#d97706;--warn-bg:#fff7ed}
+:root{
+  --brand:#0f766e;--brand-light:#14b8a6;--brand-bg:#ccfbf1;--brand-ink:#115e59;
+  --primary:#2563eb;--primary-dark:#1d4ed8;--primary-soft:#dbeafe;
+  --bg:#eef2f6;--card:#ffffff;--text:#0f172a;--muted:#475569;--border:#e2e8f0;
+  --green:#15803d;--green-bg:#dcfce7;--warn:#b45309;--warn-bg:#fff7ed;
+  --danger:#b91c1c;--shadow:0 4px 20px rgba(15,23,42,.06);--shadow-sm:0 1px 3px rgba(15,23,42,.06);
+  --radius:14px;--radius-sm:10px;--touch:44px;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;
+  --font:'Sarabun','Segoe UI',system-ui,-apple-system,sans-serif;
+  --nav-h:64px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Sarabun','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
-.container{max-width:580px;margin:0 auto;padding:24px 16px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.55;font-size:16px;-webkit-text-size-adjust:100%;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px)}
+.skip-link{position:absolute;left:-999px;top:8px;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;z-index:100;font-weight:700}
+.skip-link:focus{left:8px}
+.container{max-width:640px;margin:0 auto;padding:var(--space-4) var(--space-4) var(--space-6)}
+main:focus{outline:none}
 
 /* Header */
-.header{text-align:center;padding:32px 0 4px}
-.header .brand{font-size:2rem;font-weight:800;color:var(--brand);letter-spacing:-.5px}
-.header .sub{font-size:1.1rem;color:var(--brand-light);font-weight:600;margin-top:2px}
+.header{text-align:center;padding:var(--space-5) 0 var(--space-2)}
+.header .brand{font-size:clamp(1.75rem,5vw,2.1rem);font-weight:800;color:var(--brand);letter-spacing:-.5px}
+.header .sub{font-size:1.1rem;color:var(--brand-light);font-weight:700;margin-top:2px}
 .header .tagline{font-size:.9rem;color:var(--muted);margin-top:6px}
 
 /* Hero / Journey Intro */
-.journey-intro{margin:24px 0 16px}
-.journey-intro .journey-title{font-size:1.15rem;font-weight:700;text-align:center;margin-bottom:6px}
-.journey-intro .journey-desc{text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:18px}
-.stage-nav{display:flex;gap:8px;margin-bottom:0}
-.stage-nav .stage-dot{flex:1;text-align:center;padding:10px 6px;border-radius:10px;font-size:.78rem;font-weight:600;background:var(--card);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s}
+.journey-intro{margin:var(--space-5) 0 var(--space-4)}
+.journey-intro .journey-title{font-size:1.15rem;font-weight:800;text-align:center;margin-bottom:6px}
+.journey-intro .journey-desc{text-align:center;font-size:.9rem;color:var(--muted);margin-bottom:var(--space-4);line-height:1.5}
+.stage-nav{display:flex;gap:var(--space-2);margin-bottom:0;position:sticky;top:0;z-index:20;background:rgba(238,242,246,.92);backdrop-filter:blur(8px);padding:var(--space-2) 0;margin-left:-4px;margin-right:-4px;padding-left:4px;padding-right:4px}
+.stage-nav .stage-dot{flex:1;text-align:center;min-height:var(--touch);padding:10px 6px;border-radius:var(--radius-sm);font-size:.78rem;font-weight:700;font-family:inherit;background:var(--card);border:1.5px solid var(--border);color:var(--muted);cursor:pointer;transition:border-color .2s,background .2s,color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
 .stage-nav .stage-dot .dot-num{display:block;font-size:1.1rem;margin-bottom:2px}
-.stage-nav .stage-dot.active{border-color:var(--brand);background:var(--brand-bg);color:var(--brand)}
-.stage-nav .stage-dot:hover{border-color:var(--brand-light)}
+.stage-nav .stage-dot.active{border-color:var(--brand);background:var(--brand-bg);color:var(--brand-ink);box-shadow:var(--shadow-sm)}
+.stage-nav .stage-dot:hover,.stage-nav .stage-dot:focus-visible{border-color:var(--brand-light);outline:none}
+.stage-nav .stage-dot:focus-visible{box-shadow:0 0 0 3px rgba(15,118,110,.35)}
 
 /* Stage banner */
-.stage-banner{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.stage-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.95rem;flex-shrink:0}
-.stage-label{font-size:1.2rem;font-weight:700}
-.stage-question{font-size:.88rem;color:var(--muted);margin-bottom:12px}
+.stage-banner{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2);margin-top:var(--space-4)}
+.stage-badge{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.95rem;flex-shrink:0}
+.stage-label{font-size:1.2rem;font-weight:800}
+.stage-question{font-size:.9rem;color:var(--muted);margin-bottom:var(--space-3);line-height:1.45}
 
 /* Transition card between stages */
-.transition-card{background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:12px;padding:16px;margin:32px 0 8px;text-align:center}
+.transition-card{background:var(--brand-bg);border:1px solid #99f6e4;border-radius:var(--radius);padding:var(--space-4);margin:var(--space-6) 0 var(--space-2);text-align:center}
 .transition-card .t-emoji{font-size:1.5rem;margin-bottom:4px}
-.transition-card .t-title{font-size:.95rem;font-weight:700;color:var(--brand);margin-bottom:4px}
-.transition-card .t-desc{font-size:.82rem;color:var(--text);line-height:1.5}
+.transition-card .t-title{font-size:.95rem;font-weight:800;color:var(--brand-ink);margin-bottom:4px}
+.transition-card .t-desc{font-size:.85rem;color:var(--text);line-height:1.5}
 
 /* Cards & fields */
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
-label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem;cursor:pointer}
-.hint{font-size:.78rem;color:var(--muted);margin-bottom:8px}
-input[type=number]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1.05rem;font-family:inherit}
-input[type=number]:focus{outline:2px solid var(--primary);border-color:var(--primary)}
-.field{margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4);margin-bottom:var(--space-4);box-shadow:var(--shadow-sm)}
+label{display:block;font-weight:700;margin-bottom:6px;font-size:.9rem;cursor:pointer;color:var(--text)}
+.hint{font-size:.8rem;color:var(--muted);margin-bottom:8px;line-height:1.4}
+input[type=number],select,input[type=text]{width:100%;min-height:var(--touch);padding:12px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:16px;font-family:inherit;background:#fff;color:var(--text);transition:border-color .15s,box-shadow .15s}
+input[type=number]:focus,select:focus,input[type=text]:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.22)}
+.field{margin-bottom:var(--space-4)}
 .field:last-child{margin-bottom:0}
-input[type=range]{width:100%;accent-color:var(--primary)}
+input[type=range]{width:100%;accent-color:var(--primary);min-height:44px}
 
 .range-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.range-val{font-weight:700;color:var(--primary)}
+.range-val{font-weight:800;color:var(--primary)}
 
-.radio-group label.inline{display:inline;font-weight:400;margin-right:16px;cursor:pointer}
-.radio-group input[type=radio]{margin-right:4px;vertical-align:middle}
+.radio-group{display:flex;flex-wrap:wrap;gap:8px 14px}
+.radio-group label.inline{display:inline-flex;align-items:center;gap:6px;font-weight:600;margin-right:0;cursor:pointer;min-height:44px;padding:4px 0}
+.radio-group input[type=radio]{width:18px;height:18px;margin:0;accent-color:var(--brand)}
 
 /* Result cards */
-.result-card{text-align:center;padding:24px 20px}
-.result-label{color:var(--muted);font-size:.85rem;margin-bottom:4px}
-.result-number{font-size:2.2rem;font-weight:800;color:var(--primary);line-height:1.2}
+.result-card{text-align:center;padding:var(--space-5) var(--space-4)}
+.result-label{color:var(--muted);font-size:.85rem;margin-bottom:4px;font-weight:600}
+.result-number{font-size:clamp(1.6rem,6vw,2.2rem);font-weight:800;color:var(--primary);line-height:1.2;font-variant-numeric:tabular-nums}
 .result-secondary{font-size:.9rem;color:var(--muted);margin-top:4px}
 
 .progress-bar{height:10px;background:var(--border);border-radius:99px;overflow:hidden;margin:14px 0 6px}
-.progress-fill{height:100%;background:var(--primary);width:0%;transition:width .3s}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--primary));width:0%;transition:width .25s ease}
 .progress-text{font-size:.8rem;color:var(--muted)}
 
 .status-line{margin-top:14px;font-size:1rem;font-weight:700}
 .status-line.inprogress{color:var(--primary-dark)}
-.status-line.done{color:var(--green);background:var(--green-bg);padding:10px;border-radius:8px}
+.status-line.done{color:var(--green);background:var(--green-bg);padding:12px;border-radius:var(--radius-sm)}
 
-.share-btn{margin-top:12px;background:var(--primary);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
-.share-btn:hover{background:var(--primary-dark)}
+.share-btn,button.share-btn,.btn-primary{margin-top:12px;background:var(--primary);color:#fff;border:none;min-height:var(--touch);padding:12px 20px;border-radius:var(--radius-sm);font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s,transform .15s}
+.share-btn:hover,.btn-primary:hover{background:var(--primary-dark)}
+.share-btn:active,.btn-primary:active{transform:scale(.98)}
+.share-btn:focus-visible,.btn-primary:focus-visible,button:focus-visible,.link-btn:focus-visible,.audience-chip:focus-visible,.preset-btn:focus-visible,.rights-tab:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(15,118,110,.4)}
 
 .retire-outputs{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-.retire-outputs .ro-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px}
+.retire-outputs .ro-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px;gap:12px}
 .retire-outputs .ro-row:first-child{border-top:none;padding-top:0}
 .retire-outputs .ro-label{font-size:.88rem;color:var(--muted);text-align:left}
-.retire-outputs .ro-val{font-size:1.2rem;font-weight:700;color:var(--text)}
-.retire-outputs .ro-val.highlight{color:var(--brand);font-size:1.4rem}
+.retire-outputs .ro-val{font-size:1.15rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+.retire-outputs .ro-val.highlight{color:var(--brand);font-size:1.35rem}
 .retire-outputs .ro-val.danger{color:var(--warn)}
 
 .interest-breakdown{display:flex;justify-content:center;gap:20px;margin-top:12px;flex-wrap:wrap}
 .interest-breakdown .stat{text-align:center;min-width:100px}
-.interest-breakdown .stat-val{font-size:1.1rem;font-weight:700}
+.interest-breakdown .stat-val{font-size:1.1rem;font-weight:800;font-variant-numeric:tabular-nums}
 .interest-breakdown .stat-val.positive{color:var(--brand)}
 .interest-breakdown .stat-label{font-size:.76rem;color:var(--muted)}
 
 details.assumptions{margin-top:12px;font-size:.85rem}
-details.assumptions summary{color:var(--muted);cursor:pointer;font-weight:600;margin-bottom:8px}
+details.assumptions summary{color:var(--muted);cursor:pointer;font-weight:700;margin-bottom:8px;min-height:44px;display:flex;align-items:center}
 details.assumptions .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-details.assumptions .grid .assump-field label{font-weight:400;font-size:.82rem}
-details.assumptions .grid .assump-field input{font-size:.9rem}
+details.assumptions .grid .assump-field label{font-weight:600;font-size:.82rem}
+details.assumptions .grid .assump-field input{font-size:16px}
 
-.disclaimer{background:#fefce8;border:1px solid #fde047;border-radius:12px;padding:14px 16px;font-size:.8rem;color:#713f12;margin-bottom:16px}
-.disclaimer strong{display:block;margin-bottom:2px}
+.disclaimer{background:#fefce8;border:1px solid #fde047;border-radius:var(--radius);padding:14px 16px;font-size:.82rem;color:#713f12;margin-bottom:16px;line-height:1.5}
+.disclaimer strong{display:block;margin-bottom:4px}
 footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 
-.preset-btn{display:block;width:100%;margin:0 0 12px;padding:10px 14px;border:1px dashed var(--primary);border-radius:8px;background:#eff6ff;color:var(--primary-dark);font:600 .85rem inherit;cursor:pointer;text-align:left}.preset-btn:hover{background:#dbeafe}
+.preset-btn{display:flex;align-items:center;width:100%;min-height:var(--touch);margin:0 0 12px;padding:12px 14px;border:1.5px dashed var(--primary);border-radius:var(--radius-sm);background:var(--primary-soft);color:var(--primary-dark);font:700 .85rem inherit;cursor:pointer;text-align:left;transition:background .15s}
+.preset-btn:hover{background:#bfdbfe}
+
+/* Tools group */
+.tools-group{margin:var(--space-6) 0 var(--space-4);padding:var(--space-4);border-radius:18px;background:linear-gradient(180deg,#f8fafc,#eef2ff);border:1.5px solid #e2e8f0}
+.tools-group-head{margin-bottom:var(--space-4)}
+.tools-group-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:#6366f1;text-transform:uppercase}
+.tools-group-title{font-size:1.15rem;font-weight:800;margin-top:4px}
+.tools-group-desc{font-size:.85rem;color:var(--muted);margin-top:4px;line-height:1.45}
+.tools-group details.tool-fold{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:var(--space-3);overflow:hidden;box-shadow:var(--shadow-sm)}
+.tools-group details.tool-fold>summary{list-style:none;cursor:pointer;min-height:var(--touch);padding:14px 16px;font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff}
+.tools-group details.tool-fold>summary::-webkit-details-marker{display:none}
+.tools-group details.tool-fold>summary::after{content:'▾';color:var(--muted);font-size:1rem;transition:transform .2s}
+.tools-group details.tool-fold[open]>summary::after{transform:rotate(180deg)}
+.tools-group details.tool-fold>summary:hover{background:#f8fafc}
+.tools-group details.tool-fold .tool-fold-body{padding:0 12px 14px}
+
+/* Sticky bottom nav */
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;pointer-events:none;padding:0 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.bottom-nav-inner{pointer-events:auto;display:flex;width:100%;max-width:640px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:18px;box-shadow:0 -4px 24px rgba(15,23,42,.1);overflow:hidden}
+.bottom-nav a{flex:1;min-height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:var(--muted);font-size:.65rem;font-weight:700;padding:8px 4px;transition:background .15s,color .15s}
+.bottom-nav a .nav-ico{font-size:1.1rem;line-height:1}
+.bottom-nav a.active{color:var(--brand-ink);background:var(--brand-bg)}
+.bottom-nav a:focus-visible{outline:none;box-shadow:inset 0 0 0 3px rgba(15,118,110,.35)}
+
+/* section scroll margin under sticky stage nav */
+#stage1,#stage2,#stage3,#user_dashboard,#tools_group{scroll-margin-top:72px}
 
 /* Banner Ads Mock-up */
 .ad-mockup{min-height:100px;margin:18px 0 24px;padding:14px 18px;border:1px dashed #94a3b8;border-radius:10px;background:linear-gradient(135deg,#e2e8f0,#f8fafc 55%,#dbeafe);display:flex;align-items:center;justify-content:space-between;gap:12px;color:#334155;box-shadow:0 2px 8px rgba(15,23,42,.05)}
@@ -145,7 +193,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .audience-title{font-size:.95rem;font-weight:800;margin-bottom:4px;color:#0f172a}
 .audience-desc{font-size:.78rem;color:#64748b;margin-bottom:12px;line-height:1.45}
 .audience-chips{display:flex;flex-wrap:wrap;gap:8px}
-.audience-chip{border:2px solid #e2e8f0;background:#f8fafc;color:#334155;border-radius:999px;padding:8px 12px;font:700 .78rem inherit;cursor:pointer;transition:all .2s}
+.audience-chip{border:2px solid #e2e8f0;background:#f8fafc;color:#334155;border-radius:999px;padding:10px 14px;min-height:var(--touch);font:700 .78rem inherit;cursor:pointer;transition:all .2s}
 .audience-chip:hover{border-color:#93c5fd;background:#eff6ff}
 .audience-chip.active{border-color:#1e6f5c;background:#e8f5e9;color:#14532d;box-shadow:0 0 0 3px rgba(30,111,92,.12)}
 .audience-tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,#ecfdf5,#f0f9ff);border:1px solid #bbf7d0;font-size:.8rem;color:#14532d;font-weight:600;line-height:1.45}
@@ -258,12 +306,15 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">ข้ามไปเนื้อหาหลัก</a>
 <div class="container">
+<main id="main" tabindex="-1">
 
 <!-- HEADER -->
-<div class="header">
+<header class="header">
   <div class="brand">KasienD</div>
   <div class="sub">เกษียณดี</div>
+  <p class="tagline">เครื่องมือวางแผนการเงินเพื่อการศึกษา · 3 ขั้นตอน</p>
   <div class="ad-mockup" aria-label="พื้นที่โฆษณาจำลอง">
     <div>
       <div class="ad-kicker">BANNER ADS MOCK-UP</div>
@@ -328,10 +379,10 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       </div>
     </div>
   </section>
-</div>
+</header>
 
 <!-- AUDIENCE PICKER -->
-<div class="audience-box" id="audience_box">
+<div class="audience-box" id="audience_box" role="group" aria-label="เลือกกลุ่มผู้ใช้">
   <div class="audience-title">👤 คุณเป็นกลุ่มไหน? (เลือกได้ — เปลี่ยนได้ตลอด)</div>
   <div class="audience-desc">เลือกเพื่อปรับคำแนะนำและค่าตัวอย่างให้เข้ากับชีวิตคุณ — ยังใช้เครื่องมือชุดเดียวกันทั้ง 3 ขั้น</div>
   <div class="audience-chips" id="audience_chips">
@@ -349,16 +400,16 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   <div class="journey-title">✨ 3 ขั้นตอน สู่เกษียณอย่างมั่นคง</div>
   <div class="journey-desc" id="journey_desc">ไม่ว่าคุณจะเพิ่งเริ่มคิดเรื่องการเงิน หรือเตรียมตัวมานาน — เริ่มจากขั้นที่ 1 แล้วเดินไปทีละขั้น</div>
 
-  <div class="stage-nav">
-    <div class="stage-dot active" id="nav_stage1">
+  <div class="stage-nav" role="navigation" aria-label="ทางลัด 3 ขั้นตอน">
+    <button type="button" class="stage-dot active" id="nav_stage1">
       <span class="dot-num">①</span> ตั้งกำแพงกันภัย
-    </div>
-    <div class="stage-dot" id="nav_stage2">
+    </button>
+    <button type="button" class="stage-dot" id="nav_stage2">
       <span class="dot-num">②</span> ให้เงินทำงาน
-    </div>
-    <div class="stage-dot" id="nav_stage3">
+    </button>
+    <button type="button" class="stage-dot" id="nav_stage3">
       <span class="dot-num">③</span> มองเป้าหมายไกล
-    </div>
+    </button>
   </div>
 </div>
 
@@ -573,7 +624,18 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </div>
 </div>
 
+<!-- ========== TOOLS GROUP ========== -->
+<section class="tools-group" id="tools_group" aria-label="เครื่องมือเสริมจากคลังความรู้ไทย">
+  <div class="tools-group-head">
+    <div class="tools-group-kicker">KNOWLEDGE TOOLS</div>
+    <h2 class="tools-group-title">🧰 เครื่องมือเสริม (สิทธิ · ออม · ตรวจสุขภาพการเงิน)</h2>
+    <p class="tools-group-desc">ใช้หลัง 3 ขั้นหลักได้ — กางเฉพาะหัวข้อที่สนใจ ข้อมูลเพื่อการศึกษาจากคลังความรู้ไทย</p>
+  </div>
+
 <!-- ========== HEALTH RIGHTS (B5) ========== -->
+<details class="tool-fold" open>
+<summary>🩺 รู้สิทธิสุขภาพ 3 ระบบ + เงินสดกันช็อก</summary>
+<div class="tool-fold-body">
 <section class="rights-section" id="rights_section" aria-label="รู้สิทธิสุขภาพ 3 ระบบ">
   <div class="rights-head">
     <div class="rights-kicker">HEALTH RIGHTS</div>
@@ -683,8 +745,13 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     </div>
   </div>
 </section>
+</div>
+</details>
 
 <!-- ========== SSO OLD-AGE ESTIMATE (B1) ========== -->
+<details class="tool-fold">
+<summary>🧮 ประมาณการชราภาพประกันสังคม (SSO)</summary>
+<div class="tool-fold-body">
 <section class="sso-section" id="sso_section" aria-label="ประมาณการชราภาพประกันสังคม">
   <div class="sso-card">
     <div class="sso-kicker">SSO · EDUCATION ONLY</div>
@@ -726,8 +793,13 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     </div>
   </div>
 </section>
+</div>
+</details>
 
 <!-- ========== PVD PROJECTION (B3) ========== -->
+<details class="tool-fold">
+<summary>💼 จำลองออม PVD</summary>
+<div class="tool-fold-body">
 <section class="pvd-section" id="pvd_section" aria-label="จำลองกองทุนสำรองเลี้ยงชีพ PVD">
   <div class="pvd-card">
     <div class="pvd-kicker">PVD · FROM KNOWLEDGE (ก.ล.ต. / SET)</div>
@@ -790,7 +862,13 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     </div>
   </div>
 </section>
+</div>
+</details>
 
+<!-- ========== B4–B8 ========== -->
+<details class="tool-fold">
+<summary>🏛️ กบข. · กฎ 4% · ฟรีแลนซ์ · อัตราส่วนสุขภาพการเงิน</summary>
+<div class="tool-fold-body">
 <!-- ========== B4 GPF ========== -->
 <section class="tool-section" id="gpf_section">
   <div class="tool-card">
@@ -905,6 +983,8 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     <div class="tool-foot">เกณฑ์อ้างอิงการศึกษา: ออม ≥10% ของรายได้ · สภาพคล่อง 3–6 เดือน (ฟรีแลนซ์หนาขึ้น) · หนี้/สินทรัพย์ ≤50% · ผ่อนหนี้/รายได้ ≤45%</div>
   </div>
 </section>
+</div>
+</details>
 
 <div class="link-hub" id="link_hub">
   <h3>🔗 การเชื่อมโยงค่าอัตโนมัติ</h3>
@@ -913,6 +993,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   <button type="button" class="link-btn" id="btn_link_income">กระจายรายได้ไป PVD/กบข./SSO/ฟรีแลนซ์</button>
   <div class="link-status" id="link_status"></div>
 </div>
+</section><!-- /tools_group -->
 
 <!-- ========== DISCLAIMER ========== -->
 <div class="disclaimer" style="margin-top:32px">
@@ -922,7 +1003,18 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 
 <footer>KasienD · เกษียณดี — เครื่องมือเพื่อการศึกษา · ไม่เก็บข้อมูลผู้ใช้</footer>
 
+</main>
 </div>
+
+<nav class="bottom-nav" aria-label="เมนูหลัก">
+  <div class="bottom-nav-inner">
+    <a href="#user_dashboard" data-nav="dash"><span class="nav-ico" aria-hidden="true">🗺️</span>ภาพรวม</a>
+    <a href="#stage1" data-nav="s1"><span class="nav-ico" aria-hidden="true">①</span>กันภัย</a>
+    <a href="#stage2" data-nav="s2"><span class="nav-ico" aria-hidden="true">②</span>เติบโต</a>
+    <a href="#stage3" data-nav="s3"><span class="nav-ico" aria-hidden="true">③</span>เกษียณ</a>
+    <a href="#tools_group" data-nav="tools"><span class="nav-ico" aria-hidden="true">🧰</span>เครื่องมือ</a>
+  </div>
+</nav>
 
 <script>
 (function(){
@@ -1210,9 +1302,38 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if(!exp&&!svd&&!pmt)elNote.hidden=true;
   }
   /* ─── Stage nav click → scroll ─── */
-  document.getElementById('nav_stage1').addEventListener('click',function(){document.getElementById('stage1').scrollIntoView({behavior:'smooth',block:'start'});});
-  document.getElementById('nav_stage2').addEventListener('click',function(){document.getElementById('stage2').scrollIntoView({behavior:'smooth',block:'start'});});
-  document.getElementById('nav_stage3').addEventListener('click',function(){document.getElementById('stage3').scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('nav_stage1').addEventListener('click',function(){document.getElementById('stage1').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(1)});
+  document.getElementById('nav_stage2').addEventListener('click',function(){document.getElementById('stage2').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(2)});
+  document.getElementById('nav_stage3').addEventListener('click',function(){document.getElementById('stage3').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(3)});
+  function setStageNav(n){
+    ['nav_stage1','nav_stage2','nav_stage3'].forEach(function(id,i){
+      var el=document.getElementById(id); if(el) el.classList.toggle('active', i+1===n);
+    });
+  }
+  /* bottom nav active state */
+  (function(){
+    var links=document.querySelectorAll('.bottom-nav a');
+    var map=[
+      {id:'user_dashboard', key:'dash'},
+      {id:'stage1', key:'s1'},
+      {id:'stage2', key:'s2'},
+      {id:'stage3', key:'s3'},
+      {id:'tools_group', key:'tools'}
+    ];
+    function refresh(){
+      var y=window.scrollY+120, current='dash';
+      map.forEach(function(m){
+        var el=document.getElementById(m.id);
+        if(el && el.offsetTop<=y) current=m.key;
+      });
+      links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-nav')===current); });
+      if(current==='s1') setStageNav(1);
+      if(current==='s2') setStageNav(2);
+      if(current==='s3') setStageNav(3);
+    }
+    window.addEventListener('scroll', refresh, {passive:true});
+    refresh();
+  })();
 
   /* ═══════════════════════ STAGE 1: EMERGENCY FUND ═══════════════════════ */
   var ef_expense=document.getElementById('ef_expense'),
