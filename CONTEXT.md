@@ -117,8 +117,8 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v1.7 = 3 Stage + Dashboard สดใส + Banner mock + Audience picker จาก knowledge ไทย; ยังทดสอบบนมือถือผู้สร้างตาม Q28=ข
-_Avoid_: live, production
+v1.7 = ขึ้น GitHub Pages แล้ว (public) — 3 Stage + Dashboard + Audience picker + Banner mock; knowledge/ ไม่ขึ้น public
+_Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:
 รายการจาก knowledge (บำนาญ SSO, เงิน 3 ก้อน, PVD/กบข., checklist สิทธิ ฯลฯ) บันทึกใน ADR 0024 — ยังไม่สร้างจนกว่ามีผู้ใช้จริงหรือผ่านการทดสอบมือถือแล้ว
