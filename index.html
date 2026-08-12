@@ -2097,7 +2097,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     document.getElementById('hr_ratios').innerHTML=html;
     document.getElementById('hr_note').textContent='สีเขียว=ผ่านเกณฑ์การศึกษา · เหลือง=ใกล้เคียง · แดง=ควรปรับปรุง — ไม่ใช่คะแนนเครดิตหรือคำแนะนำเฉพาะบุคคล';
   }
-  function bindCalc(ids, fn){ids.forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',fn)});fn()}
+  function bindCalc(ids, fn){ids.forEach(function(id){var el=document.getElementById(id);if(el){el.addEventListener('input',fn);el.addEventListener('change',fn)}});fn()}
   bindCalc(['gpf_salary','gpf_years','gpf_extra','gpf_return','gpf_bal'], calcGPF);
   bindCalc(['w4_nest','w4_rate','w4_years','w4_ret'], calcW4);
   bindCalc(['fl_income','fl_expense','fl_have','fl_months'], calcFL);
