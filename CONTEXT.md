@@ -117,9 +117,9 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.1 = v2.0 + จำลอง PVD (B3) จากคลัง ก.ล.ต./SET
+v2.5 = backlog ครบ B1–B8 (SSO, PVD, กบข., 4%, ฟรีแลนซ์, อัตราส่วน) + Stage Journey เดิม — ทั้งหมดการศึกษา
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:
-รายการจาก knowledge (บำนาญ SSO, เงิน 3 ก้อน, PVD/กบข., checklist สิทธิ ฯลฯ) บันทึกใน ADR 0024 — ยังไม่สร้างจนกว่ามีผู้ใช้จริงหรือผ่านการทดสอบมือถือแล้ว
-_Avoid_: build-all-now, calc sprawl
+B1–B8 ปลดครบแล้วใน v2.5 (ดู ADR 0024–0030) — รายการใหม่ต้องมีผู้ใช้ feedback ก่อน
+_Avoid_: endless feature add

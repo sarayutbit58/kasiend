@@ -224,6 +224,29 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .pvd-stat span{font-size:.7rem;color:#64748b}
 .pvd-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
 
+/* Shared extra tools */
+.tool-section{margin:28px 0 8px}
+.tool-card{background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:18px 16px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
+.tool-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase}
+.tool-kicker.gpf{color:#b45309}
+.tool-kicker.w4{color:#be123c}
+.tool-kicker.fl{color:#0369a1}
+.tool-kicker.hr{color:#4f46e5}
+.tool-title{font-size:1.1rem;font-weight:800;margin:4px 0;color:#0f172a}
+.tool-desc{font-size:.8rem;color:#64748b;line-height:1.45;margin-bottom:12px}
+.tool-result{margin-top:12px;padding:14px;border-radius:12px;border:1.5px solid #e2e8f0;background:#f8fafc}
+.tool-result .big{font-size:1.3rem;font-weight:800;color:#0f172a;margin:4px 0}
+.tool-result .lbl{font-size:.72rem;font-weight:800;color:#64748b}
+.tool-result .sub{font-size:.8rem;color:#334155;line-height:1.5}
+.ratio-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.ratio-item{padding:10px;border-radius:10px;background:#fff;border:1px solid #e2e8f0}
+.ratio-item.ok{border-color:#86efac;background:#f0fdf4}
+.ratio-item.warn{border-color:#fcd34d;background:#fffbeb}
+.ratio-item.bad{border-color:#fca5a5;background:#fef2f2}
+.ratio-item b{display:block;font-size:.95rem}
+.ratio-item span{font-size:.7rem;color:#64748b}
+.tool-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
+
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
 </style>
@@ -755,6 +778,117 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       จากคลังความรู้: PVD ช่วยได้เพราะมี<strong>เงินสมทบนายจ้าง</strong> + วินัยหักเดือน + กรอบลดหย่อนภาษีกลุ่มออมเกษียณ (เพดานรวมตามกฎหมาย) — เครื่องนี้ไม่คำนวณภาษีตอนออกจากงาน/เงื่อนไขสมาชิกครบ 5 ปี<br>
       <strong>ไม่ใช่</strong> ยอดจากบลจ. หรือนายจ้างของคุณ
     </div>
+  </div>
+</section>
+
+<!-- ========== B4 GPF ========== -->
+<section class="tool-section" id="gpf_section">
+  <div class="tool-card">
+    <div class="tool-kicker gpf">GPF · FROM KNOWLEDGE (กบข./SET)</div>
+    <div class="tool-title">🏛️ จำลองโครงสร้างเงิน กบข. (การศึกษา)</div>
+    <div class="tool-desc">จำลองเงินสะสมสมาชิก + สมทบรัฐ 3% + ชดเชย 2% + ออมเพิ่ม — ไม่ดึงยอด My GPF จริง</div>
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0"><label for="gpf_salary">เงินเดือน (บาท)</label><input type="number" id="gpf_salary" min="0" step="100" placeholder="เช่น 35000"></div>
+      <div class="field" style="margin-bottom:0"><label for="gpf_years">จำนวนปีที่จำลอง</label><input type="number" id="gpf_years" min="1" max="40" value="20"></div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0"><label for="gpf_extra">ออมเพิ่ม (% ของเงินเดือน)</label><div class="hint">นอกเหนือสะสมบังคับ 3% — รวมแล้วแนวไม่เกิน ~15%</div><input type="number" id="gpf_extra" min="0" max="12" step="1" value="0"></div>
+      <div class="field" style="margin-bottom:0"><label for="gpf_return">ผลตอบแทนสมมติ (%/ปี)</label><input type="number" id="gpf_return" min="0" max="12" step="0.1" value="5"></div>
+    </div>
+    <div class="field" style="margin-top:12px"><label for="gpf_bal">เงิน กบข. ที่มีอยู่แล้ว (บาท)</label><input type="number" id="gpf_bal" min="0" step="100" placeholder="ไม่บังคับ"></div>
+    <div class="tool-result">
+      <div class="lbl">มูลค่าโดยประมาณ ณ สิ้นช่วง</div>
+      <div class="big" id="gpf_fv">—</div>
+      <div class="ratio-grid">
+        <div class="ratio-item"><span>สะสมสมาชิก 3%+ออมเพิ่ม</span><b id="gpf_mem">—</b></div>
+        <div class="ratio-item"><span>รัฐสมทบ 3% + ชดเชย 2%</span><b id="gpf_gov">—</b></div>
+        <div class="ratio-item"><span>ผลตอบแทนโดยประมาณ</span><b id="gpf_gain">—</b></div>
+        <div class="ratio-item"><span>หักเดือนแรก (สมาชิก)</span><b id="gpf_m0">—</b></div>
+      </div>
+      <div class="sub" id="gpf_note" style="margin-top:8px">ใส่เงินเดือนเพื่อจำลอง</div>
+    </div>
+    <div class="tool-foot">โครงสร้างจากคู่มือ กบข.: สะสม / สมทบ / ชดเชย (+ ประเดิมเฉพาะบางสมาชิก — ไม่จำลอง) · ไม่รวมบำนาญสูตรกรมบัญชีกลาง · ตรวจจริงที่ My GPF / 1179</div>
+  </div>
+</section>
+
+<!-- ========== B6 4% RULE ========== -->
+<section class="tool-section" id="w4_section">
+  <div class="tool-card">
+    <div class="tool-kicker w4">WITHDRAWAL · EDUCATION</div>
+    <div class="tool-title">📉 กฎถอนเงินหลังเกษียณ (~4%)</div>
+    <div class="tool-desc">ประมาณการเงินใช้ปีแรกจากเงินก้อน — แนวการศึกษา (Bengen/คู่มือ SET) ไม่รับประกันว่าเงินจะไม่หมด</div>
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0"><label for="w4_nest">เงินก้อน ณ วันเกษียณ (บาท)</label><input type="number" id="w4_nest" min="0" step="1000" placeholder="เช่น 6000000"></div>
+      <div class="field" style="margin-bottom:0"><label for="w4_rate">อัตราถอนปีแรก (%)</label><input type="number" id="w4_rate" min="1" max="10" step="0.1" value="4"></div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0"><label for="w4_years">จำนวนปีที่วางแผนใช้</label><input type="number" id="w4_years" min="5" max="50" value="25"></div>
+      <div class="field" style="margin-bottom:0"><label for="w4_ret">ผลตอบแทนระหว่างถอน (%/ปี)</label><input type="number" id="w4_ret" min="0" max="10" step="0.1" value="3"></div>
+    </div>
+    <div class="tool-result">
+      <div class="lbl">ถอนได้ปีแรก (การศึกษา)</div>
+      <div class="big" id="w4_year">—</div>
+      <div class="sub" id="w4_month">—</div>
+      <div class="sub" id="w4_sim" style="margin-top:8px">ใส่เงินก้อนเพื่อคำนวณ</div>
+    </div>
+    <div class="tool-foot">จำลองหยาบ: ถอนต้นปีคงที่เท่าปีแรก แล้วเงินต้นโตตามผลตอบแทนสมมติ — ถ้าหมดก่อนครบปีจะแจ้ง · ไม่ใช่คำแนะนำการลงทุน</div>
+  </div>
+</section>
+
+<!-- ========== B7 FREELANCER BUDGET ========== -->
+<section class="tool-section" id="fl_section">
+  <div class="tool-card">
+    <div class="tool-kicker fl">FREELANCER · FROM KNOWLEDGE (SET)</div>
+    <div class="tool-title">🛠️ งบประมาณยืดหยุ่นฟรีแลนซ์</div>
+    <div class="tool-desc">แบ่งรายได้เฉลี่ยแบบ 50/30/20 + เป้าสำรอง 6–12 เดือน สำหรับรายได้ไม่นิ่ง</div>
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0"><label for="fl_income">รายได้เฉลี่ยต่อเดือน (บาท)</label><input type="number" id="fl_income" min="0" step="100" placeholder="เช่น 40000"></div>
+      <div class="field" style="margin-bottom:0"><label for="fl_expense">ค่าใช้จ่ายจำเป็นต่อเดือน (บาท)</label><input type="number" id="fl_expense" min="0" step="100" placeholder="เช่น 18000"></div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0"><label for="fl_have">เงินสำรองที่มี (บาท)</label><input type="number" id="fl_have" min="0" step="100" placeholder="ไม่บังคับ"></div>
+      <div class="field" style="margin-bottom:0"><label for="fl_months">เป้าสำรอง (เดือน)</label><div class="hint">ฟรีแลนซ์มัก 6–12</div><input type="number" id="fl_months" min="3" max="18" value="9"></div>
+    </div>
+    <div class="tool-result">
+      <div class="lbl">แผนแบ่งรายได้ (50 / 30 / 20)</div>
+      <div class="ratio-grid">
+        <div class="ratio-item"><span>50% จำเป็น</span><b id="fl_need">—</b></div>
+        <div class="ratio-item"><span>30% เป้าหมาย/ออม/หนี้</span><b id="fl_goal">—</b></div>
+        <div class="ratio-item"><span>20% ไลฟ์สไตล์</span><b id="fl_life">—</b></div>
+        <div class="ratio-item"><span>เป้าเงินสำรอง</span><b id="fl_ef">—</b></div>
+      </div>
+      <div class="sub" id="fl_note" style="margin-top:8px">ใส่รายได้เฉลี่ยเพื่อคำนวณ</div>
+    </div>
+    <div class="tool-foot">จากคู่มือฟรีแลนซ์ SET: Pay Yourself First · แยกบัญชีรายได้/ใช้/ออม · เดือนรายได้สูงให้เทเข้าเป้าออมก่อน · ตัวเลข 50/30/20 ปรับได้ตามจริง</div>
+  </div>
+</section>
+
+<!-- ========== B8 HEALTH RATIOS ========== -->
+<section class="tool-section" id="hr_section">
+  <div class="tool-card">
+    <div class="tool-kicker hr">CHECKUP · FROM KNOWLEDGE (SET/ก.ล.ต.)</div>
+    <div class="tool-title">❤️‍🩹 ตรวจอัตราส่วนสุขภาพการเงิน</div>
+    <div class="tool-desc">เช็กคร่าวๆ ว่าออมพอไหม หนี้หนักไหม มีสภาพคล่องกี่เดือน — เกณฑ์การศึกษา ไม่ใช่คะแนนเครดิต</div>
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0"><label for="hr_income">รายได้ต่อเดือน</label><input type="number" id="hr_income" min="0" step="100"></div>
+      <div class="field" style="margin-bottom:0"><label for="hr_spend">รายจ่ายต่อเดือน</label><input type="number" id="hr_spend" min="0" step="100"></div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0"><label for="hr_save">ออม/ลงทุนต่อเดือน</label><input type="number" id="hr_save" min="0" step="100"></div>
+      <div class="field" style="margin-bottom:0"><label for="hr_liquid">เงินสด+เงินฝาก (สภาพคล่อง)</label><input type="number" id="hr_liquid" min="0" step="100"></div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0"><label for="hr_assets">สินทรัพย์รวม</label><input type="number" id="hr_assets" min="0" step="100"></div>
+      <div class="field" style="margin-bottom:0"><label for="hr_debt">หนี้สินรวม</label><input type="number" id="hr_debt" min="0" step="100"></div>
+    </div>
+    <div class="field" style="margin-top:12px"><label for="hr_debt_pay">ผ่อนหนี้รวมต่อเดือน</label><input type="number" id="hr_debt_pay" min="0" step="100" placeholder="ไม่บังคับ"></div>
+    <div class="tool-result">
+      <div class="lbl">ความมั่งคั่งสุทธิ</div>
+      <div class="big" id="hr_nw">—</div>
+      <div class="ratio-grid" id="hr_ratios"></div>
+      <div class="sub" id="hr_note" style="margin-top:8px">กรอกอย่างน้อยรายได้หรือสินทรัพย์</div>
+    </div>
+    <div class="tool-foot">เกณฑ์อ้างอิงการศึกษา: ออม ≥10% ของรายได้ · สภาพคล่อง 3–6 เดือน (ฟรีแลนซ์หนาขึ้น) · หนี้/สินทรัพย์ ≤50% · ผ่อนหนี้/รายได้ ≤45%</div>
   </div>
 </section>
 
@@ -1375,6 +1509,136 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if(el)el.addEventListener('input',calcPVD);
   });
   calcPVD();
+
+  /* ─── B4 GPF / B6 4% / B7 freelancer / B8 ratios ─── */
+  function projectSimple(salary0, years, memPct, govPct, retPct, bal0){
+    var months=Math.max(0,Math.round(years*12)), r=retPct/100/12;
+    var sal=salary0, bal=bal0||0, mem=0, gov=0;
+    for(var m=1;m<=months;m++){
+      var a=sal*(memPct/100), b=sal*(govPct/100);
+      mem+=a; gov+=b; bal=bal*(1+r)+a+b;
+    }
+    return {fv:bal, mem:mem, gov:gov};
+  }
+  function calcGPF(){
+    var sal=parseFloat(document.getElementById('gpf_salary').value)||0;
+    var years=parseFloat(document.getElementById('gpf_years').value)||0;
+    var extra=parseFloat(document.getElementById('gpf_extra').value)||0;
+    var ret=parseFloat(document.getElementById('gpf_return').value)||0;
+    var bal0=parseFloat(document.getElementById('gpf_bal').value)||0;
+    if(sal<=0||years<=0){
+      document.getElementById('gpf_fv').textContent='—';
+      ['gpf_mem','gpf_gov','gpf_gain','gpf_m0'].forEach(function(id){document.getElementById(id).textContent='—'});
+      document.getElementById('gpf_note').textContent='ใส่เงินเดือนเพื่อจำลอง';
+      return;
+    }
+    if(extra>12) extra=12;
+    var memPct=3+extra, govPct=5; /* สมทบ 3% + ชดเชย 2% */
+    var p=projectSimple(sal,years,memPct,govPct,ret,bal0);
+    var gain=p.fv-p.mem-p.gov-bal0;
+    document.getElementById('gpf_fv').textContent=fmt(p.fv);
+    document.getElementById('gpf_mem').textContent=fmt(p.mem);
+    document.getElementById('gpf_gov').textContent=fmt(p.gov);
+    document.getElementById('gpf_gain').textContent=fmt(Math.max(0,gain));
+    document.getElementById('gpf_m0').textContent=fmt(sal*(memPct/100));
+    document.getElementById('gpf_note').textContent='สมาชิก '+memPct+'%/เดือน (3%+ออมเพิ่ม '+extra+'%) · ฝั่งรัฐสมมติ 5%/เดือน (สมทบ3+ชดเชย2) · ไม่รวมเงินประเดิมและบำนาญนอก กบข.';
+  }
+  function calcW4(){
+    var nest=parseFloat(document.getElementById('w4_nest').value)||0;
+    var rate=parseFloat(document.getElementById('w4_rate').value)||0;
+    var years=parseInt(document.getElementById('w4_years').value,10)||0;
+    var ret=parseFloat(document.getElementById('w4_ret').value)||0;
+    if(nest<=0||rate<=0){
+      document.getElementById('w4_year').textContent='—';
+      document.getElementById('w4_month').textContent='—';
+      document.getElementById('w4_sim').textContent='ใส่เงินก้อนเพื่อคำนวณ';
+      return;
+    }
+    var y1=nest*(rate/100), m1=y1/12;
+    document.getElementById('w4_year').textContent=fmt(y1)+' / ปี';
+    document.getElementById('w4_month').textContent='ประมาณ '+fmt(m1)+' / เดือน ในปีแรก';
+    var bal=nest, okYears=0;
+    for(var y=1;y<=years;y++){
+      if(bal<=0)break;
+      bal-=y1;
+      if(bal<0){bal=0;break}
+      bal*=(1+ret/100);
+      okYears=y;
+    }
+    if(okYears>=years && bal>0) document.getElementById('w4_sim').textContent='จำลองหยาบ: ถอนคงที่เท่าปีแรกครบ '+years+' ปี แล้วยังเหลือราว '+fmt(bal)+' (สมมติผลตอบแทน '+ret+'%/ปี) — ไม่รับประกัน';
+    else document.getElementById('w4_sim').textContent='จำลองหยาบ: เงินอาจไม่พอถอนคงที่ครบ '+years+' ปี (อยู่ได้ราว '+okYears+' ปี ภายใต้สมมติฐาน) — ลองลดอัตราถอนหรือเพิ่มเงินก้อน';
+  }
+  function calcFL(){
+    var inc=parseFloat(document.getElementById('fl_income').value)||0;
+    var exp=parseFloat(document.getElementById('fl_expense').value)||0;
+    var have=parseFloat(document.getElementById('fl_have').value)||0;
+    var mo=parseFloat(document.getElementById('fl_months').value)||9;
+    if(inc<=0){
+      ['fl_need','fl_goal','fl_life','fl_ef'].forEach(function(id){document.getElementById(id).textContent='—'});
+      document.getElementById('fl_note').textContent='ใส่รายได้เฉลี่ยเพื่อคำนวณ';
+      return;
+    }
+    var need=inc*0.5, goal=inc*0.3, life=inc*0.2;
+    var base=exp>0?exp:need;
+    var ef=base*mo;
+    document.getElementById('fl_need').textContent=fmt(need);
+    document.getElementById('fl_goal').textContent=fmt(goal);
+    document.getElementById('fl_life').textContent=fmt(life);
+    document.getElementById('fl_ef').textContent=fmt(ef);
+    var msg='';
+    if(exp>0 && exp>need) msg+='ค่าใช้จ่ายจำเป็นสูงกว่ากรอบ 50% — ลองตัดรายจ่ายหรือเพิ่มรายได้เฉลี่ย · ';
+    if(have>0){
+      if(have>=ef) msg+='เงินสำรองที่มีครอบคลุมเป้า '+mo+' เดือนแล้ว · ';
+      else msg+='สำรองยังขาดอีก '+fmt(ef-have)+' · ';
+    }
+    msg+='เดือนรายได้สูง: เทส่วนเกินเข้าบัญชีออม/เป้าสำรองก่อนใช้ไลฟ์สไตล์';
+    document.getElementById('fl_note').textContent=msg;
+  }
+  function ratioBadge(label, valueText, status, tip){
+    return '<div class="ratio-item '+status+'"><span>'+label+'</span><b>'+valueText+'</b><span>'+tip+'</span></div>';
+  }
+  function calcHR(){
+    var inc=parseFloat(document.getElementById('hr_income').value)||0;
+    var spend=parseFloat(document.getElementById('hr_spend').value)||0;
+    var save=parseFloat(document.getElementById('hr_save').value)||0;
+    var liq=parseFloat(document.getElementById('hr_liquid').value)||0;
+    var assets=parseFloat(document.getElementById('hr_assets').value)||0;
+    var debt=parseFloat(document.getElementById('hr_debt').value)||0;
+    var dpay=parseFloat(document.getElementById('hr_debt_pay').value)||0;
+    var nw=assets-debt;
+    document.getElementById('hr_nw').textContent=(assets>0||debt>0)?fmt(nw):'—';
+    var html='', notes=[];
+    if(inc>0){
+      var sr=(save>0?save:(inc-spend))/inc*100;
+      if(save<=0 && spend>0) sr=Math.max(0,(inc-spend)/inc*100);
+      var st=sr>=10?'ok':(sr>=5?'warn':'bad');
+      html+=ratioBadge('อัตราการออม', (isFinite(sr)?sr.toFixed(1):'0')+'%', st, 'เป้าการศึกษา ≥ 10%');
+    }
+    if(liq>0 && (spend>0||inc>0)){
+      var base=spend>0?spend:inc*0.5;
+      var months=base>0?liq/base:0;
+      var st2=months>=6?'ok':(months>=3?'warn':'bad');
+      html+=ratioBadge('สภาพคล่อง', months.toFixed(1)+' เดือน', st2, 'ทั่วไป 3–6 เดือน / ฟรีแลนซ์หนาขึ้น');
+    }
+    if(assets>0){
+      var dr=debt/assets*100;
+      var st3=dr<=50?'ok':(dr<=70?'warn':'bad');
+      html+=ratioBadge('หนี้ / สินทรัพย์', dr.toFixed(1)+'%', st3, 'เป้าการศึกษา ≤ 50%');
+    }
+    if(inc>0 && dpay>0){
+      var dsr=dpay/inc*100;
+      var st4=dsr<=35?'ok':(dsr<=45?'warn':'bad');
+      html+=ratioBadge('ผ่อนหนี้ / รายได้', dsr.toFixed(1)+'%', st4, 'เป้าการศึกษา ≤ 45%');
+    }
+    if(!html){document.getElementById('hr_ratios').innerHTML='';document.getElementById('hr_note').textContent='กรอกอย่างน้อยรายได้หรือสินทรัพย์';return}
+    document.getElementById('hr_ratios').innerHTML=html;
+    document.getElementById('hr_note').textContent='สีเขียว=ผ่านเกณฑ์การศึกษา · เหลือง=ใกล้เคียง · แดง=ควรปรับปรุง — ไม่ใช่คะแนนเครดิตหรือคำแนะนำเฉพาะบุคคล';
+  }
+  function bindCalc(ids, fn){ids.forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('input',fn)});fn()}
+  bindCalc(['gpf_salary','gpf_years','gpf_extra','gpf_return','gpf_bal'], calcGPF);
+  bindCalc(['w4_nest','w4_rate','w4_years','w4_ret'], calcW4);
+  bindCalc(['fl_income','fl_expense','fl_have','fl_months'], calcFL);
+  bindCalc(['hr_income','hr_spend','hr_save','hr_liquid','hr_assets','hr_debt','hr_debt_pay'], calcHR);
 
   ret_share.addEventListener('click',function(){
     copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+
