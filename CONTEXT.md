@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.6.2 = Stage 2 ตารางรายปีดอกเบี้ยทบต้น (+ แถบสัดส่วน) — สูตรเดิม
+v2.7 = เครื่องมือวางแผนสุขภาพ+ประกันสุขภาพ (การศึกษา) + ทางลัดใน tools jump
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

@@ -137,7 +137,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .tools-jump button{min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid #c7d2fe;background:#fff;color:#3730a3;font:700 .75rem inherit;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
 .tools-jump button:hover,.tools-jump button:focus-visible{background:#e0e7ff;border-color:#818cf8;outline:none}
 .tools-jump button.active{background:#4f46e5;border-color:#4f46e5;color:#fff}
-#fold_rights,#fold_sso,#fold_pvd,#fold_more,#rights_section,#sso_section,#pvd_section,#gpf_section,#w4_section,#fl_section,#hr_section,#link_hub{scroll-margin-top:120px}
+#fold_rights,#fold_sso,#fold_pvd,#fold_more,#fold_hi,#rights_section,#sso_section,#pvd_section,#gpf_section,#w4_section,#fl_section,#hr_section,#hi_section,#link_hub{scroll-margin-top:120px}
 
 /* Sticky bottom nav */
 .bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:center;pointer-events:none;padding:0 8px calc(8px + env(safe-area-inset-bottom,0px))}
@@ -672,6 +672,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     <p class="tools-group-desc">ใช้หลัง 3 ขั้นหลักได้ — กดทางลัดด้านล่างเพื่อเปิดและกระโดดไปหัวข้อที่ต้องการ</p>
     <div class="tools-jump" id="tools_jump" role="navigation" aria-label="ทางลัดเครื่องมือเสริม">
       <button type="button" data-fold="fold_rights" data-target="rights_section">🩺 สิทธิ+เงินสด</button>
+      <button type="button" data-fold="fold_hi" data-target="hi_section">🏥 แผนสุขภาพ/ประกัน</button>
       <button type="button" data-fold="fold_sso" data-target="sso_section">🧮 SSO ชราภาพ</button>
       <button type="button" data-fold="fold_pvd" data-target="pvd_section">💼 PVD</button>
       <button type="button" data-fold="fold_more" data-target="gpf_section">🏛️ กบข.</button>
@@ -792,6 +793,103 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
         <div class="med-sub" id="med_status">ใส่ค่าใช้จ่ายต่อเดือนเพื่อคำนวณ</div>
         <div class="med-link" id="med_link"></div>
       </div>
+    </div>
+  </div>
+</section>
+</div>
+</details>
+
+<!-- ========== HEALTH INSURANCE PLANNING ========== -->
+<details class="tool-fold" id="fold_hi">
+<summary>🏥 วางแผนสุขภาพและประกันสุขภาพ (การศึกษา)</summary>
+<div class="tool-fold-body">
+<section class="tool-section" id="hi_section" aria-label="วางแผนสุขภาพและประกันสุขภาพ">
+  <div class="tool-card">
+    <div class="tool-kicker" style="color:#0e7490">HEALTH · INSURANCE PLANNING</div>
+    <div class="tool-title">🏥 วางแผนสุขภาพ + ประกันสุขภาพ</div>
+    <div class="tool-desc">ประมาณภาระที่อาจจ่ายเอง เงินสดที่ควรมี และงบเบี้ยประกัน (ถ้ามี) — <strong>ไม่แนะนำกรมธรรม์รายตัว</strong> และไม่ใช่การรับประกันสิทธิจากรัฐ/บริษัท</div>
+
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_rights">สิทธิสุขภาพหลักที่ใช้อยู่</label>
+        <select id="hi_rights">
+          <option value="gold">บัตรทอง / 30 บาท</option>
+          <option value="sso">ประกันสังคม</option>
+          <option value="civil">ข้าราชการ</option>
+          <option value="none">ยังไม่ชัด / ไม่มีสิทธิรัฐ</option>
+        </select>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_age">อายุของคุณ</label>
+        <input type="number" id="hi_age" min="0" max="100" step="1" placeholder="เช่น 35">
+      </div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_deps">จำนวนผู้อยู่ในอุปการะด้านสุขภาพ</label>
+        <div class="hint">คู่สมรส บุตร ผู้ใหญ่ในบ้าน ที่คุณช่วยจ่ายค่ารักษา</div>
+        <input type="number" id="hi_deps" min="0" max="10" step="1" value="0">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_income">รายได้ครัวเรือนต่อเดือน (บาท)</label>
+        <input type="number" id="hi_income" min="0" step="100" placeholder="เช่น 40000">
+      </div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_shock">เหตุใหญ่ที่กังวล (บาท/ครั้ง)</label>
+        <div class="hint">เช่น ผ่าตัด รพ.เอกชน อุบัติเหตุ — ใส่ตัวเลขที่คุณกังวล ไม่ใช่ราคาจริงจากใบเสร็จ</div>
+        <input type="number" id="hi_shock" min="0" step="1000" placeholder="เช่น 200000">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="hi_oop">ค่ารักษาเล็กๆ / ปี (บาท)</label>
+        <div class="hint">คลินิก ยา นอกสิทธิ ทันตกรรมบางส่วน ฯลฯ</div>
+        <input type="number" id="hi_oop" min="0" step="100" placeholder="เช่น 15000">
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label for="hi_cash">เงินสดกันสุขภาพที่มีตอนนี้ (บาท)</label>
+      <div class="hint" id="hi_cash_hint">ดึงจาก Stage 1 / เครื่องเงินสดสิทธิ ได้ถ้าช่องว่าง</div>
+      <input type="number" id="hi_cash" min="0" step="100" placeholder="ไม่บังคับ">
+    </div>
+
+    <div class="card" style="margin:14px 0 0;border-style:dashed;background:#f8fafc">
+      <div class="audience-title" style="font-size:.9rem">ถ้ามีหรือกำลังพิจารณาประกันสุขภาพเอกชน</div>
+      <div class="hint" style="margin-bottom:10px">เว้นว่างได้ทั้งหมด — เครื่องนี้ไม่บังคับให้ซื้อประกัน</div>
+      <div class="med-grid">
+        <div class="field" style="margin-bottom:0">
+          <label for="hi_prem">เบี้ยประมาณการ (บาท/เดือน)</label>
+          <input type="number" id="hi_prem" min="0" step="50" placeholder="เช่น 800">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label for="hi_cover">วงเงินเคลมโดยประมาณ (บาท/ปี)</label>
+          <input type="number" id="hi_cover" min="0" step="1000" placeholder="เช่น 500000">
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px;margin-bottom:0">
+        <label for="hi_deduct">ส่วนที่ต้องจ่ายเองก่อนเคลม / ค่าร่วม (บาทต่อเหตุหรือต่อปี)</label>
+        <input type="number" id="hi_deduct" min="0" step="100" placeholder="เช่น 10000">
+      </div>
+    </div>
+
+    <div class="tool-result" style="margin-top:14px;border-color:#67e8f9;background:linear-gradient(145deg,#ecfeff,#f0fdfa)">
+      <div class="lbl">ภาระที่อาจต้องจ่ายเอง (การศึกษา)</div>
+      <div class="big" id="hi_exposed">—</div>
+      <div class="ratio-grid">
+        <div class="ratio-item"><span>เป้าเงินสดกันสุขภาพ</span><b id="hi_cash_need">—</b></div>
+        <div class="ratio-item"><span>เงินสดที่มี vs เป้า</span><b id="hi_cash_gap">—</b></div>
+        <div class="ratio-item"><span>งบเบี้ยต่อปี</span><b id="hi_prem_y">—</b></div>
+        <div class="ratio-item"><span>เบี้ย / รายได้ปี</span><b id="hi_afford">—</b></div>
+        <div class="ratio-item"><span>หลังประกัน+เงินสด (หยาบ)</span><b id="hi_after">—</b></div>
+        <div class="ratio-item"><span>ช่องว่างที่ยังเสี่ยง</span><b id="hi_gap">—</b></div>
+      </div>
+      <div class="sub" id="hi_note" style="margin-top:10px">ใส่เหตุใหญ่หรือค่ารายปีเพื่อเริ่มประมาณการ</div>
+      <div class="sub" id="hi_layers" style="margin-top:8px;font-weight:600;color:#0f766e"></div>
+    </div>
+    <div class="tool-foot">
+      ชั้นความคุ้มครองแนวการศึกษา: <strong>1) สิทธิรัฐ</strong> → <strong>2) เงินสดฉุกเฉินสุขภาพ</strong> → <strong>3) ประกันเอกชน (ถ้าเหมาะกับงบและความเสี่ยง)</strong><br>
+      ตัวคูณตามสิทธิเป็นสมมติฐานหยาบ ไม่ใช่ยอดเคลมจริง · ตรวจสิทธิที่ 1330 / 1506 / ต้นสังกัด และอ่านเงื่อนไขกรมธรรม์เองก่อนตัดสินใจ<br>
+      <strong>ไม่ใช่</strong> คำแนะนำให้ซื้อหรือยกเลิกประกัน
     </div>
   </div>
 </section>
@@ -1111,8 +1209,11 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     mark(fillIfEmpty('med_have',saved),'med เงินสด');
     mark(fillIfEmpty('fl_have',saved),'ฟรีแลนซ์ สำรอง');
     mark(fillIfEmpty('hr_liquid',saved),'อัตราส่วน สภาพคล่อง');
+    mark(fillIfEmpty('hi_cash',saved),'สุขภาพ เงินสด');
     mark(fillIfEmpty('hr_save',mth),'อัตราส่วน ออม/เดือน');
     mark(fillIfEmpty('sso_age',age),'SSO อายุ');
+    mark(fillIfEmpty('hi_age',age),'สุขภาพ อายุ');
+    mark(fillIfEmpty('hi_income', firstIncome() || (parseFloat(document.getElementById('fl_income')&&document.getElementById('fl_income').value)||0) ),'สุขภาพ รายได้');
     if(age>0 && retAge>age) mark(fillIfEmpty('pvd_years',retAge-age),'PVD ปี');
     if(age>0 && retAge>age) mark(fillIfEmpty('gpf_years',retAge-age),'กบข. ปี');
 
@@ -1127,6 +1228,7 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if(LINK.retTarget>0) mark(fillIfEmpty('w4_nest',LINK.retTarget),'4% เงินก้อนจาก Stage3');
 
     if(typeof calcMedBuffer==='function') calcMedBuffer();
+    if(typeof calcHI==='function') calcHI();
     if(typeof calcFL==='function') calcFL();
     if(typeof calcHR==='function') calcHR();
     if(typeof calcSSO==='function') calcSSO();
@@ -1703,10 +1805,16 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     var d=MED_DEFAULTS[key]||MED_DEFAULTS.gold;
     var sel=document.getElementById('med_rights');
     if(sel)sel.value=key;
+    var hiR=document.getElementById('hi_rights');
+    if(hiR && (hiR.value==='' || true)){
+      /* sync rights picker when user changes health tab — only if hi not manually locked; always soft sync */
+      if(['gold','sso','civil'].indexOf(key)>=0) hiR.value=key;
+    }
     document.getElementById('med_next_lead').textContent=d.lead;
     if(setMonths){document.getElementById('med_months').value=d.months}
     syncMedFromStage1(false);
     calcMedBuffer();
+    if(typeof calcHI==='function') calcHI();
   }
   function showRights(key){
     document.querySelectorAll('.rights-tab').forEach(function(t){
@@ -1994,6 +2102,70 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
   bindCalc(['w4_nest','w4_rate','w4_years','w4_ret'], calcW4);
   bindCalc(['fl_income','fl_expense','fl_have','fl_months'], calcFL);
   bindCalc(['hr_income','hr_spend','hr_save','hr_liquid','hr_assets','hr_debt','hr_debt_pay'], calcHR);
+
+  /* ─── Health + insurance planning (education) ─── */
+  var HI_FACTOR={gold:0.28,sso:0.22,civil:0.18,none:0.70};
+  var HI_LABEL={gold:'บัตรทอง',sso:'ประกันสังคม',civil:'ข้าราชการ',none:'ยังไม่ชัด/ไม่มีสิทธิรัฐ'};
+  function calcHI(){
+    if(!document.getElementById('hi_section')) return;
+    var rights=document.getElementById('hi_rights').value||'gold';
+    var age=parseFloat(document.getElementById('hi_age').value)||0;
+    var deps=parseFloat(document.getElementById('hi_deps').value)||0;
+    var income=parseFloat(document.getElementById('hi_income').value)||0;
+    var shock=parseFloat(document.getElementById('hi_shock').value)||0;
+    var oop=parseFloat(document.getElementById('hi_oop').value)||0;
+    var cash=parseFloat(document.getElementById('hi_cash').value)||0;
+    var prem=parseFloat(document.getElementById('hi_prem').value)||0;
+    var cover=parseFloat(document.getElementById('hi_cover').value)||0;
+    var deduct=parseFloat(document.getElementById('hi_deduct').value)||0;
+    var fac=HI_FACTOR[rights]!=null?HI_FACTOR[rights]:0.28;
+    /* dependents slightly raise exposure educationally */
+    var depMul=1+Math.min(0.35, deps*0.08);
+    var ageMul=age>=50?1.1:(age>=40?1.05:1);
+    var exposed=shock*fac*depMul*ageMul+oop;
+    var cashNeed=Math.max(exposed*0.5, oop*2, shock*fac*0.35);
+    var cashGap=Math.max(0, cashNeed-cash);
+    var premY=prem*12;
+    var afford=income>0?(premY/(income*12))*100:0;
+    var afterIns;
+    if(prem>0 || cover>0){
+      var insured=Math.min(shock, cover>0?cover:shock);
+      var selfPay=Math.min(shock, deduct)+Math.max(0, shock-insured);
+      /* if cover 0 but prem set, treat cover unknown → keep rights exposure */
+      if(cover<=0) selfPay=exposed;
+      afterIns=Math.max(0, selfPay-cash);
+    } else {
+      afterIns=Math.max(0, exposed-cash);
+    }
+    var gap=afterIns;
+
+    document.getElementById('hi_exposed').textContent=(shock>0||oop>0)?fmt(exposed):'—';
+    document.getElementById('hi_cash_need').textContent=(shock>0||oop>0)?fmt(cashNeed):'—';
+    document.getElementById('hi_cash_gap').textContent=(shock>0||oop>0)?(cash>=cashNeed?'ครบเป้า ✓':('ขาด '+fmt(cashGap))):'—';
+    document.getElementById('hi_prem_y').textContent=prem>0?fmt(premY):'—';
+    document.getElementById('hi_afford').textContent=prem>0&&income>0?(afford.toFixed(1)+'%'):(prem>0?'ใส่รายได้เพื่อดู %':'—');
+    document.getElementById('hi_after').textContent=(shock>0||oop>0)?fmt(afterIns):'—';
+    document.getElementById('hi_gap').textContent=(shock>0||oop>0)?fmt(gap):'—';
+
+    var note='';
+    if(shock<=0 && oop<=0){
+      note='ใส่ “เหตุใหญ่ที่กังวล” หรือ “ค่ารักษาเล็กๆ/ปี” เพื่อประมาณการ';
+    } else {
+      note='สมมติฐาน: สิทธิ '+HI_LABEL[rights]+' → ตัวคูณภาระเองราว '+(fac*100).toFixed(0)+'% ของเหตุใหญ่';
+      if(deps>0) note+=' · มีผู้อุปการะ '+deps+' คน (ปรับเผื่อเล็กน้อย)';
+      if(age>=50) note+=' · อายุ 50+ เผื่อภาระสูงขึ้นเล็กน้อย';
+      if(prem>0 && income>0){
+        if(afford>10) note+=' · เบี้ยสูงกว่า 10% ของรายได้ปี — ตรวจว่างบยังไหวและเงื่อนไขคุ้มครองตรงความเสี่ยงหรือไม่';
+        else if(afford>5) note+=' · เบี้ยราว '+afford.toFixed(1)+'% ของรายได้ปี (โซนที่ควรทบทวนงบรวม)';
+        else note+=' · เบี้ยราว '+afford.toFixed(1)+'% ของรายได้ปี ภายใต้ตัวเลขที่ใส่';
+      }
+      if(gap<=0) note+=' · ภายใต้สมมติฐานนี้ เงินสด'+((prem>0||cover>0)?'+กรอบประกัน':'')+' ครอบคลุมช่องว่างที่ตั้งไว้';
+      else note+=' · ยังมีช่องว่าง '+fmt(gap)+' — ทางการศึกษา: เพิ่มเงินสด / ลดความเสี่ยง / ทบทวนความคุ้มครอง (ไม่ใช่คำสั่งซื้อ)';
+    }
+    document.getElementById('hi_note').textContent=note;
+    document.getElementById('hi_layers').textContent='ชั้นที่ 1: สิทธิรัฐ ('+HI_LABEL[rights]+') → ชั้นที่ 2: เงินสดกันสุขภาพ → ชั้นที่ 3: ประกันเอกชน (ถ้ามีและเหมาะกับงบ)';
+  }
+  bindCalc(['hi_rights','hi_age','hi_deps','hi_income','hi_shock','hi_oop','hi_cash','hi_prem','hi_cover','hi_deduct'], calcHI);
 
   /* explicit link buttons */
   function potsTotal(){ return (LINK.pvdFv||0)+(LINK.gpfFv||0)+(LINK.ssoLump||0); }
