@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.0 = v1.9.1 + ประมาณการชราภาพประกันสังคม B1 (การศึกษา)
+v2.1 = v2.0 + จำลอง PVD (B3) จากคลัง ก.ล.ต./SET
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

@@ -209,6 +209,21 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 .sso-result .sso-sub{font-size:.8rem;color:#334155;line-height:1.5}
 .sso-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
 
+/* PVD simulator */
+.pvd-section{margin:28px 0 8px}
+.pvd-card{background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:18px 16px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
+.pvd-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:#059669;text-transform:uppercase}
+.pvd-title{font-size:1.12rem;font-weight:800;margin:4px 0;color:#0f172a}
+.pvd-desc{font-size:.8rem;color:#64748b;line-height:1.45;margin-bottom:12px}
+.pvd-result{margin-top:12px;padding:14px;border-radius:12px;background:linear-gradient(145deg,#ecfdf5,#f0fdf4);border:1.5px solid #6ee7b7}
+.pvd-result .pvd-label{font-size:.72rem;font-weight:800;color:#047857}
+.pvd-result .pvd-big{font-size:1.4rem;font-weight:800;color:#065f46;margin:4px 0}
+.pvd-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.pvd-stat{background:rgba(255,255,255,.75);border-radius:10px;padding:8px 10px}
+.pvd-stat b{display:block;font-size:.9rem;color:#0f172a}
+.pvd-stat span{font-size:.7rem;color:#64748b}
+.pvd-foot{font-size:.74rem;color:#64748b;margin-top:10px;line-height:1.45}
+
 /* Data Linking note */
 .link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
 </style>
@@ -675,6 +690,70 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     <div class="sso-foot">
       สมมติฐานในเครื่องนี้: เกณฑ์บำนาญใช้ <strong>180 เดือน</strong> · อัตราเริ่ม 20% + 1.5%/ปีเต็มที่เกิน 15 ปี · บำเหน็จหยาบ = ค่าจ้าง × 6% × เดือนสมทบ (ไม่รวมผลตอบแทน)<br>
       การขอรับจริงมักมีเงื่อนไขอายุและความเป็นผู้ประกันตนสิ้นสุด — <strong>ยอดจริงให้ยึด สปส. เท่านั้น</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PVD PROJECTION (B3) ========== -->
+<section class="pvd-section" id="pvd_section" aria-label="จำลองกองทุนสำรองเลี้ยงชีพ PVD">
+  <div class="pvd-card">
+    <div class="pvd-kicker">PVD · FROM KNOWLEDGE (ก.ล.ต. / SET)</div>
+    <div class="pvd-title">💼 จำลองออม PVD (กองทุนสำรองเลี้ยงชีพ)</div>
+    <div class="pvd-desc">เห็นภาพว่าเงินสะสมของคุณ + เงินสมทบนายจ้าง + ผลตอบแทนสมมติ จะโตเท่าไร — เพื่อการศึกษา ไม่ใช่ยอดจริงจากบริษัท/บลจ.</div>
+
+    <div class="med-grid">
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_salary">เงินเดือนปัจจุบัน (บาท)</label>
+        <input type="number" id="pvd_salary" min="0" step="100" placeholder="เช่น 30000">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_years">ระยะเวลาที่เหลือ (ปี)</label>
+        <input type="number" id="pvd_years" min="1" max="45" step="1" placeholder="เช่น 20" value="20">
+      </div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_ee">อัตราสะสมลูกจ้าง (%)</label>
+        <div class="hint">ทั่วไป 2–15% ตามกฎกองทุน</div>
+        <input type="number" id="pvd_ee" min="0" max="15" step="0.5" value="5">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_er">อัตราสมทบนายจ้าง (%)</label>
+        <div class="hint">จุดเด่น PVD — ได้สมทบเพิ่ม</div>
+        <input type="number" id="pvd_er" min="0" max="15" step="0.5" value="5">
+      </div>
+    </div>
+    <div class="med-grid" style="margin-top:12px">
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_return">ผลตอบแทนคาดหวัง (%/ปี)</label>
+        <div class="hint">สมมติฐานการศึกษา — ไม่รับประกัน</div>
+        <input type="number" id="pvd_return" min="0" max="15" step="0.1" value="5">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="pvd_growth">เงินเดือนโตเฉลี่ย (%/ปี)</label>
+        <input type="number" id="pvd_growth" min="0" max="15" step="0.1" value="3">
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label for="pvd_balance">เงินใน PVD ที่มีอยู่แล้ว (บาท)</label>
+      <div class="hint">ไม่บังคับ</div>
+      <input type="number" id="pvd_balance" min="0" step="100" placeholder="เช่น 200000">
+    </div>
+
+    <div class="pvd-result" id="pvd_result">
+      <div class="pvd-label">มูลค่า PVD โดยประมาณ ณ สิ้นช่วง</div>
+      <div class="pvd-big" id="pvd_fv">—</div>
+      <div class="pvd-stats">
+        <div class="pvd-stat"><span>เงินที่คุณสะสม (ไม่รวมผลตอบแทน)</span><b id="pvd_ee_total">—</b></div>
+        <div class="pvd-stat"><span>นายจ้างสมทบ (ไม่รวมผลตอบแทน)</span><b id="pvd_er_total">—</b></div>
+        <div class="pvd-stat"><span>ผลตอบแทนโดยประมาณ</span><b id="pvd_growth_amt">—</b></div>
+        <div class="pvd-stat"><span>ถ้าไม่มีนายจ้างสมทบ</span><b id="pvd_no_er">—</b></div>
+      </div>
+      <div class="med-sub" id="pvd_note" style="margin-top:10px">ใส่เงินเดือนเพื่อจำลอง</div>
+    </div>
+    <div class="pvd-foot">
+      จากคลังความรู้: PVD ช่วยได้เพราะมี<strong>เงินสมทบนายจ้าง</strong> + วินัยหักเดือน + กรอบลดหย่อนภาษีกลุ่มออมเกษียณ (เพดานรวมตามกฎหมาย) — เครื่องนี้ไม่คำนวณภาษีตอนออกจากงาน/เงื่อนไขสมาชิกครบ 5 ปี<br>
+      <strong>ไม่ใช่</strong> ยอดจากบลจ. หรือนายจ้างของคุณ
     </div>
   </div>
 </section>
@@ -1248,6 +1327,54 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if(ra && !sso_age.value && ra.value) sso_age.value=ra.value;
     calcSSO();
   }
+
+  /* ─── PVD projection (B3, education from knowledge) ─── */
+  function projectPVD(salary0, years, eePct, erPct, retPct, salGrowth, bal0){
+    var months=Math.max(0, Math.round(years*12));
+    var r=retPct/100/12, g=salGrowth/100;
+    var sal=salary0, bal=bal0||0, eeSum=0, erSum=0;
+    for(var m=1;m<=months;m++){
+      var ee=sal*(eePct/100), er=sal*(erPct/100);
+      eeSum+=ee; erSum+=er;
+      bal=bal*(1+r)+ee+er;
+      if(m%12===0) sal=sal*(1+g);
+    }
+    return {fv:bal, eeSum:eeSum, erSum:erSum, contrib:eeSum+erSum+(bal0||0)};
+  }
+  function calcPVD(){
+    var sal=parseFloat(document.getElementById('pvd_salary').value)||0;
+    var years=parseFloat(document.getElementById('pvd_years').value)||0;
+    var ee=parseFloat(document.getElementById('pvd_ee').value)||0;
+    var er=parseFloat(document.getElementById('pvd_er').value)||0;
+    var ret=parseFloat(document.getElementById('pvd_return').value)||0;
+    var grow=parseFloat(document.getElementById('pvd_growth').value)||0;
+    var bal0=parseFloat(document.getElementById('pvd_balance').value)||0;
+    var fvEl=document.getElementById('pvd_fv'), note=document.getElementById('pvd_note');
+    if(sal<=0||years<=0){
+      fvEl.textContent='—';
+      document.getElementById('pvd_ee_total').textContent='—';
+      document.getElementById('pvd_er_total').textContent='—';
+      document.getElementById('pvd_growth_amt').textContent='—';
+      document.getElementById('pvd_no_er').textContent='—';
+      note.textContent='ใส่เงินเดือนและจำนวนปีเพื่อจำลอง';
+      return;
+    }
+    var withER=projectPVD(sal,years,ee,er,ret,grow,bal0);
+    var noER=projectPVD(sal,years,ee,0,ret,grow,bal0);
+    var growthAmt=withER.fv - withER.eeSum - withER.erSum - bal0;
+    fvEl.textContent=fmt(withER.fv);
+    document.getElementById('pvd_ee_total').textContent=fmt(withER.eeSum);
+    document.getElementById('pvd_er_total').textContent=fmt(withER.erSum);
+    document.getElementById('pvd_growth_amt').textContent=fmt(Math.max(0,growthAmt));
+    document.getElementById('pvd_no_er').textContent=fmt(noER.fv);
+    var help=withER.fv-noER.fv;
+    note.textContent='นายจ้างสมทบช่วยให้ประมาณการสูงกว่าเคสไม่มีสมทบราว '+fmt(Math.max(0,help))+' ภายใต้สมมติฐานนี้ · อัตราสะสม+สมทบเดือนแรก = '+fmt(sal*((ee+er)/100))+'/เดือน';
+  }
+  ['pvd_salary','pvd_years','pvd_ee','pvd_er','pvd_return','pvd_growth','pvd_balance'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el)el.addEventListener('input',calcPVD);
+  });
+  calcPVD();
 
   ret_share.addEventListener('click',function(){
     copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+
