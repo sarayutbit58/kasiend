@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v1.9 = Pages + ผู้ใช้จริงผ่าน + เงิน 3 ก้อน (B2) + checklist สิทธิสุขภาพ 3 ระบบ (B5)
+v1.9.1 = v1.9 + ขั้นถัดไปหลังรู้สิทธิ: คำนวณเงินสดกันช็อกค่ารักษา (ผูกสิทธิ + Stage 1)
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:
