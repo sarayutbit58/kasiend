@@ -1,0 +1,12 @@
+# Local / private knowledge (copyrighted source material — not for public Pages)
+knowledge/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Hermes / local
+.hermes/
+*.tmp

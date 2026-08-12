@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KasienD · เกษียณดี — 3 ขั้นตอนวางแผนการเงินให้เกษียณอย่างมั่นคง</title>
+<style>
+:root{--brand:#1e6f5c;--brand-light:#29bb89;--brand-bg:#e8f5e9;--primary:#2563eb;--primary-dark:#1d4ed8;--bg:#f1f5f9;--card:#fff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--green:#16a34a;--green-bg:#f0fdf4;--warn:#d97706;--warn-bg:#fff7ed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Sarabun','Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.container{max-width:580px;margin:0 auto;padding:24px 16px}
+
+/* Header */
+.header{text-align:center;padding:32px 0 4px}
+.header .brand{font-size:2rem;font-weight:800;color:var(--brand);letter-spacing:-.5px}
+.header .sub{font-size:1.1rem;color:var(--brand-light);font-weight:600;margin-top:2px}
+.header .tagline{font-size:.9rem;color:var(--muted);margin-top:6px}
+
+/* Hero / Journey Intro */
+.journey-intro{margin:24px 0 16px}
+.journey-intro .journey-title{font-size:1.15rem;font-weight:700;text-align:center;margin-bottom:6px}
+.journey-intro .journey-desc{text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:18px}
+.stage-nav{display:flex;gap:8px;margin-bottom:0}
+.stage-nav .stage-dot{flex:1;text-align:center;padding:10px 6px;border-radius:10px;font-size:.78rem;font-weight:600;background:var(--card);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .2s}
+.stage-nav .stage-dot .dot-num{display:block;font-size:1.1rem;margin-bottom:2px}
+.stage-nav .stage-dot.active{border-color:var(--brand);background:var(--brand-bg);color:var(--brand)}
+.stage-nav .stage-dot:hover{border-color:var(--brand-light)}
+
+/* Stage banner */
+.stage-banner{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.stage-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.95rem;flex-shrink:0}
+.stage-label{font-size:1.2rem;font-weight:700}
+.stage-question{font-size:.88rem;color:var(--muted);margin-bottom:12px}
+
+/* Transition card between stages */
+.transition-card{background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:12px;padding:16px;margin:32px 0 8px;text-align:center}
+.transition-card .t-emoji{font-size:1.5rem;margin-bottom:4px}
+.transition-card .t-title{font-size:.95rem;font-weight:700;color:var(--brand);margin-bottom:4px}
+.transition-card .t-desc{font-size:.82rem;color:var(--text);line-height:1.5}
+
+/* Cards & fields */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem;cursor:pointer}
+.hint{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+input[type=number]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1.05rem;font-family:inherit}
+input[type=number]:focus{outline:2px solid var(--primary);border-color:var(--primary)}
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+input[type=range]{width:100%;accent-color:var(--primary)}
+
+.range-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.range-val{font-weight:700;color:var(--primary)}
+
+.radio-group label.inline{display:inline;font-weight:400;margin-right:16px;cursor:pointer}
+.radio-group input[type=radio]{margin-right:4px;vertical-align:middle}
+
+/* Result cards */
+.result-card{text-align:center;padding:24px 20px}
+.result-label{color:var(--muted);font-size:.85rem;margin-bottom:4px}
+.result-number{font-size:2.2rem;font-weight:800;color:var(--primary);line-height:1.2}
+.result-secondary{font-size:.9rem;color:var(--muted);margin-top:4px}
+
+.progress-bar{height:10px;background:var(--border);border-radius:99px;overflow:hidden;margin:14px 0 6px}
+.progress-fill{height:100%;background:var(--primary);width:0%;transition:width .3s}
+.progress-text{font-size:.8rem;color:var(--muted)}
+
+.status-line{margin-top:14px;font-size:1rem;font-weight:700}
+.status-line.inprogress{color:var(--primary-dark)}
+.status-line.done{color:var(--green);background:var(--green-bg);padding:10px;border-radius:8px}
+
+.share-btn{margin-top:12px;background:var(--primary);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:inherit}
+.share-btn:hover{background:var(--primary-dark)}
+
+.retire-outputs{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.retire-outputs .ro-row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px}
+.retire-outputs .ro-row:first-child{border-top:none;padding-top:0}
+.retire-outputs .ro-label{font-size:.88rem;color:var(--muted);text-align:left}
+.retire-outputs .ro-val{font-size:1.2rem;font-weight:700;color:var(--text)}
+.retire-outputs .ro-val.highlight{color:var(--brand);font-size:1.4rem}
+.retire-outputs .ro-val.danger{color:var(--warn)}
+
+.interest-breakdown{display:flex;justify-content:center;gap:20px;margin-top:12px;flex-wrap:wrap}
+.interest-breakdown .stat{text-align:center;min-width:100px}
+.interest-breakdown .stat-val{font-size:1.1rem;font-weight:700}
+.interest-breakdown .stat-val.positive{color:var(--brand)}
+.interest-breakdown .stat-label{font-size:.76rem;color:var(--muted)}
+
+details.assumptions{margin-top:12px;font-size:.85rem}
+details.assumptions summary{color:var(--muted);cursor:pointer;font-weight:600;margin-bottom:8px}
+details.assumptions .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+details.assumptions .grid .assump-field label{font-weight:400;font-size:.82rem}
+details.assumptions .grid .assump-field input{font-size:.9rem}
+
+.disclaimer{background:#fefce8;border:1px solid #fde047;border-radius:12px;padding:14px 16px;font-size:.8rem;color:#713f12;margin-bottom:16px}
+.disclaimer strong{display:block;margin-bottom:2px}
+footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
+
+.preset-btn{display:block;width:100%;margin:0 0 12px;padding:10px 14px;border:1px dashed var(--primary);border-radius:8px;background:#eff6ff;color:var(--primary-dark);font:600 .85rem inherit;cursor:pointer;text-align:left}.preset-btn:hover{background:#dbeafe}
+
+/* Banner Ads Mock-up */
+.ad-mockup{min-height:100px;margin:18px 0 24px;padding:14px 18px;border:1px dashed #94a3b8;border-radius:10px;background:linear-gradient(135deg,#e2e8f0,#f8fafc 55%,#dbeafe);display:flex;align-items:center;justify-content:space-between;gap:12px;color:#334155;box-shadow:0 2px 8px rgba(15,23,42,.05)}
+.ad-mockup .ad-kicker{font-size:.7rem;letter-spacing:.08em;font-weight:800;color:#64748b}
+.ad-mockup .ad-size{font-size:1rem;font-weight:800;margin:2px 0;color:#1e293b}
+.ad-mockup .ad-contact{font-size:.82rem;font-weight:600;color:#475569}
+.ad-mockup .ad-spec{text-align:right;font-size:.68rem;line-height:1.4;color:#64748b;white-space:nowrap}
+@media(max-width:380px){.ad-mockup{padding:12px;gap:8px}.ad-mockup .ad-size{font-size:.9rem}.ad-mockup .ad-contact{font-size:.74rem}.ad-mockup .ad-spec{font-size:.6rem}}
+
+/* User Dashboard — Vibrant Edition */
+.dashboard{background:linear-gradient(170deg,#fff5f5 0%,#fff 30%,#f0f9ff 70%,#fdf2f8 100%);border-radius:20px;padding:22px 18px;color:#1e293b;margin:0 0 22px;box-shadow:0 4px 24px rgba(0,0,0,.06),0 1px 3px rgba(0,0,0,.04);border:2px solid #f1f5f9;position:relative;overflow:hidden}
+.dashboard::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,#fbbf24 0%,transparent 70%);opacity:.25;border-radius:50%;pointer-events:none}
+.dashboard::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;background:radial-gradient(circle,#a78bfa 0%,transparent 70%);opacity:.2;border-radius:50%;pointer-events:none}
+.dashboard-head{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:18px}
+.dashboard-kicker{font-size:.64rem;letter-spacing:.14em;font-weight:800;color:#f59e0b;text-transform:uppercase}
+.dashboard-title{font-size:1.25rem;font-weight:800;margin-top:3px;color:#0f172a;display:flex;align-items:center;gap:6px}
+.dashboard-title .title-emoji{font-size:1.4rem}
+.dashboard-caption{font-size:.76rem;color:#64748b;margin-top:3px}
+.dashboard-live{font-size:.65rem;background:#dcfce7;color:#166534;border:1.5px solid #86efac;padding:5px 9px;border-radius:99px;white-space:nowrap;font-weight:700;animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.55}}
+.dashboard-grid{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px}
+.dashboard-stat{background:#fff;border-radius:14px;padding:14px 16px;border:1.5px solid #f1f5f9;display:flex;align-items:center;gap:14px;transition:all .25s;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.dashboard-stat:hover{box-shadow:0 4px 14px rgba(0,0,0,.07);transform:translateY(-1px)}
+.dashboard-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.dashboard-stat-icon.ef{background:#fff1f2;color:#f43f5e}
+.dashboard-stat-icon.save{background:#eff6ff;color:#3b82f6}
+.dashboard-stat-icon.ci{background:#ecfdf5;color:#10b981}
+.dashboard-stat-icon.ret{background:#faf5ff;color:#8b5cf6}
+.dashboard-stat-icon.gap{background:#fff7ed;color:#f97316}
+.dashboard-stat-body{flex:1;min-width:0}
+.dashboard-stat-label{font-size:.72rem;color:#64748b;font-weight:600;margin-bottom:3px}
+.dashboard-stat-value{font-size:.95rem;font-weight:800;color:#0f172a;line-height:1.3;word-break:break-word}
+.dashboard-stat-value small{font-size:.78rem;font-weight:600;color:#94a3b8}
+.dashboard-next{position:relative;z-index:1;display:flex;align-items:center;gap:8px;margin-top:14px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#78350f;font-size:.8rem;font-weight:700;border:2px dashed #fbbf24;box-shadow:0 2px 8px rgba(251,191,36,.18)}
+.dashboard-next .next-icon{font-size:1.3rem}
+.dashboard-progress{position:relative;z-index:1;margin-top:14px}
+.dashboard-progress-head{display:flex;justify-content:space-between;font-size:.74rem;margin-bottom:9px;color:#475569;font-weight:600}
+.dashboard-progress-steps{display:flex;gap:6px}
+.dashboard-progress-step{flex:1;text-align:center;padding:8px 4px;border-radius:10px;font-size:.7rem;font-weight:700;background:#f8fafc;border:2px solid #e2e8f0;color:#94a3b8;transition:all .3s}
+.dashboard-progress-step .step-emoji{display:block;font-size:1.2rem;margin-bottom:2px}
+.dashboard-progress-step.done{background:#ecfdf5;border-color:#6ee7b7;color:#065f46}
+.dashboard-progress-step.active{background:#eff6ff;border-color:#93c5fd;color:#1e40af;animation:stepGlow 1.8s infinite}
+@keyframes stepGlow{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.25)}50%{box-shadow:0 0 0 8px rgba(59,130,246,0)}}
+
+/* Audience Segment Picker */
+.audience-box{background:#fff;border:2px solid #e2e8f0;border-radius:16px;padding:16px;margin:0 0 18px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
+.audience-title{font-size:.95rem;font-weight:800;margin-bottom:4px;color:#0f172a}
+.audience-desc{font-size:.78rem;color:#64748b;margin-bottom:12px;line-height:1.45}
+.audience-chips{display:flex;flex-wrap:wrap;gap:8px}
+.audience-chip{border:2px solid #e2e8f0;background:#f8fafc;color:#334155;border-radius:999px;padding:8px 12px;font:700 .78rem inherit;cursor:pointer;transition:all .2s}
+.audience-chip:hover{border-color:#93c5fd;background:#eff6ff}
+.audience-chip.active{border-color:#1e6f5c;background:#e8f5e9;color:#14532d;box-shadow:0 0 0 3px rgba(30,111,92,.12)}
+.audience-tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,#ecfdf5,#f0f9ff);border:1px solid #bbf7d0;font-size:.8rem;color:#14532d;font-weight:600;line-height:1.45}
+.stage-tip{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:#fff7ed;border:1px dashed #fdba74;font-size:.78rem;color:#9a3412;line-height:1.45}
+
+/* Data Linking note */
+.link-note{font-size:.78rem;color:var(--brand);background:var(--brand-bg);border:1px solid var(--brand-light);border-radius:8px;padding:8px 10px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="brand">KasienD</div>
+  <div class="sub">เกษียณดี</div>
+  <div class="ad-mockup" aria-label="พื้นที่โฆษณาจำลอง">
+    <div>
+      <div class="ad-kicker">BANNER ADS MOCK-UP</div>
+      <div class="ad-size">พื้นที่โฆษณา กว้าง × สูง</div>
+      <div class="ad-contact">ติดต่อโฆษณา โทร. 0X-XXX-XXXX</div>
+    </div>
+    <div class="ad-spec">320 × 100 px<br>ตำแหน่งด้านบน</div>
+  </div>
+  <section class="dashboard" id="user_dashboard" aria-label="ภาพรวมเส้นทางการเงินของคุณ">
+    <div class="dashboard-head">
+      <div>
+        <div class="dashboard-kicker">✨ YOUR JOURNEY</div>
+        <div class="dashboard-title"><span class="title-emoji">🗺️</span> เส้นทางเกษียณดีของคุณ</div>
+        <div class="dashboard-caption">อัปเดตอัตโนมัติจากข้อมูลที่คุณกรอก</div>
+      </div>
+      <span class="dashboard-live">● LIVE</span>
+    </div>
+    <div class="dashboard-grid">
+      <div class="dashboard-stat">
+        <div class="dashboard-stat-icon ef">🛡️</div>
+        <div class="dashboard-stat-body">
+          <div class="dashboard-stat-label">① เงินสำรองฉุกเฉิน</div>
+          <div class="dashboard-stat-value" id="dash_ef">ยังไม่ได้กรอก</div>
+        </div>
+      </div>
+      <div class="dashboard-stat">
+        <div class="dashboard-stat-icon save">💰</div>
+        <div class="dashboard-stat-body">
+          <div class="dashboard-stat-label">เงินออมต่อเดือน</div>
+          <div class="dashboard-stat-value" id="dash_monthly">ยังไม่ได้กรอก</div>
+        </div>
+      </div>
+      <div class="dashboard-stat">
+        <div class="dashboard-stat-icon ci">🌱</div>
+        <div class="dashboard-stat-body">
+          <div class="dashboard-stat-label">② เงินเติบโตในอนาคต</div>
+          <div class="dashboard-stat-value" id="dash_ci">กรอก Stage 2 เพื่อดู</div>
+        </div>
+      </div>
+      <div class="dashboard-stat">
+        <div class="dashboard-stat-icon ret">🏖️</div>
+        <div class="dashboard-stat-body">
+          <div class="dashboard-stat-label">③ เป้าเงินเกษียณ</div>
+          <div class="dashboard-stat-value" id="dash_ret">ยังไม่ได้กรอก</div>
+        </div>
+      </div>
+      <div class="dashboard-stat">
+        <div class="dashboard-stat-icon gap">🎯</div>
+        <div class="dashboard-stat-body">
+          <div class="dashboard-stat-label">ช่องว่างเป้าหมาย</div>
+          <div class="dashboard-stat-value" id="dash_gap">กรอกข้อมูล Stage 3 เพื่อวิเคราะห์</div>
+        </div>
+      </div>
+    </div>
+    <div class="dashboard-next"><span class="next-icon">👇</span><span id="dash_next">เริ่มที่ Stage 1: ตั้งกำแพงกันภัย</span></div>
+    <div class="dashboard-progress">
+      <div class="dashboard-progress-head"><span>📊 ความคืบหน้า</span><span id="dash_progress_text">0/3</span></div>
+      <div class="dashboard-progress-steps">
+        <div class="dashboard-progress-step" id="dash_step1"><span class="step-emoji">1️⃣</span>กันภัย</div>
+        <div class="dashboard-progress-step" id="dash_step2"><span class="step-emoji">2️⃣</span>เติบโต</div>
+        <div class="dashboard-progress-step" id="dash_step3"><span class="step-emoji">3️⃣</span>เกษียณ</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- AUDIENCE PICKER -->
+<div class="audience-box" id="audience_box">
+  <div class="audience-title">👤 คุณเป็นกลุ่มไหน? (เลือกได้ — เปลี่ยนได้ตลอด)</div>
+  <div class="audience-desc">เลือกเพื่อปรับคำแนะนำและค่าตัวอย่างให้เข้ากับชีวิตคุณ — ยังใช้เครื่องมือชุดเดียวกันทั้ง 3 ขั้น</div>
+  <div class="audience-chips" id="audience_chips">
+    <button type="button" class="audience-chip active" data-seg="general">🌐 ทั่วไป</button>
+    <button type="button" class="audience-chip" data-seg="employee">💼 มนุษย์เงินเดือน</button>
+    <button type="button" class="audience-chip" data-seg="freelance">🛠️ ฟรีแลนซ์ / หลายงาน</button>
+    <button type="button" class="audience-chip" data-seg="civil">🏛️ ข้าราชการ</button>
+    <button type="button" class="audience-chip" data-seg="age50">🧓 วัย 50+ / ใกล้วัยเกษียณ</button>
+  </div>
+  <div class="audience-tip" id="audience_tip">เริ่มแบบภาษากลางได้เลย — เหมาะกับทุกอาชีพ ปรับตัวเลขตามตัวเองได้ทุกช่อง</div>
+</div>
+
+<!-- JOURNEY INTRO -->
+<div class="journey-intro">
+  <div class="journey-title">✨ 3 ขั้นตอน สู่เกษียณอย่างมั่นคง</div>
+  <div class="journey-desc" id="journey_desc">ไม่ว่าคุณจะเพิ่งเริ่มคิดเรื่องการเงิน หรือเตรียมตัวมานาน — เริ่มจากขั้นที่ 1 แล้วเดินไปทีละขั้น</div>
+
+  <div class="stage-nav">
+    <div class="stage-dot active" id="nav_stage1">
+      <span class="dot-num">①</span> ตั้งกำแพงกันภัย
+    </div>
+    <div class="stage-dot" id="nav_stage2">
+      <span class="dot-num">②</span> ให้เงินทำงาน
+    </div>
+    <div class="stage-dot" id="nav_stage3">
+      <span class="dot-num">③</span> มองเป้าหมายไกล
+    </div>
+  </div>
+</div>
+
+<!-- ========== STAGE 1: EMERGENCY FUND ========== -->
+<div id="stage1">
+<div class="stage-banner">
+  <span class="stage-badge">①</span>
+  <span class="stage-label">ตั้งกำแพงกันภัย</span>
+</div>
+<p class="stage-question" id="s1_question">💡 "ถ้าพรุ่งนี้งานหาย หรือมีเหตุฉุกเฉิน — มีเงินพออยู่ได้กี่เดือน?"</p>
+<p class="subtitle" id="s1_subtitle">ขั้นแรก: กันเงินไว้รับเหตุไม่คาดคิดก่อน แล้วค่อยนำเงินส่วนที่เหลือไปสร้างการเติบโต</p>
+<div class="stage-tip" id="s1_tip">สมมติฐานไทย: งานประจำมักเริ่มที่ ×6 เดือน | รายได้ไม่นิ่งอาจต้อง ×9–12 เดือน (ปรับได้)</div>
+<button class="preset-btn" id="ef_preset">✨ ลองดูตัวอย่าง: ค่าใช้จ่าย 15,000 บาท</button>
+
+<div class="card">
+  <div class="field">
+    <label for="ef_expense">ค่าใช้จ่ายจำเป็นต่อเดือน (บาท)</label>
+    <div class="hint">ค่าเช่า อาหาร เดินทาง ค่าน้ำไฟ เบี้ยประกัน — ไม่รวมของฟุ่มเฟือย</div>
+    <input type="number" id="ef_expense" min="0" step="100" placeholder="เช่น 15000">
+  </div>
+  <div class="field radio-group">
+    <label>ประเภทงานของคุณ</label>
+    <div class="hint">ความมั่นคงของรายได้แตกต่างกัน — งานยิ่งมั่นคง ตัวคูณยิ่งน้อย</div>
+    <input type="radio" name="ef_job" id="ef_job_salaried" value="6" checked> <label for="ef_job_salaried" class="inline">งานประจำ (×6)</label>
+    <input type="radio" name="ef_job" id="ef_job_freelance" value="9"> <label for="ef_job_freelance" class="inline">ฟรีแลนซ์ (×9)</label>
+    <input type="radio" name="ef_job" id="ef_job_business" value="12"> <label for="ef_job_business" class="inline">ธุรกิจส่วนตัว (×12)</label>
+  </div>
+  <div class="field">
+    <div class="range-row">
+      <label for="ef_multiplier" style="margin-bottom:0">ตัวคูณจำนวนเดือน (ปรับได้)</label>
+      <span class="range-val" id="ef_multiplier_val">×6 เดือน</span>
+    </div>
+    <div class="hint">สมมติฐานเพื่อการศึกษา ปรับตามความเสี่ยงของตัวเอง</div>
+    <input type="range" id="ef_multiplier" min="1" max="24" value="6">
+  </div>
+  <div class="field">
+    <label for="ef_saved">เงินออมฉุกเฉินที่มีตอนนี้ (บาท)</label>
+    <input type="number" id="ef_saved" min="0" step="100" placeholder="ไม่บังคับ เช่น 20000">
+  </div>
+  <div class="field">
+    <label for="ef_monthly">ออมได้เดือนละ (บาท)</label>
+    <input type="number" id="ef_monthly" min="0" step="100" placeholder="ไม่บังคับ เช่น 5000">
+  </div>
+</div>
+
+<div class="card result-card" id="ef_result" hidden>
+  <div class="result-label">เป้าเงินสำรองฉุกเฉินของคุณ</div>
+  <div class="result-number" id="ef_target">—</div>
+  <div class="progress-bar"><div class="progress-fill" id="ef_progress"></div></div>
+  <div class="progress-text" id="ef_progress_text"></div>
+  <div class="status-line" id="ef_status"></div>
+  <button class="share-btn" id="ef_share">📤 คัดลอกผลลัพธ์</button>
+</div>
+</div>
+
+<!-- TRANSITION 1 → 2 -->
+<div class="transition-card">
+  <div class="t-emoji">✅</div>
+  <div class="t-title">ผ่านด่านแรกแล้ว — ต่อไปให้เงินทำงานแทนคุณ</div>
+  <div class="t-desc">เมื่อคุณมีเงินสำรองฉุกเฉินเป็นเบาะรองรับความเสี่ยงแล้ว<br>เงินส่วนที่เหลือ — เอามาทำงานผ่านการลงทุนระยะยาว</div>
+</div>
+
+<!-- ========== STAGE 2: COMPOUND INTEREST ========== -->
+<div id="stage2">
+<div class="stage-banner">
+  <span class="stage-badge">②</span>
+  <span class="stage-label">ให้เงินทำงาน</span>
+</div>
+<p class="stage-question" id="s2_question">💡 "เงินที่เหลือจากรายจ่ายในแต่ละเดือน — ถ้าลงทุนวันนี้ จะเติบโตเป็นเท่าไหร่ในอีก 20–30 ปี?"</p>
+<p class="subtitle" id="s2_subtitle">ขั้นที่สอง: เมื่อมีเบาะรองรับแล้ว ลองดูว่าเงินที่ออมสม่ำเสมอจะเติบโตได้แค่ไหน</p>
+<div class="stage-tip" id="s2_tip">แนวคิดการศึกษา: เริ่มเร็วช่วยได้มาก เพราะดอกเบี้ยทบต้นทำงานตามเวลา — ไม่ใช่คำแนะนำซื้อกองทุนใดกองทุนหนึ่ง</div>
+<button class="preset-btn" id="ci_preset">✨ ลองดูตัวอย่าง: ออม 3,000 บาท/เดือน 30 ปี</button>
+
+<div class="card">
+  <div class="field">
+    <label for="ci_principal">เงินลงทุนเริ่มต้น (บาท)</label>
+    <div class="hint">เงินก้อนที่มีอยู่แล้ว ณ วันนี้</div>
+    <input type="number" id="ci_principal" min="0" step="100" placeholder="เช่น 10000">
+  </div>
+  <div class="field">
+    <label for="ci_monthly">ออมเพิ่มเดือนละ (บาท)</label>
+    <div class="hint">จำนวนที่ออมเพิ่มทุกเดือนอย่างสม่ำเสมอ</div>
+    <input type="number" id="ci_monthly" min="0" step="100" placeholder="เช่น 3000">
+  </div>
+  <div class="field">
+    <label for="ci_years">ระยะเวลา (ปี)</label>
+    <input type="number" id="ci_years" min="1" max="60" step="1" placeholder="เช่น 30">
+  </div>
+  <div class="field">
+    <label for="ci_rate">อัตราผลตอบแทนต่อปี (%)</label>
+    <div class="hint">สมมติฐานเพื่อการศึกษา ไม่ใช่การรับประกันผลตอบแทน</div>
+    <input type="number" id="ci_rate" min="0" max="30" step="0.1" placeholder="เช่น 5">
+  </div>
+</div>
+
+<div class="card result-card" id="ci_result" hidden>
+  <div class="result-label">มูลค่าเงินออมในอนาคต</div>
+  <div class="result-number" id="ci_fv">—</div>
+  <div class="interest-breakdown">
+    <div class="stat">
+      <div class="stat-val" id="ci_invested">—</div>
+      <div class="stat-label">เงินที่คุณออมทั้งหมด</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val positive" id="ci_growth">—</div>
+      <div class="stat-label">ส่วนต่างจากดอกเบี้ยทบต้น</div>
+    </div>
+  </div>
+  <button class="share-btn" id="ci_share">📤 คัดลอกผลลัพธ์</button>
+</div>
+</div>
+
+<!-- TRANSITION 2 → 3 -->
+<div class="transition-card">
+  <div class="t-emoji">🎯</div>
+  <div class="t-title">เห็นภาพระยะยาวแล้ว — มาวางแผนใหญ่</div>
+  <div class="t-desc">เมื่อเข้าใจแล้วว่าเงินออมเติบโตได้แค่ไหน<br>ลองคำนวณ: ออมเท่านี้ — พอใช้หลังเกษียณไหม?</div>
+</div>
+
+<!-- ========== STAGE 3: RETIREMENT GOAL ========== -->
+<div id="stage3">
+<div class="stage-banner">
+  <span class="stage-badge">③</span>
+  <span class="stage-label">มองเป้าหมายไกล</span>
+</div>
+<p class="stage-question" id="s3_question">💡 "ออมแบบนี้ไปจนวันเกษียณ — จะมีเงินพอใช้ไหม? หรือต้องออมเพิ่ม?"</p>
+<p class="subtitle" id="s3_subtitle">ขั้นสุดท้าย: นำภาพการออมของคุณไปเทียบกับเป้าหมายชีวิตจริง — พอใช้หลังเกษียณไหม?</p>
+<div class="stage-tip" id="s3_tip">แนวคิด “เงิน 3 ก้อน”: (1) เงินที่ต้องใช้ (2) เงินที่มีอยู่แล้ว (3) ส่วนที่ต้องออมเพิ่ม — จากคู่มือวางแผนเกษียณไทย</div>
+
+<div class="card">
+  <div class="field">
+    <label for="ret_curr_age">อายุปัจจุบัน (ปี)</label>
+    <input type="number" id="ret_curr_age" min="18" max="70" step="1" placeholder="เช่น 30">
+  </div>
+  <div class="field">
+    <label for="ret_ret_age">อายุเกษียณ (ปี)</label>
+    <input type="number" id="ret_ret_age" min="40" max="75" step="1" placeholder="เช่น 60">
+  </div>
+  <div class="field">
+    <label for="ret_expense">ค่าใช้จ่ายหลังเกษียณต่อเดือน ณ มูลค่าเงินวันนี้ (บาท)</label>
+    <div class="hint" id="ret_expense_hint">คาดการณ์ค่าใช้จ่ายที่จำเป็นหลังเกษียณ — แนวการศึกษาบางแหล่งใช้ราว 70% ของค่าใช้จ่ายก่อนเกษียณ (ปรับตามไลฟ์สไตล์ได้)</div>
+    <input type="number" id="ret_expense" min="0" step="100" placeholder="เช่น 25000">
+    <div class="link-note" id="ret_link_note" hidden></div>
+  </div>
+  <div class="field">
+    <label for="ret_saved">เงินออม/ลงทุนสำหรับเกษียณที่มีแล้ว (บาท)</label>
+    <input type="number" id="ret_saved" min="0" step="100" placeholder="ไม่บังคับ เช่น 100000">
+  </div>
+  <div class="field">
+    <label for="ret_planned_pmt">ออมเดือนละ (บาท) — สำหรับวิเคราะห์ช่องว่าง</label>
+    <div class="hint">ไม่บังคับ ถ้าใส่จะคำนวณว่ายังขาดหรือเกิน</div>
+    <input type="number" id="ret_planned_pmt" min="0" step="100" placeholder="ไม่บังคับ เช่น 5000">
+  </div>
+
+  <details class="assumptions" open>
+    <summary>⚙️ สมมติฐาน (ปรับได้ทั้งหมด)</summary>
+    <div class="grid">
+      <div class="assump-field"><label for="ret_life_age">อายุคาดถึง (ปี)</label><input type="number" id="ret_life_age" min="60" max="100" value="85"></div>
+      <div class="assump-field"><label for="ret_pre_return">ผลตอบแทนก่อนเกษียณ (%/ปี)</label><input type="number" id="ret_pre_return" min="0" max="15" value="5" step="0.5"></div>
+      <div class="assump-field"><label for="ret_inflation">อัตราเงินเฟ้อ (%/ปี)</label><input type="number" id="ret_inflation" min="0" max="10" value="2" step="0.5"></div>
+      <div class="assump-field"><label for="ret_post_return">ผลตอบแทนระหว่างเกษียณ (%/ปี)</label><input type="number" id="ret_post_return" min="0" max="10" value="3" step="0.5"></div>
+    </div>
+    <div class="hint" style="margin-top:6px">สมมติฐานเพื่อการศึกษา — อัตราผลตอบแทนเป็นค่าประมาณ ไม่ใช่การรับประกัน</div>
+  </details>
+</div>
+
+<div class="card result-card" id="ret_result" hidden>
+  <div class="result-label">เป้าเงินเกษียณ ณ วันเกษียณ</div>
+  <div class="result-number" id="ret_target">—</div>
+  <div class="retire-outputs">
+    <div class="ro-row"><span class="ro-label">ต้องออมเดือนละ</span><span class="ro-val highlight" id="ret_required_pmt">—</span></div>
+    <div class="ro-row" id="ret_gap_row" hidden><span class="ro-label" id="ret_gap_label"></span><span class="ro-val danger" id="ret_gap_val">—</span></div>
+  </div>
+  <div class="status-line" id="ret_status" style="margin-top:10px"></div>
+  <button class="share-btn" id="ret_share">📤 คัดลอกผลลัพธ์</button>
+</div>
+</div>
+
+<!-- ========== DISCLAIMER ========== -->
+<div class="disclaimer" style="margin-top:32px">
+  <strong>⚠️ ข้อจำกัดความรับผิดชอบ</strong>
+  KasienD · เกษียณดี เป็นเครื่องมือเพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำทางการเงิน การลงทุน หรือการประกันภัยสำหรับบุคคลใดบุคคลหนึ่ง ตัวคูณ อัตราผลตอบแทน และอัตราเงินเฟ้อเป็นสมมติฐานที่ปรับได้ ผลตอบแทนจริงอาจแตกต่างจากที่คำนวณ ข้อมูลทั้งหมดคำนวณในเบราว์เซอร์ของคุณ ไม่มีการเก็บหรือส่งข้อมูลใดๆ ออกจากเครื่อง
+</div>
+
+<footer>KasienD · เกษียณดี — เครื่องมือเพื่อการศึกษา · ไม่เก็บข้อมูลผู้ใช้</footer>
+
+</div>
+
+<script>
+(function(){
+  /* ─── helpers ─── */
+  function fmt(n){ return Math.round(n).toLocaleString('th-TH') + ' บาท'; }
+  function updateDashboard(){
+    var dashEF=document.getElementById('dash_ef');
+    if(!dashEF)return;
+    var exp=parseFloat(document.getElementById('ef_expense').value)||0;
+    var saved=parseFloat(document.getElementById('ef_saved').value)||0;
+    var efMonthly=parseFloat(document.getElementById('ef_monthly').value)||0;
+    var mult=parseInt(document.getElementById('ef_multiplier').value,10)||6;
+    var ciPrincipal=parseFloat(document.getElementById('ci_principal').value)||0;
+    var ciMonthly=parseFloat(document.getElementById('ci_monthly').value)||0;
+    var ciYears=parseInt(document.getElementById('ci_years').value,10)||0;
+    var retCurr=parseFloat(document.getElementById('ret_curr_age').value)||0;
+    var retAge=parseFloat(document.getElementById('ret_ret_age').value)||0;
+    var retExpense=parseFloat(document.getElementById('ret_expense').value)||0;
+    var lifeAge=parseFloat(document.getElementById('ret_life_age').value)||85;
+    var retResult=document.getElementById('ret_result');
+    var retTarget=document.getElementById('ret_target');
+    var retGapRow=document.getElementById('ret_gap_row');
+    var retPlanned=parseFloat(document.getElementById('ret_planned_pmt').value)||0;
+    var efDone=exp>0;
+    var ciDone=ciYears>0&&(ciPrincipal>0||ciMonthly>0);
+    var retDone=retCurr>0&&retAge>retCurr&&retExpense>0&&lifeAge>retAge&&!retResult.hidden&&retTarget.textContent.indexOf('บาท')>-1;
+    var efGoal=exp*mult;
+    var efPct=efGoal>0?Math.min(100,Math.round(saved/efGoal*100)):0;
+    dashEF.textContent=efDone?(saved>=efGoal&&saved>0?'ครบเป้าแล้ว':efPct+'% ของเป้า'):'ยังไม่ได้กรอก';
+    document.getElementById('dash_monthly').textContent=ciMonthly>0?fmt(ciMonthly):(efMonthly>0?fmt(efMonthly):'ยังไม่ได้กรอก');
+    var ciResult=document.getElementById('ci_result');
+    document.getElementById('dash_ci').textContent=ciDone&&!ciResult.hidden?document.getElementById('ci_fv').textContent:'กรอก Stage 2 เพื่อดู';
+    document.getElementById('dash_ret').textContent=retDone?retTarget.textContent:'ยังไม่ได้กรอก';
+    var dashGap=document.getElementById('dash_gap');
+    if(retDone){
+      if(!retGapRow.hidden)dashGap.textContent=document.getElementById('ret_gap_label').textContent+' '+document.getElementById('ret_gap_val').textContent;
+      else if(retPlanned>0)dashGap.textContent='แผนปัจจุบันถึงเป้าหมายแล้ว';
+      else dashGap.textContent='ใส่เงินออมต่อเดือนเพื่อดูช่องว่าง';
+    }else dashGap.textContent='กรอกข้อมูล Stage 3 เพื่อวิเคราะห์';
+    var completed=(efDone?1:0)+(ciDone?1:0)+(retDone?1:0);
+    document.getElementById('dash_progress_text').textContent=completed+'/3';
+    var s1=document.getElementById('dash_step1'),s2=document.getElementById('dash_step2'),s3=document.getElementById('dash_step3');
+    s1.className='dashboard-progress-step'+(efDone?' done':'')+(completed===0&&!efDone?' active':'');
+    s2.className='dashboard-progress-step'+(ciDone?' done':'')+(completed===1&&!ciDone?' active':'');
+    s3.className='dashboard-progress-step'+(retDone?' done':'')+(completed===2&&!retDone?' active':'');
+    var next=document.getElementById('dash_next');
+    if(!efDone)next.textContent='เริ่มที่ Stage 1: ตั้งกำแพงกันภัย';
+    else if(!ciDone)next.textContent='ต่อไป Stage 2: ดูพลังเงินออมของคุณ';
+    else if(!retDone)next.textContent='ต่อไป Stage 3: ตรวจเป้าหมายเกษียณ';
+    else if(!retPlanned)next.textContent='ใส่เงินออมต่อเดือนใน Stage 3 เพื่อดูช่องว่าง';
+    else next.textContent='ครบทั้ง 3 Stage แล้ว — ทบทวนผลและปรับสมมติฐานได้';
+  }
+  function copy(txt,btn){
+    var orig=btn.textContent;
+    function ok(){btn.textContent='✅ คัดลอกแล้ว!';setTimeout(function(){btn.textContent=orig;},2000)}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(ok);
+    else{var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);ok()}
+  }
+
+  /* ─── Audience segments (Thai knowledge-informed profiles; same 3 calcs) ─── */
+  var SEGMENTS={
+    general:{
+      tip:'เริ่มแบบภาษากลางได้เลย — เหมาะกับทุกอาชีพ ปรับตัวเลขตามตัวเองได้ทุกช่อง',
+      journey:'ไม่ว่าอาชีพอะไร — เริ่มจากกันความเสี่ยง แล้วค่อยให้เงินทำงาน และปิดท้ายด้วยเป้าเกษียณ',
+      s1q:'💡 "ถ้าพรุ่งนี้งานหาย หรือมีเหตุฉุกเฉิน — มีเงินพออยู่ได้กี่เดือน?"',
+      s1sub:'ขั้นแรก: กันเงินไว้รับเหตุไม่คาดคิดก่อน แล้วค่อยนำเงินส่วนที่เหลือไปสร้างการเติบโต',
+      s1tip:'สมมติฐานไทย: งานประจำมักเริ่มที่ ×6 เดือน | รายได้ไม่นิ่งอาจต้อง ×9–12 เดือน (ปรับได้)',
+      s2q:'💡 "เงินที่เหลือจากรายจ่ายในแต่ละเดือน — ถ้าออมลงทุนสม่ำเสมอ จะโตแค่ไหนในระยะยาว?"',
+      s2sub:'ขั้นที่สอง: เมื่อมีเบาะรองรับแล้ว ลองดูพลังดอกเบี้ยทบต้น',
+      s2tip:'แนวคิดการศึกษา: เริ่มเร็วช่วยได้มาก เพราะเวลาทำงานให้เงิน — ไม่ใช่คำแนะนำซื้อกองทุนใดกองทุนหนึ่ง',
+      s3q:'💡 "ออมแบบนี้ไปจนวันเกษียณ — จะมีเงินพอใช้ไหม?"',
+      s3sub:'ขั้นสุดท้าย: เทียบแผนออมกับเป้าใช้หลังเกษียณ',
+      s3tip:'แนวคิด “เงิน 3 ก้อน”: (1) เงินที่ต้องใช้ (2) เงินที่มีอยู่แล้ว (3) ส่วนที่ต้องออมเพิ่ม',
+      retHint:'แนวการศึกษาบางแหล่งใช้ราว 70% ของค่าใช้จ่ายก่อนเกษียณ — ปรับตามไลฟ์สไตล์ได้',
+      job:'salaried', mult:6,
+      efPreset:{exp:15000,saved:20000,mth:5000,label:'✨ ตัวอย่างทั่วไป: ค่าใช้จ่าย 15,000 บาท'},
+      ciPreset:{p:10000,m:3000,y:30,r:5,label:'✨ ตัวอย่าง: ออม 3,000 บาท/เดือน 30 ปี'},
+      retPresetAge:{curr:30,ret:60}
+    },
+    employee:{
+      tip:'มนุษย์เงินเดือน: โฟกัสเงินสำรอง ×6, ใช้สวัสดิการที่ทำงานมี (เช่น PVD/ประกันสังคม) เป็นฐาน แล้วออมเพิ่มเอง — ข้อมูลเพื่อการศึกษา',
+      journey:'เส้นทางคนมีเงินเดือน: กันฉุกเฉิน → ออมสม่ำเสมอทุกเดือน → ดูว่าพอเกษียณไหม',
+      s1q:'💡 "ถ้าถูกเลิกจ้างหรือหยุดงานกะทันหัน — อยู่ได้กี่เดือนโดยไม่ต้องกู้?"',
+      s1sub:'ขั้นแรกของเงินเดือน: สร้างกำแพงกันภัยก่อน แล้วค่อยเร่งออมผ่านระบบหักเดือน',
+      s1tip:'งานประจำ: เริ่มที่ ×6 เดือนของค่าใช้จ่ายจำเป็น (ปรับได้ตามภาระครอบครัว)',
+      s2q:'💡 "ถ้าออมทุกเดือนแบบวินัยเงินเดือน — ใน 20–30 ปี เงินจะโตเท่าไหร่?"',
+      s2sub:'ขั้นสอง: เปลี่ยน “เงินเหลือสิ้นเดือน” เป็นเงินที่ทำงานให้คุณ',
+      s2tip:'แนวการศึกษา: หลายคนใช้ PVD/RMF เป็นฐานออมเกษียณ — ที่นี่คำนวณภาพรวม ไม่แนะนำกองทุนรายตัว',
+      s3q:'💡 "เงินเดือน + เงินออมที่มี — พอสำหรับชีวิตวัยเกษียณที่ต้องการไหม?"',
+      s3sub:'ขั้นสาม: หาช่องว่างระหว่างเป้าใช้จ่าย กับเงินที่คาดว่าจะมี',
+      s3tip:'เช็ก “เงิน 3 ก้อน”: เป้าใช้ / เงินที่มี (รวมสวัสดิการออม) / ส่วนที่ต้องออมเพิ่ม',
+      retHint:'ลองเริ่มจากประมาณ 70% ของค่าใช้จ่ายเดือนปัจจุบัน แล้วปรับตามแผนชีวิต',
+      job:'salaried', mult:6,
+      efPreset:{exp:20000,saved:40000,mth:5000,label:'✨ ตัวอย่างเงินเดือน: ค่าใช้ 20,000 · ออม 5,000'},
+      ciPreset:{p:50000,m:5000,y:25,r:5,label:'✨ ตัวอย่าง: ออม 5,000/เดือน 25 ปี'},
+      retPresetAge:{curr:32,ret:60}
+    },
+    freelance:{
+      tip:'ฟรีแลนซ์/หลายงาน: รายได้ผันผวน — เงินสำรองมักต้องหนาขึ้น (×9–12) และแยกบัญชีรายได้/ใช้จ่าย/ออมให้ชัด',
+      journey:'เส้นทางรายได้ไม่นิ่ง: กันพายุก่อน → ออมเมื่อมีเงินเข้า → วางเป้าเกษียณที่ไม่พึ่งนายจ้าง',
+      s1q:'💡 "ถ้าเดือนหน้างานเงียบ — มีเงินพอจ่ายค่าใช้จ่ายกี่เดือน?"',
+      s1sub:'ขั้นแรกของฟรีแลนซ์: กำแพงกันภัยหนาขึ้น เพราะรายได้ไม่สม่ำเสมอ',
+      s1tip:'แนวการศึกษาสำหรับรายได้ไม่นิ่ง: เริ่มที่ ×9 ถึง ×12 เดือน (ปรับได้) — สำรองฉุกเฉินคนละเรื่องกับเงินลงทุน',
+      s2q:'💡 "เดือนที่รายได้ดี ถ้าเก็บส่วนหนึ่งไปทำงานระยะยาว จะต่างจากไม่เก็บแค่ไหน?"',
+      s2sub:'ขั้นสอง: เปลี่ยนรายได้ก้อนเป็นวินัยออม — แม้บางเดือนจะออมไม่ได้',
+      s2tip:'ทิปการศึกษา: ออมเป็น % ของรายได้แต่ละครั้งที่เงินเข้า (Pay Yourself First) ดีกว่ารอสิ้นเดือน',
+      s3q:'💡 "ไม่มีบำนาญนายจ้าง — ต้องมีเงินก้อนเท่าไหร่ถึงอยู่ได้ด้วยตัวเอง?"',
+      s3sub:'ขั้นสาม: คำนวณเป้าเกษียณจากแผนการใช้ชีวิต ไม่ใช่จากเงินเดือนบริษัท',
+      s3tip:'ฟรีแลนซ์มักพึ่งออมเองเป็นหลัก — ใช้ช่อง “เงินออมที่มีแล้ว” และ “ออมเดือนละ” ให้ครบ',
+      retHint:'ถ้าค่าใช้จ่ายผันผวน ให้ใช้ค่าเฉลี่ยเดือนปกติ ไม่ใช่เดือนรายได้สูงสุด',
+      job:'freelance', mult:9,
+      efPreset:{exp:18000,saved:30000,mth:6000,label:'✨ ตัวอย่างฟรีแลนซ์: สำรองหนา ×9'},
+      ciPreset:{p:20000,m:4000,y:25,r:5,label:'✨ ตัวอย่าง: ออม 4,000/เดือน 25 ปี'},
+      retPresetAge:{curr:30,ret:60}
+    },
+    civil:{
+      tip:'ข้าราชการ: มีบำนาญ/กบข. เป็นฐานได้ แต่ยังควรมีเงินสำรองและแผนค่าใช้จ่ายสุขภาพ-ไลฟ์สไตล์เพิ่ม — ข้อมูลเพื่อการศึกษา ไม่ใช่ประมาณการสิทธิรายบุคคล',
+      journey:'เส้นทางข้าราชการ: กันฉุกเฉิน → เข้าใจพลังออมเพิ่ม → ดูว่าบำนาญ+ออมพอต่อเป้าชีวิตไหม',
+      s1q:'💡 "นอกจากสวัสดิการที่มี — ถ้ามีเหตุฉุกเฉินในครอบครัว เงินสดพอไหม?"',
+      s1sub:'ขั้นแรก: แม้มีสวัสดิการ ก็ยังควรมีเงินสำรองสภาพคล่องของตัวเอง',
+      s1tip:'งานประจำภาครัฐ: เริ่มที่ ×6 เดือนได้ แต่ถ้ามีภาระอุปการะผู้ใหญ่ อาจตั้งสูงขึ้น',
+      s2q:'💡 "ถ้าออมเพิ่มนอกเหนือจากเงินหักประจำ — ในระยะยาวต่างกันเท่าไหร่?"',
+      s2sub:'ขั้นสอง: ดูภาพดอกเบี้ยทบต้นของเงินออมเพิ่ม (นอกเหนือสิทธิที่มี)',
+      s2tip:'แนวการศึกษา: กบข./ออมเพิ่มเป็นเครื่องมือหนึ่ง — ที่นี่ไม่คำนวณสิทธิรายตัว แค่ภาพรวมการออม',
+      s3q:'💡 "บำนาญที่คาดไว้ + เงินออม — ครอบคลุมชีวิตหลังเกษียณที่ต้องการไหม?"',
+      s3sub:'ขั้นสาม: หาช่องว่างระหว่างเป้าใช้จ่าย กับแหล่งเงินที่คาดว่าจะมี',
+      s3tip:'ใส่ “เงินออม/ลงทุนที่มีแล้ว” ให้รวมประมาณการเงินก้อนที่คิดว่าจะมี (ถ้ามี) แล้วดูส่วนที่ยังขาด',
+      retHint:'ค่าใช้จ่ายหลังเกษียณอาจลดบางส่วน แต่ค่าสุขภาพมักสูงขึ้นตามวัย — ลองตั้งเผื่อ',
+      job:'salaried', mult:6,
+      efPreset:{exp:18000,saved:50000,mth:4000,label:'✨ ตัวอย่างข้าราชการ: ค่าใช้ 18,000'},
+      ciPreset:{p:100000,m:3000,y:20,r:5,label:'✨ ตัวอย่าง: ออมเพิ่ม 3,000/เดือน 20 ปี'},
+      retPresetAge:{curr:40,ret:60}
+    },
+    age50:{
+      tip:'วัย 50+ / ใกล้วัยเกษียณ: เวลาเหลือน้อยลง — โฟกัสเป้าใช้จ่ายจริง ช่องว่างเงินก้อน และความเสี่ยงที่ไม่ควรสูงเกิน',
+      journey:'เส้นทางวัยเก๋า: กันสภาพคล่อง → ประเมินเงินที่ยังโตได้แบบพอเหมาะ → ปิดช่องว่างก่อนวันเกษียณ',
+      s1q:'💡 "ถ้าต้องหยุดงานหรือมีค่ารักษาฉุกเฉิน — เงินสดระยะสั้นพอไหม?"',
+      s1sub:'ขั้นแรก: ยืนยันเงินสำรองสภาพคล่องก่อนคิดเรื่องผลตอบแทน',
+      s1tip:'ใกล้วัยเกษียณยังต้องมีสำรองฉุกเฉิน — อย่าเทเงินสำรองทั้งหมดไปลงทุนเสี่ยง',
+      s2q:'💡 "เงินที่มีอยู่ ถ้ารักษาระดับเติบโตพอประมาณ จะช่วยยืดอายุเงินได้แค่ไหน?"',
+      s2sub:'ขั้นสอง: ดูภาพรวมการเติบโตแบบสมมติฐาน — ไม่ใช่สูตรรวยเร็ว',
+      s2tip:'แนวการศึกษาวัย 50+: เน้นกระจายความเสี่ยงและสภาพคล่องมากกว่าไล่ผลตอบแทนสูงสุด',
+      s3q:'💡 "เหลือเวลากี่ปีก่อนเกษียณ — และยังขาดเงินก้อนอีกเท่าไหร่?"',
+      s3sub:'ขั้นสาม: ปิดช่องว่างด้วยตัวเลขจริงของช่วงชีวิตหลังเกษียณ',
+      s3tip:'ใช้อายุจริงของคุณ + อายุคาดถึง แล้วดู “ต้องออมเดือนละ” ว่าทำไหวหรือต้องปรับเป้า',
+      retHint:'ช่วงนี้ค่าใช้จ่ายสุขภาพมักสำคัญขึ้น — เผื่อในตัวเลขค่าใช้จ่ายหลังเกษียณได้',
+      job:'salaried', mult:6,
+      efPreset:{exp:20000,saved:100000,mth:8000,label:'✨ ตัวอย่างวัย 50+: สำรอง+ออมเร่ง'},
+      ciPreset:{p:500000,m:8000,y:10,r:4,label:'✨ ตัวอย่าง: 10 ปีสุดท้าย ออม 8,000/เดือน'},
+      retPresetAge:{curr:52,ret:60}
+    }
+  };
+  var currentSeg='general';
+  function setText(id,val){var el=document.getElementById(id);if(el)el.textContent=val}
+  function applySegment(key,fillPreset){
+    var s=SEGMENTS[key]||SEGMENTS.general;
+    currentSeg=key;
+    document.querySelectorAll('.audience-chip').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-seg')===key)});
+    setText('audience_tip',s.tip);
+    setText('journey_desc',s.journey);
+    setText('s1_question',s.s1q); setText('s1_subtitle',s.s1sub); setText('s1_tip',s.s1tip);
+    setText('s2_question',s.s2q); setText('s2_subtitle',s.s2sub); setText('s2_tip',s.s2tip);
+    setText('s3_question',s.s3q); setText('s3_subtitle',s.s3sub); setText('s3_tip',s.s3tip);
+    setText('ret_expense_hint',s.retHint);
+    var jobMap={salaried:'ef_job_salaried',freelance:'ef_job_freelance',business:'ef_job_business'};
+    var jobEl=document.getElementById(jobMap[s.job]||'ef_job_salaried');
+    if(jobEl){jobEl.checked=true}
+    var multEl=document.getElementById('ef_multiplier'), multVal=document.getElementById('ef_multiplier_val');
+    if(multEl){multEl.value=s.mult; if(multVal)multVal.textContent='×'+s.mult+' เดือน'}
+    var efp=document.getElementById('ef_preset'), cip=document.getElementById('ci_preset');
+    if(efp)efp.textContent=s.efPreset.label;
+    if(cip)cip.textContent=s.ciPreset.label;
+    if(fillPreset){
+      /* ไม่บังคับเติมตัวเลขตอนเปลี่ยนกลุ่ม — ผู้ใช้กด preset เอง */
+    }
+    if(typeof calcEF==='function')calcEF();
+    if(typeof updateDashboard==='function')updateDashboard();
+    try{sessionStorage.setItem('kasiend_segment',key)}catch(e){}
+  }
+  document.querySelectorAll('.audience-chip').forEach(function(btn){
+    btn.addEventListener('click',function(){applySegment(btn.getAttribute('data-seg'),false)});
+  });
+
+  /* ─── Data Linking (sessionStorage) ─── */
+  function storageSet(k,v){if(v>0){try{sessionStorage.setItem('kasiend_stage1_'+k,v)}catch(e){}}}
+  function storageGet(k){try{var v=sessionStorage.getItem('kasiend_stage1_'+k);return v?+v:0}catch(e){return 0}}
+  function linkST1toS3(){
+    /* อ่าน DOM เองทุกครั้ง — ไม่พึ่ง var ภายนอก (กันบั๊กลำดับประกาศ) */
+    var exp=storageGet('expense'),svd=storageGet('saved'),pmt=storageGet('pmt');
+    var elExp=document.getElementById('ret_expense');
+    var elSvd=document.getElementById('ret_saved');
+    var elPmt=document.getElementById('ret_planned_pmt');
+    var elNote=document.getElementById('ret_link_note');
+    if(!elExp||!elNote)return;
+    if(exp&&!elExp.value){elExp.value=exp;elNote.hidden=false;elNote.textContent='💡 นำค่าใช้จ่ายเดือนละ '+fmt(exp)+' จากขั้น ① มาใส่ให้แล้ว — แก้ไขได้';}
+    if(svd&&elSvd&&!elSvd.value)elSvd.value=svd;
+    if(pmt&&elPmt&&!elPmt.value){elPmt.value=pmt;elNote.hidden=false;elNote.textContent='💡 นำค่าใช้จ่าย/เงินออมจากขั้น ① และออมเดือนละ '+fmt(pmt)+' จากขั้น ② มาใส่ให้แล้ว — แก้ไขได้';}
+    if((exp||svd||pmt)&&typeof calcRetirement==='function')calcRetirement();
+    if(!exp&&!svd&&!pmt)elNote.hidden=true;
+  }
+  /* ─── Stage nav click → scroll ─── */
+  document.getElementById('nav_stage1').addEventListener('click',function(){document.getElementById('stage1').scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('nav_stage2').addEventListener('click',function(){document.getElementById('stage2').scrollIntoView({behavior:'smooth',block:'start'});});
+  document.getElementById('nav_stage3').addEventListener('click',function(){document.getElementById('stage3').scrollIntoView({behavior:'smooth',block:'start'});});
+
+  /* ═══════════════════════ STAGE 1: EMERGENCY FUND ═══════════════════════ */
+  var ef_expense=document.getElementById('ef_expense'),
+      ef_saved=document.getElementById('ef_saved'),
+      ef_monthly=document.getElementById('ef_monthly'),
+      ef_multiplier=document.getElementById('ef_multiplier'),
+      ef_mult_val=document.getElementById('ef_multiplier_val'),
+      ef_result=document.getElementById('ef_result'),
+      ef_target=document.getElementById('ef_target'),
+      ef_progress=document.getElementById('ef_progress'),
+      ef_progress_text=document.getElementById('ef_progress_text'),
+      ef_status=document.getElementById('ef_status'),
+      ef_share=document.getElementById('ef_share'),
+      ef_jobs=document.querySelectorAll('input[name="ef_job"]');
+
+  function calcEF(){
+    var exp=parseFloat(ef_expense.value)||0, mult=parseInt(ef_multiplier.value,10),
+        svd=parseFloat(ef_saved.value)||0, mth=parseFloat(ef_monthly.value)||0,
+        goal=exp*mult;
+    if(exp<=0){ef_result.hidden=true;return}
+    ef_target.textContent=fmt(goal);
+    ef_result.hidden=false;
+    var pct=goal>0?Math.min(100,Math.round(svd/goal*100)):0;
+    ef_progress.style.width=pct+'%';
+    ef_progress_text.textContent=svd>0?'ออมไว้แล้ว '+fmt(svd)+' ('+pct+'% ของเป้า)':'';
+    ef_status.className='status-line';
+    if(svd>=goal&&svd>0){ef_status.classList.add('done');ef_status.textContent='🎉 เยี่ยมมาก! คุณมีเงินสำรองฉุกเฉินครบตามเป้าแล้ว';}
+    else if(mth>0){var rem=Math.max(0,goal-svd),mo=Math.ceil(rem/mth);ef_status.classList.add('inprogress');ef_status.textContent='⏳ อีก '+mo+' เดือนจะถึงเป้า (ออม '+fmt(mth)+' ต่อเดือน)';}
+    else ef_status.textContent='';
+  }
+  function onEFChange(){calcEF();storageSet('expense',ef_expense.value||0);storageSet('saved',ef_saved.value||0);linkST1toS3();updateDashboard();}
+  [ef_expense,ef_saved,ef_monthly].forEach(function(e){e.addEventListener('input',onEFChange)});
+  ef_multiplier.addEventListener('input',function(){ef_mult_val.textContent='×'+this.value+' เดือน';calcEF();updateDashboard()});
+  ef_jobs.forEach(function(r){r.addEventListener('change',function(){ef_multiplier.value=r.value;ef_mult_val.textContent='×'+r.value+' เดือน';calcEF();updateDashboard()})});
+  var ef_preset=document.getElementById('ef_preset');
+  ef_preset.addEventListener('click',function(){
+    var p=(SEGMENTS[currentSeg]||SEGMENTS.general).efPreset;
+    ef_expense.value=p.exp;ef_saved.value=p.saved;ef_monthly.value=p.mth;
+    onEFChange();
+    document.getElementById('stage1').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  ef_share.addEventListener('click',function(){
+    copy('เป้าเงินสำรองฉุกเฉินของฉัน: '+ef_target.textContent+(ef_status.textContent?' — '+ef_status.textContent:'')+' (KasienD · เกษียณดี — เครื่องมือเพื่อการศึกษา)',ef_share)
+  });
+
+  /* ═══════════════════════ STAGE 2: COMPOUND INTEREST ═══════════════════════ */
+  var ci_principal=document.getElementById('ci_principal'),
+      ci_monthly=document.getElementById('ci_monthly'),
+      ci_years=document.getElementById('ci_years'),
+      ci_rate=document.getElementById('ci_rate'),
+      ci_result=document.getElementById('ci_result'),
+      ci_fv=document.getElementById('ci_fv'),
+      ci_invested=document.getElementById('ci_invested'),
+      ci_growth=document.getElementById('ci_growth'),
+      ci_share=document.getElementById('ci_share');
+
+  function calcCI(){
+    var P=parseFloat(ci_principal.value)||0,PMT=parseFloat(ci_monthly.value)||0,
+        t=parseInt(ci_years.value,10)||0,rYear=parseFloat(ci_rate.value)||0;
+    if(t<=0||(P<=0&&PMT<=0)){ci_result.hidden=true;return}
+    var r=rYear/100/12,n=t*12,fv=0;
+    if(r>0)fv=P*Math.pow(1+r,n)+PMT*((Math.pow(1+r,n)-1)/r);
+    else fv=P+PMT*n;
+    var invested=P+PMT*n,growth=fv-invested;
+    ci_fv.textContent=fmt(fv);
+    ci_invested.textContent=fmt(invested);
+    ci_growth.textContent=(growth>=0?'+':'')+fmt(growth);
+    ci_result.hidden=false;
+  }
+  function onCIChange(){calcCI();storageSet('pmt',ci_monthly.value||0);linkST1toS3();updateDashboard();}
+  [ci_principal,ci_monthly,ci_years,ci_rate].forEach(function(e){e.addEventListener('input',onCIChange)});
+  var ci_preset=document.getElementById('ci_preset');
+  ci_preset.addEventListener('click',function(){
+    var p=(SEGMENTS[currentSeg]||SEGMENTS.general).ciPreset;
+    ci_principal.value=p.p;ci_monthly.value=p.m;ci_years.value=p.y;ci_rate.value=p.r;
+    calcCI();
+    storageSet('pmt',ci_monthly.value||0);
+    linkST1toS3();
+    updateDashboard();
+    document.getElementById('stage2').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  ci_share.addEventListener('click',function(){
+    copy('ด้วยดอกเบี้ยทบต้น — ออม '+ci_monthly.value+' บาท/เดือน '+ci_years.value+' ปี ที่ '+ci_rate.value+'% ต่อปี → มูลค่ารวม '+ci_fv.textContent+' (ส่วนต่างจากดอกเบี้ย '+ci_growth.textContent+') (KasienD · เกษียณดี)',ci_share)
+  });
+
+  /* ═══════════════════════ STAGE 3: RETIREMENT GOAL ═══════════════════════ */
+  var ret_curr_age=document.getElementById('ret_curr_age'),
+      ret_ret_age=document.getElementById('ret_ret_age'),
+      ret_expense=document.getElementById('ret_expense'),
+      ret_saved=document.getElementById('ret_saved'),
+      ret_planned_pmt=document.getElementById('ret_planned_pmt'),
+      ret_life_age=document.getElementById('ret_life_age'),
+      ret_pre_return=document.getElementById('ret_pre_return'),
+      ret_inflation=document.getElementById('ret_inflation'),
+      ret_post_return=document.getElementById('ret_post_return'),
+      ret_result=document.getElementById('ret_result'),
+      ret_target=document.getElementById('ret_target'),
+      ret_required_pmt=document.getElementById('ret_required_pmt'),
+      ret_gap_row=document.getElementById('ret_gap_row'),
+      ret_gap_label=document.getElementById('ret_gap_label'),
+      ret_gap_val=document.getElementById('ret_gap_val'),
+      ret_status=document.getElementById('ret_status'),
+      ret_share=document.getElementById('ret_share');
+
+  function calcRetirement(){
+    var currAge=parseFloat(ret_curr_age.value)||0,
+        retAge=parseFloat(ret_ret_age.value)||0,
+        expense=parseFloat(ret_expense.value)||0,
+        P0=parseFloat(ret_saved.value)||0,
+        plannedPMT=parseFloat(ret_planned_pmt.value)||0,
+        lifeAge=parseFloat(ret_life_age.value)||85,
+        preRet=parseFloat(ret_pre_return.value)||5,
+        infl=parseFloat(ret_inflation.value)||2,
+        postRet=parseFloat(ret_post_return.value)||3;
+
+    if(currAge<=0||retAge<=0||expense<=0){ret_result.hidden=true;return}
+    if(retAge<=currAge){ret_result.hidden=false;ret_target.textContent='อายุเกษียณต้องมากกว่าอายุปัจจุบัน';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';return}
+    if(lifeAge<=retAge){ret_result.hidden=false;ret_target.textContent='อายุคาดถึงต้องมากกว่าอายุเกษียณ';ret_required_pmt.textContent='—';ret_gap_row.hidden=true;ret_status.textContent='';return}
+
+    var T=(retAge-currAge)*12;
+    var D=(lifeAge-retAge)*12;
+    var preM=preRet/100/12;
+    var infM=infl/100/12;
+    var postM=postRet/100/12;
+
+    var Eret=expense*Math.pow(1+infM,T);
+    var realM = (Math.abs(preM-infM)<1e-12) ? 0 : ((1+postM)/(1+infM)-1);
+
+    var target=0;
+    if(Math.abs(realM)<1e-12){target=Eret*D;}
+    else{target=Eret*(1-Math.pow(1+realM,-D))/realM;}
+
+    var fvSaved=(P0>0?P0*Math.pow(1+preM,T):0);
+    var shortfall=Math.max(0,target-fvSaved);
+
+    var reqPMT=0;
+    if(T>0&&shortfall>0){
+      if(Math.abs(preM)<1e-12)reqPMT=shortfall/T;
+      else reqPMT=shortfall*preM/(Math.pow(1+preM,T)-1);
+    }
+
+    ret_target.textContent=fmt(target);
+    ret_result.hidden=false;
+
+    if(shortfall<=0){
+      ret_required_pmt.textContent='🎉 คุณมีเงินพอเกษียณแล้ว';
+      ret_gap_row.hidden=true;
+      ret_status.className='status-line done';
+      ret_status.textContent='เงินออมที่มีแล้ว '+fmt(P0)+' เพียงพอสำหรับเป้าหมายนี้';
+    } else {
+      ret_required_pmt.textContent=fmt(reqPMT);
+      if(plannedPMT>0){
+        var grFactor = (Math.abs(preM)<1e-12) ? T : (Math.pow(1+preM,T)-1)/preM;
+        var fvPlan = fvSaved + plannedPMT * grFactor;
+        var gap = target - fvPlan;
+        ret_gap_row.hidden=false;
+        if(gap>0){
+          ret_gap_label.textContent='ยังขาดอีก';
+          ret_gap_val.textContent=fmt(gap);
+          ret_status.className='status-line inprogress';
+          ret_status.textContent='ด้วยออมเดือนละ '+fmt(plannedPMT)+' — อีก '+fmt(gap)+' ถึงเป้า';
+        } else {
+          ret_gap_label.textContent='เกินเป้า';
+          ret_gap_val.textContent=fmt(Math.abs(gap));
+          ret_status.className='status-line done';
+          ret_status.textContent='🎉 ด้วยออม '+fmt(plannedPMT)+'/เดือน คุณจะมีเงินเกินเป้าที่ตั้งไว้!';
+        }
+      } else {
+        ret_gap_row.hidden=true;
+        ret_status.className='status-line inprogress';
+        ret_status.textContent='';
+      }
+    }
+  }
+
+  [ret_curr_age,ret_ret_age,ret_expense,ret_saved,ret_planned_pmt,
+   ret_life_age,ret_pre_return,ret_inflation,ret_post_return]
+    .forEach(function(e){e.addEventListener('input',function(){calcRetirement();updateDashboard()})});
+
+  /* ─── Data Linking: pre-fill Stage 3 from Stage 1 (call after all vars assigned) ─── */
+  var savedSeg='general';
+  try{savedSeg=sessionStorage.getItem('kasiend_segment')||'general'}catch(e){}
+  applySegment(savedSeg,false);
+  linkST1toS3();
+  updateDashboard();
+
+  ret_share.addEventListener('click',function(){
+    copy('เป้าเงินเกษียณของฉัน: '+ret_target.textContent+
+         ' — ต้องออม '+ret_required_pmt.textContent+'/เดือน'+
+         (ret_gap_row.hidden?'':' — '+ret_gap_label.textContent+' '+ret_gap_val.textContent)+
+         ' (KasienD · เกษียณดี — เครื่องมือเพื่อการศึกษา)',ret_share)
+  });
+})();
+</script>
+</body>
+</html>
