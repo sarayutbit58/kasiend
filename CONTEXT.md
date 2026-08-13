@@ -117,7 +117,7 @@ _Avoid_: one-size-only, segment-sprawl
 _Avoid_: five separate apps, calculator per segment
 
 **สถานะการเปิดตัว (Release Status)**:
-v2.7 = เครื่องมือวางแผนสุขภาพ+ประกันสุขภาพ (การศึกษา) + ทางลัดใน tools jump
+v3.0 = ทัวร์ทีละหน้า (hash subpages) + หน้าสรุปแผน — แก้ปัญหา “หน้าเดียวยาวงง”
 _Avoid_: unlisted-only
 
 **คิวเครื่องคำนวณในอนาคต (Calculator Backlog)**:

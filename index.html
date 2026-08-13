@@ -150,6 +150,52 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 /* section scroll margin under sticky stage nav */
 #stage1,#stage2,#stage3,#user_dashboard,#tools_group{scroll-margin-top:72px}
 
+/* Multi-step tour views */
+.view[hidden],.view:not(.active){display:none!important}
+.view.active{display:block}
+.tour-top{display:flex;gap:4px;overflow-x:auto;padding:8px 2px 12px;position:sticky;top:0;z-index:30;background:rgba(238,242,246,.94);backdrop-filter:blur(8px);margin:0 -4px 8px;padding-left:4px;padding-right:4px;-webkit-overflow-scrolling:touch}
+.tour-top-item{flex:0 0 auto;min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--border);background:#fff;color:var(--muted);text-decoration:none;font:700 .72rem inherit;white-space:nowrap}
+.tour-top-item.active{background:var(--brand);border-color:var(--brand);color:#fff}
+.tour-top-item:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(15,118,110,.35)}
+.home-hero{background:linear-gradient(165deg,#ecfdf5 0%,#fff 45%,#eff6ff 100%);border:1.5px solid #d1fae5;border-radius:20px;padding:22px 18px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
+.home-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:var(--brand);text-transform:uppercase}
+.home-title{font-size:clamp(1.35rem,5vw,1.75rem);font-weight:800;margin:8px 0;line-height:1.25;color:var(--text)}
+.home-lead{font-size:.92rem;color:var(--muted);line-height:1.5;margin-bottom:14px}
+.home-cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+a.btn-primary,a.home-cta{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:var(--touch);padding:12px 18px;border-radius:var(--radius-sm);background:var(--primary);color:#fff!important;font-weight:800;font-size:.92rem}
+a.btn-primary:hover{background:var(--primary-dark)}
+.home-cta-sec{text-decoration:none}
+.home-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(min-width:520px){.home-steps{grid-template-columns:repeat(4,1fr)}}
+.home-step-card{display:flex;flex-direction:column;gap:4px;padding:14px 12px;border-radius:14px;background:#fff;border:1.5px solid var(--border);text-decoration:none;color:inherit;min-height:100px;box-shadow:var(--shadow-sm);transition:border-color .15s,transform .15s}
+.home-step-card:hover{border-color:var(--brand-light);transform:translateY(-1px)}
+.hs-num{width:28px;height:28px;border-radius:50%;background:var(--brand-bg);color:var(--brand-ink);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.hs-title{font-weight:800;font-size:.88rem}
+.hs-desc{font-size:.74rem;color:var(--muted)}
+.home-dash-wrap{margin-top:8px}
+.home-dash-label{font-size:.78rem;color:var(--muted);margin-bottom:8px;font-weight:600}
+.tour-pane-head{margin-bottom:14px}
+.tour-pane-step{display:inline-block;font-size:.8rem;font-weight:800;color:var(--brand-ink);background:var(--brand-bg);padding:6px 12px;border-radius:999px}
+.tour-pane-help{font-size:.82rem;color:var(--muted);margin-top:8px}
+.tour-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin:28px 0 8px;padding-top:16px;border-top:1px solid var(--border)}
+a.tour-btn{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch);padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:800;font-size:.88rem}
+.tour-btn-pri{background:var(--primary);color:#fff!important;flex:1;min-width:140px}
+.tour-btn-sec{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.summary-card{background:#fff;border:1.5px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow-sm)}
+.summary-hero{margin-bottom:14px}
+.summary-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:800;color:#d97706}
+.summary-title{font-size:1.25rem;font-weight:800;margin:4px 0}
+.summary-lead{font-size:.9rem;color:var(--muted);line-height:1.45}
+.summary-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px;font-size:.88rem;line-height:1.45}
+.summary-list span{display:block;color:var(--text);font-weight:600;margin-top:2px}
+.summary-next{margin-top:14px;padding:12px;border-radius:12px;background:#eff6ff;border:1px solid #bfdbfe;font-weight:700;color:#1e3a8a;font-size:.88rem}
+/* hide long single-page journey chrome when using tour */
+.journey-intro{display:none}
+.transition-card{display:none}
+.header .tagline{display:none}
+.header{padding-bottom:0}
+.header .ad-mockup{margin-bottom:12px}
+
 /* CI year table */
 .ci-year-wrap{margin-top:16px;text-align:left}
 .ci-year-wrap summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:800;font-size:.88rem;color:var(--brand-ink);list-style:none}
@@ -331,7 +377,6 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 <a class="skip-link" href="#main">ข้ามไปเนื้อหาหลัก</a>
 <div class="container">
 <main id="main" tabindex="-1">
-
 <!-- HEADER -->
 <header class="header">
   <div class="brand">KasienD</div>
@@ -345,7 +390,55 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     </div>
     <div class="ad-spec">320 × 100 px<br>ตำแหน่งด้านบน</div>
   </div>
-  <section class="dashboard" id="user_dashboard" aria-label="ภาพรวมเส้นทางการเงินของคุณ">
+  </header>
+
+<nav class="tour-top" id="tour_top" aria-label="ความคืบหน้าทัวร์">
+  <a href="#home" data-tour="home" class="tour-top-item active">เริ่ม</a>
+  <a href="#stage1" data-tour="stage1" class="tour-top-item">① กันภัย</a>
+  <a href="#stage2" data-tour="stage2" class="tour-top-item">② เติบโต</a>
+  <a href="#stage3" data-tour="stage3" class="tour-top-item">③ เกษียณ</a>
+  <a href="#summary" data-tour="summary" class="tour-top-item">สรุป</a>
+  <a href="#tools" data-tour="tools" class="tour-top-item">เสริม</a>
+</nav>
+
+<!-- VIEW: HOME -->
+<section class="view active" id="view-home" data-view="home" aria-label="หน้าเริ่มต้น">
+  <div class="home-hero">
+    <p class="home-kicker">ทัวร์ 3 ขั้นตอน · เพื่อการศึกษา</p>
+    <h1 class="home-title">เริ่มวางแผนเกษียณแบบไม่ต้องงง</h1>
+    <p class="home-lead">ไม่ต้องเลื่อนยาวทั้งหน้า — เราพาทีละขั้น: กันภัย → ให้เงินทำงาน → เป้าเกษียณ แล้วค่อยเปิดเครื่องมือเสริม</p>
+    <div class="home-cta-row">
+      <a class="btn-primary home-cta" href="#stage1">เริ่มขั้นที่ 1 · ตั้งกำแพงกันภัย</a>
+      <a class="link-btn home-cta-sec" href="#summary">ดูสรุปแผนของฉัน</a>
+    </div>
+  </div>
+
+  <div class="home-steps">
+    <a class="home-step-card" href="#stage1"><span class="hs-num">1</span><span class="hs-title">ตั้งกำแพงกันภัย</span><span class="hs-desc">เงินสำรองฉุกเฉินก่อน</span></a>
+    <a class="home-step-card" href="#stage2"><span class="hs-num">2</span><span class="hs-title">ให้เงินทำงาน</span><span class="hs-desc">ดอกเบี้ยทบต้น</span></a>
+    <a class="home-step-card" href="#stage3"><span class="hs-num">3</span><span class="hs-title">มองเป้าหมายไกล</span><span class="hs-desc">เป้าเงินเกษียณ</span></a>
+    <a class="home-step-card" href="#tools"><span class="hs-num">+</span><span class="hs-title">เครื่องมือเสริม</span><span class="hs-desc">สิทธิ · สุขภาพ · PVD</span></a>
+  </div>
+
+  <!-- AUDIENCE PICKER -->
+<div class="audience-box" id="audience_box" role="group" aria-label="เลือกกลุ่มผู้ใช้">
+  <div class="audience-title">👤 คุณเป็นกลุ่มไหน? (เลือกได้ — เปลี่ยนได้ตลอด)</div>
+  <div class="audience-desc">เลือกเพื่อปรับคำแนะนำและค่าตัวอย่างให้เข้ากับชีวิตคุณ — ยังใช้เครื่องมือชุดเดียวกันทั้ง 3 ขั้น</div>
+  <div class="audience-chips" id="audience_chips">
+    <button type="button" class="audience-chip active" data-seg="general">🌐 ทั่วไป</button>
+    <button type="button" class="audience-chip" data-seg="employee">💼 มนุษย์เงินเดือน</button>
+    <button type="button" class="audience-chip" data-seg="freelance">🛠️ ฟรีแลนซ์ / หลายงาน</button>
+    <button type="button" class="audience-chip" data-seg="civil">🏛️ ข้าราชการ</button>
+    <button type="button" class="audience-chip" data-seg="age50">🧓 วัย 50+ / ใกล้วัยเกษียณ</button>
+  </div>
+  <div class="audience-tip" id="audience_tip">เริ่มแบบภาษากลางได้เลย — เหมาะกับทุกอาชีพ ปรับตัวเลขตามตัวเองได้ทุกช่อง</div>
+</div>
+
+
+
+  <div class="home-dash-wrap">
+    <p class="home-dash-label">ภาพรวมจะอัปเดตเมื่อคุณกรอกแต่ละขั้น</p>
+<section class="dashboard" id="user_dashboard" aria-label="ภาพรวมเส้นทางการเงินของคุณ">
     <div class="dashboard-head">
       <div>
         <div class="dashboard-kicker">✨ YOUR JOURNEY</div>
@@ -401,41 +494,16 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
       </div>
     </div>
   </section>
-</header>
-
-<!-- AUDIENCE PICKER -->
-<div class="audience-box" id="audience_box" role="group" aria-label="เลือกกลุ่มผู้ใช้">
-  <div class="audience-title">👤 คุณเป็นกลุ่มไหน? (เลือกได้ — เปลี่ยนได้ตลอด)</div>
-  <div class="audience-desc">เลือกเพื่อปรับคำแนะนำและค่าตัวอย่างให้เข้ากับชีวิตคุณ — ยังใช้เครื่องมือชุดเดียวกันทั้ง 3 ขั้น</div>
-  <div class="audience-chips" id="audience_chips">
-    <button type="button" class="audience-chip active" data-seg="general">🌐 ทั่วไป</button>
-    <button type="button" class="audience-chip" data-seg="employee">💼 มนุษย์เงินเดือน</button>
-    <button type="button" class="audience-chip" data-seg="freelance">🛠️ ฟรีแลนซ์ / หลายงาน</button>
-    <button type="button" class="audience-chip" data-seg="civil">🏛️ ข้าราชการ</button>
-    <button type="button" class="audience-chip" data-seg="age50">🧓 วัย 50+ / ใกล้วัยเกษียณ</button>
   </div>
-  <div class="audience-tip" id="audience_tip">เริ่มแบบภาษากลางได้เลย — เหมาะกับทุกอาชีพ ปรับตัวเลขตามตัวเองได้ทุกช่อง</div>
-</div>
+</section>
 
-<!-- JOURNEY INTRO -->
-<div class="journey-intro">
-  <div class="journey-title">✨ 3 ขั้นตอน สู่เกษียณอย่างมั่นคง</div>
-  <div class="journey-desc" id="journey_desc">ไม่ว่าคุณจะเพิ่งเริ่มคิดเรื่องการเงิน หรือเตรียมตัวมานาน — เริ่มจากขั้นที่ 1 แล้วเดินไปทีละขั้น</div>
-
-  <div class="stage-nav" role="navigation" aria-label="ทางลัด 3 ขั้นตอน">
-    <button type="button" class="stage-dot active" id="nav_stage1">
-      <span class="dot-num">①</span> ตั้งกำแพงกันภัย
-    </button>
-    <button type="button" class="stage-dot" id="nav_stage2">
-      <span class="dot-num">②</span> ให้เงินทำงาน
-    </button>
-    <button type="button" class="stage-dot" id="nav_stage3">
-      <span class="dot-num">③</span> มองเป้าหมายไกล
-    </button>
-  </div>
-</div>
-
-<!-- ========== STAGE 1: EMERGENCY FUND ========== -->
+<section class="view" id="view-stage1" data-view="stage1" aria-label="ขั้นที่ 1 · ตั้งกำแพงกันภัย" hidden>
+  <div class="tour-pane">
+    <div class="tour-pane-head">
+      <span class="tour-pane-step">ขั้นที่ 1 · ตั้งกำแพงกันภัย</span>
+      <p class="tour-pane-help">ทำทีละหน้า · ข้อมูลถูกจำไว้ในเครื่องคุณ</p>
+    </div>
+    <!-- ========== STAGE 1: EMERGENCY FUND ========== -->
 <div id="stage1">
 <div class="stage-banner">
   <span class="stage-badge">①</span>
@@ -487,14 +555,21 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </div>
 </div>
 
-<!-- TRANSITION 1 → 2 -->
-<div class="transition-card">
-  <div class="t-emoji">✅</div>
-  <div class="t-title">ผ่านด่านแรกแล้ว — ต่อไปให้เงินทำงานแทนคุณ</div>
-  <div class="t-desc">เมื่อคุณมีเงินสำรองฉุกเฉินเป็นเบาะรองรับความเสี่ยงแล้ว<br>เงินส่วนที่เหลือ — เอามาทำงานผ่านการลงทุนระยะยาว</div>
-</div>
 
-<!-- ========== STAGE 2: COMPOUND INTEREST ========== -->
+    <div class="tour-nav">
+      <a class="tour-btn tour-btn-sec" href="#home">← หน้าแรก</a>
+      <a class="tour-btn tour-btn-pri" href="#stage2">ไปขั้นที่ 2 · ให้เงินทำงาน →</a>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-stage2" data-view="stage2" aria-label="ขั้นที่ 2 · ให้เงินทำงาน" hidden>
+  <div class="tour-pane">
+    <div class="tour-pane-head">
+      <span class="tour-pane-step">ขั้นที่ 2 · ให้เงินทำงาน</span>
+      <p class="tour-pane-help">ทำทีละหน้า · ข้อมูลถูกจำไว้ในเครื่องคุณ</p>
+    </div>
+    <!-- ========== STAGE 2: COMPOUND INTEREST ========== -->
 <div id="stage2">
 <div class="stage-banner">
   <span class="stage-badge">②</span>
@@ -562,14 +637,21 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </div>
 </div>
 
-<!-- TRANSITION 2 → 3 -->
-<div class="transition-card">
-  <div class="t-emoji">🎯</div>
-  <div class="t-title">เห็นภาพระยะยาวแล้ว — มาวางแผนใหญ่</div>
-  <div class="t-desc">เมื่อเข้าใจแล้วว่าเงินออมเติบโตได้แค่ไหน<br>ลองคำนวณ: ออมเท่านี้ — พอใช้หลังเกษียณไหม?</div>
-</div>
 
-<!-- ========== STAGE 3: RETIREMENT GOAL ========== -->
+    <div class="tour-nav">
+      <a class="tour-btn tour-btn-sec" href="#stage1">← ขั้นที่ 1</a>
+      <a class="tour-btn tour-btn-pri" href="#stage3">ไปขั้นที่ 3 · เป้าเกษียณ →</a>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-stage3" data-view="stage3" aria-label="ขั้นที่ 3 · มองเป้าหมายไกล" hidden>
+  <div class="tour-pane">
+    <div class="tour-pane-head">
+      <span class="tour-pane-step">ขั้นที่ 3 · มองเป้าหมายไกล</span>
+      <p class="tour-pane-help">ทำทีละหน้า · ข้อมูลถูกจำไว้ในเครื่องคุณ</p>
+    </div>
+    <!-- ========== STAGE 3: RETIREMENT GOAL ========== -->
 <div id="stage3">
 <div class="stage-banner">
   <span class="stage-badge">③</span>
@@ -664,7 +746,52 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </div>
 </div>
 
-<!-- ========== TOOLS GROUP ========== -->
+
+    <div class="tour-nav">
+      <a class="tour-btn tour-btn-sec" href="#stage2">← ขั้นที่ 2</a>
+      <a class="tour-btn tour-btn-pri" href="#summary">ไปหน้าสรุปแผน →</a>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-summary" data-view="summary" aria-label="สรุปแผนของคุณ" hidden>
+  <div class="tour-pane">
+    <div class="tour-pane-head">
+      <span class="tour-pane-step">สรุปแผนของคุณวันนี้</span>
+      <p class="tour-pane-help">รวมจากข้อมูลที่กรอก · เพื่อการศึกษา แก้ที่แต่ละขั้นได้เสมอ</p>
+    </div>
+    <div class="summary-card" id="summary_card">
+      <div class="summary-hero">
+        <div class="summary-kicker">YOUR PLAN</div>
+        <h2 class="summary-title">แผนเกษียณดีฉบับย่อ</h2>
+        <p class="summary-lead" id="sum_lead">ยังไม่มีข้อมูล — เริ่มที่ขั้นที่ 1 ได้เลย</p>
+      </div>
+      <ol class="summary-list">
+        <li><strong>① กันภัย</strong> <span id="sum_s1">ยังไม่ได้กรอก</span></li>
+        <li><strong>② เติบโต</strong> <span id="sum_s2">ยังไม่ได้กรอก</span></li>
+        <li><strong>③ เกษียณ</strong> <span id="sum_s3">ยังไม่ได้กรอก</span></li>
+        <li><strong>สุขภาพ</strong> <span id="sum_hi">ยังไม่ได้ใช้เครื่องมือสุขภาพ</span></li>
+      </ol>
+      <div class="summary-next" id="sum_next">แนะนำ: เริ่มขั้นที่ 1 · ตั้งกำแพงกันภัย</div>
+      <div class="home-cta-row" style="margin-top:14px">
+        <a class="btn-primary home-cta" href="#stage1" id="sum_cta">ไปต่อที่ขั้นที่แนะนำ</a>
+        <a class="link-btn" href="#tools">เปิดเครื่องมือเสริม</a>
+      </div>
+    </div>
+    <div class="tour-nav">
+      <a class="tour-btn tour-btn-sec" href="#home">← หน้าแรก</a>
+      <a class="tour-btn tour-btn-pri" href="#stage1">ทำอีกครั้งจากขั้น 1 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-tools" data-view="tools" aria-label="เครื่องมือเสริม" hidden>
+  <div class="tour-pane">
+    <div class="tour-pane-head">
+      <span class="tour-pane-step">เครื่องมือเสริม</span>
+      <p class="tour-pane-help">เปิดเมื่อพร้อม — ไม่บังคับก่อนจบ 3 ขั้น</p>
+    </div>
+    <!-- ========== TOOLS GROUP ========== -->
 <section class="tools-group" id="tools_group" aria-label="เครื่องมือเสริมจากคลังความรู้ไทย">
   <div class="tools-group-head">
     <div class="tools-group-kicker">KNOWLEDGE TOOLS</div>
@@ -1143,6 +1270,13 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 </div>
 </section><!-- /tools_group -->
 
+
+    <div class="tour-nav">
+      <a class="tour-btn tour-btn-sec" href="#stage3">← กลับขั้นที่ 3</a>
+      <a class="tour-btn tour-btn-pri" href="#summary">ไปหน้าสรุปแผน →</a>
+    </div>
+  </div>
+</section>
 <!-- ========== DISCLAIMER ========== -->
 <div class="disclaimer" style="margin-top:32px">
   <strong>⚠️ ข้อจำกัดความรับผิดชอบ</strong>
@@ -1156,11 +1290,11 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
 
 <nav class="bottom-nav" aria-label="เมนูหลัก">
   <div class="bottom-nav-inner">
-    <a href="#user_dashboard" data-nav="dash"><span class="nav-ico" aria-hidden="true">🗺️</span>ภาพรวม</a>
+    <a href="#home" data-nav="home"><span class="nav-ico" aria-hidden="true">🗺️</span>ภาพรวม</a>
     <a href="#stage1" data-nav="s1"><span class="nav-ico" aria-hidden="true">①</span>กันภัย</a>
     <a href="#stage2" data-nav="s2"><span class="nav-ico" aria-hidden="true">②</span>เติบโต</a>
     <a href="#stage3" data-nav="s3"><span class="nav-ico" aria-hidden="true">③</span>เกษียณ</a>
-    <a href="#tools_group" data-nav="tools"><span class="nav-ico" aria-hidden="true">🧰</span>เครื่องมือ</a>
+    <a href="#tools" data-nav="tools"><span class="nav-ico" aria-hidden="true">🧰</span>เครื่องมือ</a>
   </div>
 </nav>
 
@@ -1302,8 +1436,9 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if(!efDone)next.textContent='เริ่มที่ Stage 1: ตั้งกำแพงกันภัย';
     else if(!ciDone)next.textContent='ต่อไป Stage 2: ดูพลังเงินออมของคุณ';
     else if(!retDone)next.textContent='ต่อไป Stage 3: ตรวจเป้าหมายเกษียณ';
-    else if(!retPlanned)next.textContent='ใส่เงินออมต่อเดือนใน Stage 3 เพื่อดูช่องว่าง';
-    else next.textContent='ครบทั้ง 3 Stage แล้ว — ทบทวนผลและปรับสมมติฐานได้';
+    else if(!retPlanned)next.textContent='ใส่เงินออมต่อเดือนในขั้นที่ 3 เพื่อดูช่องว่าง';
+    else next.textContent='ครบทั้ง 3 ขั้นแล้ว — ไปหน้าสรุปแผนได้';
+    if(typeof updateSummary==='function') updateSummary();
   }
   function copy(txt,btn){
     var orig=btn.textContent;
@@ -1453,39 +1588,91 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:8px 0 24px}
     if((exp||svd||pmt)&&typeof calcRetirement==='function')calcRetirement();
     if(!exp&&!svd&&!pmt)elNote.hidden=true;
   }
-  /* ─── Stage nav click → scroll ─── */
-  document.getElementById('nav_stage1').addEventListener('click',function(){document.getElementById('stage1').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(1)});
-  document.getElementById('nav_stage2').addEventListener('click',function(){document.getElementById('stage2').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(2)});
-  document.getElementById('nav_stage3').addEventListener('click',function(){document.getElementById('stage3').scrollIntoView({behavior:'smooth',block:'start'});setStageNav(3)});
-  function setStageNav(n){
-    ['nav_stage1','nav_stage2','nav_stage3'].forEach(function(id,i){
-      var el=document.getElementById(id); if(el) el.classList.toggle('active', i+1===n);
+  /* ─── Multi-step tour router (hash subpages) ─── */
+  function setStageNav(n){ /* legacy no-op keep for callers */ }
+  function showTourView(name){
+    var map={home:'view-home',stage1:'view-stage1',stage2:'view-stage2',stage3:'view-stage3',tools:'view-tools',summary:'view-summary'};
+    if(!map[name]) name='home';
+    document.querySelectorAll('.view').forEach(function(v){
+      var on=v.id===map[name];
+      v.classList.toggle('active', on);
+      if(on) v.removeAttribute('hidden'); else v.setAttribute('hidden','');
     });
+    document.querySelectorAll('.tour-top-item').forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('data-tour')===name);
+    });
+    document.querySelectorAll('.bottom-nav a').forEach(function(a){
+      var key=a.getAttribute('data-nav');
+      var active=(name==='home'&&key==='home')||(name==='stage1'&&key==='s1')||(name==='stage2'&&key==='s2')||(name==='stage3'&&key==='s3')||(name==='tools'&&key==='tools')||(name==='summary'&&key==='home');
+      a.classList.toggle('active', !!active);
+    });
+    try{ window.scrollTo(0,0); }catch(e){}
+    if(name==='summary' && typeof updateSummary==='function') updateSummary();
+    if(name==='tools' && typeof updateDashboard==='function') updateDashboard();
+    var main=document.getElementById('main'); if(main) try{main.focus({preventScroll:true})}catch(e){}
   }
-  /* bottom nav active state */
-  (function(){
-    var links=document.querySelectorAll('.bottom-nav a');
-    var map=[
-      {id:'user_dashboard', key:'dash'},
-      {id:'stage1', key:'s1'},
-      {id:'stage2', key:'s2'},
-      {id:'stage3', key:'s3'},
-      {id:'tools_group', key:'tools'}
-    ];
-    function refresh(){
-      var y=window.scrollY+120, current='dash';
-      map.forEach(function(m){
-        var el=document.getElementById(m.id);
-        if(el && el.offsetTop<=y) current=m.key;
-      });
-      links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('data-nav')===current); });
-      if(current==='s1') setStageNav(1);
-      if(current==='s2') setStageNav(2);
-      if(current==='s3') setStageNav(3);
+  function routeFromHash(){
+    var h=(location.hash||'#home').replace(/^#/,'').split('?')[0];
+    if(!h) h='home';
+    if(h==='user_dashboard' || h==='dash') h='home';
+    if(h==='tools_group') h='tools';
+    if(!location.hash){ try{ history.replaceState(null,'','#home'); }catch(e){} }
+    showTourView(h);
+  }
+  window.addEventListener('hashchange', routeFromHash);
+  /* intercept same-page hash links already work via hashchange */
+
+  function updateSummary(){
+    var s1=document.getElementById('sum_s1'), s2=document.getElementById('sum_s2'), s3=document.getElementById('sum_s3');
+    var hi=document.getElementById('sum_hi'), lead=document.getElementById('sum_lead');
+    var next=document.getElementById('sum_next'), cta=document.getElementById('sum_cta');
+    if(!s1) return;
+    var ef=document.getElementById('dash_ef')?document.getElementById('dash_ef').textContent:'—';
+    var ci=document.getElementById('dash_ci')?document.getElementById('dash_ci').textContent:'—';
+    var ret=document.getElementById('dash_ret')?document.getElementById('dash_ret').textContent:'—';
+    var gap=document.getElementById('dash_gap')?document.getElementById('dash_gap').textContent:'—';
+    s1.textContent=ef;
+    s2.textContent=ci;
+    s3.textContent=ret+(gap && gap.indexOf('ยัง')!==0 && gap.indexOf('กรอก')!==0 ? ' · '+gap : '');
+    var hiExp=document.getElementById('hi_exposed');
+    var hiGap=document.getElementById('hi_gap');
+    if(hiExp && hiExp.textContent && hiExp.textContent!=='—'){
+      hi.textContent='ภาระประมาณ '+hiExp.textContent+(hiGap&&hiGap.textContent!=='—'?' · ช่องว่าง '+hiGap.textContent:'');
+    } else {
+      hi.textContent='ยังไม่ได้ใช้เครื่องมือสุขภาพ/ประกัน — เปิดได้ที่เมนูเสริม';
     }
-    window.addEventListener('scroll', refresh, {passive:true});
-    refresh();
-  })();
+    var done1=ef && ef.indexOf('ยัง')!==0 && ef.indexOf('กรอก')!==0;
+    var done2=ci && ci.indexOf('กรอก')!==0 && ci.indexOf('ยัง')!==0;
+    var done3=ret && ret.indexOf('ยัง')!==0 && ret.indexOf('กรอก')!==0;
+    var nDone=(done1?1:0)+(done2?1:0)+(done3?1:0);
+    if(nDone===0){
+      lead.textContent='ยังไม่มีข้อมูล — เริ่มขั้นที่ 1 เพื่อตั้งกำแพงกันภัยก่อน';
+      next.textContent='แนะนำ: เริ่มขั้นที่ 1 · ตั้งกำแพงกันภัย';
+      if(cta){cta.href='#stage1';cta.textContent='ไปขั้นที่ 1'}
+    } else if(!done1){
+      lead.textContent='มีบางส่วนแล้ว แต่ยังขาดเงินสำรองฉุกเฉิน';
+      next.textContent='แนะนำ: กลับไปขั้นที่ 1 ให้ครบก่อน';
+      if(cta){cta.href='#stage1';cta.textContent='ไปขั้นที่ 1'}
+    } else if(!done2){
+      lead.textContent='มีกำแพงกันภัยแล้ว — ต่อด้วยให้เงินทำงาน';
+      next.textContent='แนะนำ: ขั้นที่ 2 · ดอกเบี้ยทบต้น';
+      if(cta){cta.href='#stage2';cta.textContent='ไปขั้นที่ 2'}
+    } else if(!done3){
+      lead.textContent='เห็นภาพการเติบโตแล้ว — ตั้งเป้าเกษียณต่อ';
+      next.textContent='แนะนำ: ขั้นที่ 3 · เป้าเงินเกษียณ';
+      if(cta){cta.href='#stage3';cta.textContent='ไปขั้นที่ 3'}
+    } else {
+      lead.textContent='ครบ 3 ขั้นหลักแล้ว — ทบทวนช่องว่างและเครื่องมือเสริมได้';
+      next.textContent='แนะนำ: ดูเครื่องมือสุขภาพ/สิทธิ หรือปรับตัวเลขในแต่ละขั้น';
+      if(cta){cta.href='#tools';cta.textContent='เปิดเครื่องมือเสริม'}
+    }
+  }
+
+  /* patch updateDashboard to refresh summary fields when visible */
+  var _upd = null;
+
+  /* bottom nav uses hash — active state from router */
+  routeFromHash();
 
   /* tools jump chips: open fold + scroll to target */
   (function(){
